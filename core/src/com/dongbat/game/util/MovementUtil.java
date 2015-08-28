@@ -74,38 +74,33 @@ public class MovementUtil {
 
   public static void newMovementMechanism(World world, Entity e) {
     UnitMovement unitMovement = EntityUtil.getComponent(world, e, UnitMovement.class);
-    Stats stat = EntityUtil.getComponent(world, e, Stats.class);
-    float scale = stat.getBaseMovementSpeed() + stat.getModifierSpeed();
 
     Physics physicsComponent = EntityUtil.getComponent(world, e, Physics.class);
     Body body = physicsComponent.getBody();
     float mass = body.getMass();
-    Vector2 currentVelocity = body.getLinearVelocity();
     if (unitMovement.getDirectionVelocity() == null) {
 //      body.setLinearVelocity(new Vector2(0, 0));
       return;
     }
 
     Vector2 directionVel = unitMovement.getDirectionVelocity().cpy();
-    
+
     // TODO: calculate based on radius, use fixed mass
     // or make a steering-like behavior with real mass
-    float desiredSpd = 50f;
+    float desiredSpd = calculalteDesiredSpeed(world, e);
     Vector2 currentVector = body.getLinearVelocity();
 
     directionVel.nor().scl(desiredSpd).sub(currentVector);
 
     Vector2 impulse = directionVel.scl(mass);
 
-//    if (body.getLinearVelocity().len2() > desiredSpd * desiredSpd) {
-//      body.setLinearVelocity(body.getLinearVelocity().cpy().nor().scl(desiredSpd));
-//    }
-
-//    PhysicsUtil.applyForce(world, e, force);
     PhysicsUtil.applyImpulse(world, e, impulse);
-//
-//    float angleRad = directionVel.angleRad();
-//    body.setTransform(body.getPosition(), angleRad);
+  }
+
+  public static float calculalteDesiredSpeed(World world, Entity e) {
+    float radius = PhysicsUtil.getRadius(world, e);
+
+    return 100 / radius;
   }
 
   /**

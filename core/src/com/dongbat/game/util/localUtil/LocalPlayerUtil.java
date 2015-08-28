@@ -5,7 +5,11 @@
  */
 package com.dongbat.game.util.localUtil;
 
+import com.artemis.Entity;
 import com.artemis.World;
+import com.badlogic.gdx.math.Vector2;
+import com.dongbat.game.util.UuidUtil;
+import com.dongbat.game.util.factory.EntityFactory;
 import java.util.UUID;
 
 /**
@@ -14,6 +18,7 @@ import java.util.UUID;
 public class LocalPlayerUtil {
 
   private static UUID localId;
+  private static World localWorld;
 
   /**
    * Get player that user are controlling if player is not create, create one
@@ -27,6 +32,10 @@ public class LocalPlayerUtil {
 
   public static void setLocalPlayer(UUID id) {
     localId = id;
+  }
+
+  public static void setLocalWorld(World world) {
+    localWorld = world;
   }
 
 }

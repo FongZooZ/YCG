@@ -8,6 +8,8 @@ package com.dongbat.game.buff.effects;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.dongbat.game.buff.BuffEffect;
+import com.dongbat.game.component.Food;
+import com.dongbat.game.util.EntityUtil;
 
 /**
  *
@@ -15,8 +17,12 @@ import com.dongbat.game.buff.BuffEffect;
  */
 public class ToxicFood implements BuffEffect {
 
+  float toxicScale;
+
   @Override
   public void durationStart(World world, Entity source, Entity target) {
+    Food foodComponent = EntityUtil.getComponent(world, target, Food.class);
+    foodComponent.setToxic(true);
   }
 
   @Override
@@ -25,6 +31,8 @@ public class ToxicFood implements BuffEffect {
 
   @Override
   public void durationEnd(World world, Entity source, Entity target) {
+    Food foodComponent = EntityUtil.getComponent(world, target, Food.class);
+    foodComponent.setToxic(false);
   }
 
 }

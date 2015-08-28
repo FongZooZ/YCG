@@ -7,6 +7,8 @@ package com.dongbat.game.util;
 
 import com.artemis.Entity;
 import com.artemis.World;
+import com.badlogic.gdx.math.Vector2;
+import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.Physics;
 import com.dongbat.game.util.objectUtil.Constants;
@@ -37,7 +39,10 @@ public class UnitUtil {
       destroy(b);
       return;
     }
-    if (toxic) {
+    if (consumable && toxic) {
+      if (PhysicsUtil.getRadius(world, a) < 2) {
+        return;
+      }
       float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -1f);
       PhysicsUtil.setRadius(world, a, increaseRadius);
       destroy(b);
@@ -98,6 +103,12 @@ public class UnitUtil {
       return;
     }
 
+    if (EntityUtil.isAiUnit(e.getWorld(), e.getId()) || EntityUtil.isPlayer(e.getWorld(), e.getId())) {
+      PhysicsUtil.setRadius(e.getWorld(), e, 2);
+      PhysicsUtil.setPosition(e.getWorld(), e, new Vector2());
+      return;
+    }
+
     physicsWorld.destroyBody(physics.getBody());
     e.deleteFromWorld();
   }
@@ -121,7 +132,10 @@ public class UnitUtil {
   }
 
   private static boolean isToxic(World world, Entity b) {
-
+    Food foodComponent = EntityUtil.getComponent(world, b, Food.class);
+    if (foodComponent != null) {
+      return foodComponent.isToxic();
+    }
     return false;
   }
 }
