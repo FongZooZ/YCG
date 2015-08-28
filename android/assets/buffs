@@ -1,0 +1,86 @@
+name:Shrink
+class:com.dongbat.game.buff.effects.Shrink
+1: shrinkAmount=10 | speedIncrease=300000
+2: shrinkAmount=9  | speedIncrease=500000
+3: shrinkAmount=9  | speedIncrease=700000
+
+name:Vacuum
+class:com.dongbat.game.buff.effects.Vacuum
+1: vacuumSpeed=10.0
+2: vacuumSpeed=15.0
+3: vacuumSpeed=20.0
+
+name:Ghost
+class:com.dongbat.game.buff.effects.Ghost
+1: speedIncrease=200000
+2: speedIncrease=300000
+3: speedIncrease=400000
+
+name:QueenGrowth
+class:com.dongbat.game.buff.effects.QueenGrowth
+1: growFrame = 450 |   growPercent= 4
+
+name:QueenTeleportSchedule
+class:com.dongbat.game.buff.effects.QueenTeleportSchedule
+1: scheduleFrame=500
+
+name:ProduceFoodSchedule
+class:com.dongbat.game.buff.effects.ProduceFoodSchedule
+1: scheduleFrame = 5 | overheatFrame = 35 | cooldownFrame = 5
+2: scheduleFrame = 18
+3: scheduleFrame = 15
+
+name:RandomDestinationSchedule
+class:com.dongbat.game.buff.effects.RandomDestinationSchedule
+
+name:Rupture
+class:com.dongbat.game.buff.effects.Rupture
+1: damagePerDistance=1
+2: damagePerDistance=2
+3: damagePerDistance=3
+
+name:SpeedUp
+class:com.dongbat.game.buff.effects.SpeedUp
+1: speedUpAmount=13000
+2: speedUpAmount=20000
+3: speedUpAmount=25000
+
+name:ReturnOnInvestment
+class:com.dongbat.game.buff.effects.ReturnOnInvestment
+1: childNumber=3
+2: childNumber=4
+3: childNumber=5
+
+name:Forced
+class:com.dongbat.game.buff.effects.Forced
+1: forceStrength=100
+
+name:SlowDown
+class:com.dongbat.game.buff.effects.SlowDown
+1: slowDownAmount=-6000
+2: slowDownAmount=-8000
+3: slowDownAmount=-12000
+
+name:FireRupture
+class:com.dongbat.game.buff.effects.FireRupture
+
+name:EatWhenCollided
+class:com.dongbat.game.buff.effects.EatWhenCollided
+
+name:ReturnToOwner
+class:com.dongbat.game.buff.effects.ReturnToOwner
+
+name:Teleport
+class:com.dongbat.game.buff.effects.Teleport
+1: range=100
+2: range=150
+3: range=200
+
+name:ToBeRemoved
+class:com.dongbat.game.buff.effects.ToBeRemoved
+
+name:DuplicateOnTouch
+class:com.dongbat.game.buff.effects.DuplicateOnTouch
+
+name:ImmunWithDuplicate
+class:com.dongbat.game.buff.effects.ImmunWithDuplicate

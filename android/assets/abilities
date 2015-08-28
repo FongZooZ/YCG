@@ -1,0 +1,53 @@
+name:Shrink
+class:com.dongbat.game.ability.types.Shrink
+1: cooldown=0 | duration=2000
+2: cooldown=0 | duration=2000
+3: cooldown=0 | duration=2000
+
+name:Vacuum
+class:com.dongbat.game.ability.types.Vacuum
+1: cooldown=0 | duration=1000 | radius=100.0
+2: cooldown=0  | duration=1000 | radius=35.0
+3: cooldown=0  | duration=1000 | radius=50.0
+
+name:Ghost
+class:com.dongbat.game.ability.types.Ghost
+1: cooldown=0 | duration=2000
+2: cooldown=0 | duration=3000
+3: cooldown=0 | duration=4000
+
+name:Rupture
+class:com.dongbat.game.ability.types.Rupture
+1: cooldown=0 | duration=3000 | speed=15
+2: cooldown=0 | duration=4000 | speed=15
+3: cooldown=0 | duration=5000 | speed=15
+
+name:SpeedUp
+class:com.dongbat.game.ability.types.SpeedUp
+1: cooldown=0 | duration=3000
+2: cooldown=0 | duration=4000
+3: cooldown=0 | duration=5000 
+
+name:Split
+class:com.dongbat.game.ability.types.Split
+1: cooldown=0 | duration=2500 | baseRateSpeed=1000000 | force=75000 
+2: cooldown=0 | duration=3500 | baseRateSpeed=1000000 | force=75000 
+3: cooldown=0 | duration=4000 | baseRateSpeed=1000000 | force=75000 
+
+name:SlowDown
+class:com.dongbat.game.ability.types.SlowDown
+1: cooldown=20000 | duration=3500
+2: cooldown=18000 | duration=4000
+3: cooldown=16000 | duration=4500 
+
+name:Teleport
+class:com.dongbat.game.ability.types.Teleport
+1: cooldown=0 | duration=400 | range=150
+2: cooldown=0 | duration=300 | range=200
+3: cooldown=0 | duration=200 | range=250
+
+name:Duplicate
+class:com.dongbat.game.ability.types.Duplicate
+1: cooldown=0 | duration=2000 | force=75000 | radius=7.5
+2: cooldown=0 | duration=3000 | force=100000 | radius=10
+3: cooldown=0 | duration=4000 | force=125000 | radius=12.5

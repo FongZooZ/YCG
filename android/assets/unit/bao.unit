@@ -1,0 +1,5 @@
+name=Bao
+radius=2.2
+baseSpeedRate=205
+abilities=SpeedUp
+definitionPath=unit/tree/normal.tree

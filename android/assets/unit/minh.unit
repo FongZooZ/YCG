@@ -1,0 +1,5 @@
+name=minh
+radius=2.15
+baseSpeedRate=180
+abilities=SpeedUp
+definitionPath=unit/tree/normal.tree
