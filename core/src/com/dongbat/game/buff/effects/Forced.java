@@ -52,6 +52,9 @@ public class Forced implements BuffEffect {
   @Override
   public void durationEnd(World world, Entity source, Entity target) {
     MovementUtil.enableMovement(target);
+    if (EntityUtil.isFood(world, target.getId())) {
+      PhysicsUtil.setVelocity(world, target, new Vector2());
+    }
 //    PhysicsUtil.setVelocity(world, target, new Vector2());
   }
 }

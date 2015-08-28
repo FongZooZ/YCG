@@ -31,15 +31,8 @@ public class MovementSystem extends EntityProcessingSystem {
   protected void process(Entity e) {
     UnitUtil.speedCalculation(world, e);
     UnitMovement ms = EntityUtil.getComponent(world, e, UnitMovement.class);
-    float radius = PhysicsUtil.getRadius(world, e);
     if (!ms.isDisabled()) {
-      if (radius < Constants.PHYSICS.MIN_RADIUS) {
-        MovementUtil.newMovementMechanism(world, e);
-//        MovementUtil.move(world, e, true);
-      } else {
-        MovementUtil.newMovementMechanism(world, e);
-//        MovementUtil.move(world, e, false);
-      }
+      MovementUtil.newMovementMechanism(world, e);
     }
 
   }

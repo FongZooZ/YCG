@@ -40,11 +40,16 @@ public class UnitUtil {
       return;
     }
     if (consumable && toxic) {
-      if (PhysicsUtil.getRadius(world, a) < 2) {
+      if (PhysicsUtil.getRadius(world, a) < PhysicsUtil.getRadius(world, b)) {
+        destroy(b);
+        destroy(a);
         return;
       }
-      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -1f);
-      PhysicsUtil.setRadius(world, a, increaseRadius);
+      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -1f);
+      PhysicsUtil.setRadius(world, a, decreasedRadius);
+      if (PhysicsUtil.getRadius(world, a) <= 1) {
+        destroy(a);
+      }
       destroy(b);
     }
   }
