@@ -13,4 +13,22 @@ import com.artemis.Component;
  */
 public class Food extends Component {
 
+  private boolean isToxic;
+
+  public Food() {
+    isToxic = false;
+  }
+
+  public Food(boolean isToxic) {
+    this.isToxic = isToxic;
+  }
+
+  public boolean isIsToxic() {
+    return isToxic;
+  }
+
+  public void setIsToxic(boolean isToxic) {
+    this.isToxic = isToxic;
+  }
+
 }

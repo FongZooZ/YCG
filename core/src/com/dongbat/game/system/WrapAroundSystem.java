@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.UnitMovement;
+import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
 import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
@@ -22,6 +23,8 @@ import com.dongbat.game.util.PhysicsUtil;
  * @author Admin
  */
 public class WrapAroundSystem extends EntityProcessingSystem {
+
+  boolean pushing = false;
 
   public WrapAroundSystem() {
     super(Aspect.all(Physics.class));
@@ -38,47 +41,21 @@ public class WrapAroundSystem extends EntityProcessingSystem {
     }
     float k = Float.POSITIVE_INFINITY;
     if (pos.x > scaleX) {
-
-      Vector2 cpy = movement.getDirectionVelocity().cpy();
-//      movement.setDirectionVelocity(new Vector2(-cpy.x, cpy.y));
-      movement.setDisabled(true);
-
-//      physics.getBody().applyForce(new Vector2(-10, 0), physics.getBody().getWorldCenter(), true);
-      PhysicsUtil.applyImpulse(world, e, new Vector2(-10, 0));
-
-      return;
+      BuffUtil.addBuff(world, e, e, "Forced", 500, 1, "forcedVector", new Vector2(-500, 0));
     }
 
     if (pos.x < -scaleX) {
-      Vector2 cpy = movement.getDirectionVelocity().cpy();
-      movement.setDirectionVelocity(new Vector2(-cpy.x, cpy.y));
-      movement.setDisabled(true);
+      BuffUtil.addBuff(world, e, e, "Forced", 500, 1, "forcedVector", new Vector2(500, 0));
 
-      physics.getBody().applyForce(new Vector2(1000, 0), physics.getBody().getWorldCenter(), true);
-      return;
     }
 
     if (pos.y < -scaleY) {
-      Vector2 cpy = movement.getDirectionVelocity().cpy();
-      movement.setDirectionVelocity(new Vector2(cpy.x, -cpy.y));
-      movement.setDisabled(true);
+      BuffUtil.addBuff(world, e, e, "Forced", 500, 1, "forcedVector", new Vector2(0, 500));
 
-      physics.getBody().applyForce(new Vector2(0, 1000), physics.getBody().getWorldCenter(), true);
-      return;
     }
 
     if (pos.y > scaleY) {
-      Vector2 cpy = movement.getDirectionVelocity().cpy();
-      movement.setDirectionVelocity(new Vector2(cpy.x, -cpy.y));
-      movement.setDisabled(true);
-
-      physics.getBody().applyForce(new Vector2(0, -1000), physics.getBody().getWorldCenter(), true);
-//			k = pos.y = -scaleY;
-      return;
-    }
-    movement.setDisabled(false);
-    if (k != Float.POSITIVE_INFINITY) {
-      physics.getBody().setTransform(pos, physics.getBody().getAngle());
+      BuffUtil.addBuff(world, e, e, "Forced", 500, 1, "forcedVector", new Vector2(0, -500));
     }
 
   }

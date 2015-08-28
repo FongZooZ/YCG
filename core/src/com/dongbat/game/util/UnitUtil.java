@@ -29,8 +29,16 @@ public class UnitUtil {
     }
 
     boolean consumable = canEat(world, a) && canBeEaten(world, b);
-    if (consumable) {
+    boolean toxic = isToxic(world, b);
+
+    if (consumable && !toxic) {
       float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), 1f);
+      PhysicsUtil.setRadius(world, a, increaseRadius);
+      destroy(b);
+      return;
+    }
+    if (toxic) {
+      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -1f);
       PhysicsUtil.setRadius(world, a, increaseRadius);
       destroy(b);
     }
@@ -110,5 +118,10 @@ public class UnitUtil {
       speed = Constants.PHYSICS.MAX_VELOCITY;
     }
     stat.setBaseMovementSpeed(speed);
+  }
+
+  private static boolean isToxic(World world, Entity b) {
+
+    return false;
   }
 }

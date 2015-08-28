@@ -43,7 +43,7 @@ public class PhysicsUtil {
 		World physicsWorld = new World(new Vector2(0, Constants.PHYSICS.DEFAULT_GRAVITY), false);
 		physicsWorldMap.put(world, physicsWorld);
 		artemisWorldMap.put(physicsWorld, world);
-
+    
 	}
 
 	/**

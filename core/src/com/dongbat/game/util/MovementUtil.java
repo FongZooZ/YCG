@@ -82,20 +82,30 @@ public class MovementUtil {
     float mass = body.getMass();
     Vector2 currentVelocity = body.getLinearVelocity();
     if (unitMovement.getDirectionVelocity() == null) {
-      body.setLinearVelocity(new Vector2(0, 0));
+//      body.setLinearVelocity(new Vector2(0, 0));
       return;
     }
 
-    Vector2 desiredVelocity = unitMovement.getDirectionVelocity().cpy().nor().scl(scale / 10 * world.delta * 10);
-    Vector2 impulse = desiredVelocity.sub(currentVelocity).scl(1f / mass);
+    Vector2 directionVel = unitMovement.getDirectionVelocity().cpy();
+    
+    // TODO: calculate based on radius, use fixed mass
+    // or make a steering-like behavior with real mass
+    float desiredSpd = 50f;
+    Vector2 currentVector = body.getLinearVelocity();
 
+    directionVel.nor().scl(desiredSpd).sub(currentVector);
+
+    Vector2 impulse = directionVel.scl(mass);
+
+//    if (body.getLinearVelocity().len2() > desiredSpd * desiredSpd) {
+//      body.setLinearVelocity(body.getLinearVelocity().cpy().nor().scl(desiredSpd));
+//    }
+
+//    PhysicsUtil.applyForce(world, e, force);
     PhysicsUtil.applyImpulse(world, e, impulse);
-
-    if (body.getLinearVelocity().len2() > 10000) {
-      body.setLinearVelocity(body.getLinearVelocity().cpy().nor().scl(100));
-    }
-    float angleRad = body.getLinearVelocity().angleRad();
-    body.setTransform(body.getPosition(), angleRad);
+//
+//    float angleRad = directionVel.angleRad();
+//    body.setTransform(body.getPosition(), angleRad);
   }
 
   /**

@@ -18,8 +18,8 @@ import com.dongbat.game.util.factory.EntityFactory;
  */
 public class FoodSpawningUtil {
 
-  public static final float scaleX = Constants.GAME.FRAME_WIDTH / 3;
-  public static final float scaleY = Constants.GAME.FRAME_HEIGHT / 3;
+  public static final float scaleX = Constants.GAME.FRAME_WIDTH;
+  public static final float scaleY = Constants.GAME.FRAME_HEIGHT;
 
   /**
    * Spawn food to the map of the world
@@ -27,7 +27,7 @@ public class FoodSpawningUtil {
    * @param world artemis world
    */
   public static void spawnFood(World world) {
-    if (reachMaxFood(world) || ECSUtil.getFrame(world) % 100 != 0) {
+    if (reachMaxFood(world) || ECSUtil.getFrame(world) % 1 != 0) {
       return;
     }
 
