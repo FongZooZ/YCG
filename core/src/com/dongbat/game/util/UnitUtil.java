@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.Physics;
+import static com.dongbat.game.util.WorldQueryUtil.isAiUnit;
+import static com.dongbat.game.util.WorldQueryUtil.isPlayer;
 import com.dongbat.game.util.objectUtil.Constants;
 
 /**
@@ -108,7 +110,7 @@ public class UnitUtil {
       return;
     }
 
-    if (EntityUtil.isAiUnit(e.getWorld(), e.getId()) || EntityUtil.isPlayer(e.getWorld(), e.getId())) {
+    if (isPlayer(e.getWorld(), e.getId())) {
       PhysicsUtil.setCollisionRadius(e.getWorld(), e, 2);
       PhysicsUtil.setPosition(e.getWorld(), e, new Vector2());
       return;

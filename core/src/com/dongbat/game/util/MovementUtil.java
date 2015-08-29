@@ -10,8 +10,10 @@ import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dongbat.game.component.Physics;
+import com.dongbat.game.component.Player;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
+import com.dongbat.game.dataobject.CustomInput;
 import com.dongbat.game.util.objectUtil.Constants;
 
 /**
@@ -158,7 +160,6 @@ public class MovementUtil {
    * @return true if entity has arrived
    */
   public static boolean hasArrived(Entity e) {
-    Physics physics = EntityUtil.getComponent(e.getWorld(), e, Physics.class);
     UnitMovement ms = EntityUtil.getComponent(e.getWorld(), e, UnitMovement.class);
     Vector2 position = PhysicsUtil.getPosition(e.getWorld(), e);
     Vector2 intent = ms.getDirectionVelocity();
@@ -185,5 +186,15 @@ public class MovementUtil {
   public static void setTarget(Entity e, Vector2 target) {
     UnitMovement component = EntityUtil.getComponent(e.getWorld(), e, UnitMovement.class);
     component.setDirectionVelocity(target);
+
+  }
+
+  public static void addMoveInput(World world, Entity e, Vector2 destination) {
+    long lastFrameIndex = ECSUtil.getFrame(world);
+
+    CustomInput customInput = new CustomInput(Constants.inputType.MOVE, destination, 0);
+
+    EntityUtil.getComponent(e.getWorld(), e, Player.class).getInputs().put(lastFrameIndex + 3, customInput);
+
   }
 }

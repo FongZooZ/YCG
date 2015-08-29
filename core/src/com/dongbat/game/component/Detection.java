@@ -6,6 +6,7 @@
 package com.dongbat.game.component;
 
 import com.artemis.Component;
+import com.artemis.Entity;
 import com.badlogic.gdx.utils.Array;
 import java.util.UUID;
 
@@ -15,41 +16,31 @@ import java.util.UUID;
  */
 public class Detection extends Component {
 
-  private Array<UUID> detectionList;
-  private Array<UUID> justDetectionList;
-  private Array<UUID> lastDetectionList;
-
-  public Detection(Array<UUID> detectionList, Array<UUID> justDetectionList, Array<UUID> lastDetectionList) {
-    this.detectionList = detectionList;
-    this.justDetectionList = justDetectionList;
-    this.lastDetectionList = lastDetectionList;
-  }
+  private Entity queen;
+  private Entity player;
 
   public Detection() {
   }
 
-  public Array<UUID> getDetectionList() {
-    return detectionList;
+  public Detection(Entity queen, Entity player) {
+    this.queen = queen;
+    this.player = player;
   }
 
-  public void setDetectionList(Array<UUID> detectionList) {
-    this.detectionList = detectionList;
+  public Entity getQueen() {
+    return queen;
   }
 
-  public Array<UUID> getJustDetectionList() {
-    return justDetectionList;
+  public void setQueen(Entity queen) {
+    this.queen = queen;
   }
 
-  public void setJustDetectionList(Array<UUID> justDetectionList) {
-    this.justDetectionList = justDetectionList;
+  public Entity getPlayer() {
+    return player;
   }
 
-  public Array<UUID> getLastDetectionList() {
-    return lastDetectionList;
-  }
-
-  public void setLastDetectionList(Array<UUID> lastDetectionList) {
-    this.lastDetectionList = lastDetectionList;
+  public void setPlayer(Entity player) {
+    this.player = player;
   }
 
 }

@@ -60,24 +60,10 @@ public class EntityUtil {
     return entities;
   }
 
-  public static boolean isFood(World world, int id) {
-    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Food.class)).getEntities();
-    return entities.contains(id);
-  }
-
-  public static boolean isPlayer(World world, int id) {
-    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Player.class)).getEntities();
-    return entities.contains(id);
-  }
-
-  public static boolean isAiUnit(World world, int id) {
-    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(AiControl.class)).getEntities();
-    return entities.contains(id);
-  }
-
-  public static boolean isQueen(World world, int id) {
-    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Queen.class)).getEntities();
-    return entities.contains(id);
+  public static int getEntityById(World world, int id) {
+    //TODO: world is not update, entities bag is not update when world progress 
+    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all()).getEntities();
+    return entities.get(id);
   }
 
   /**
@@ -92,80 +78,6 @@ public class EntityUtil {
    */
   public static <T extends Component> T getComponent(World world, Entity e, Class<T> type) {
     return getMapper(world, type).getSafe(e);
-  }
-
-  public static Array<Entity> findUnitAndPlayerInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
-    final Array<Entity> entities = new Array<Entity>();
-
-    QueryCallback callback = new QueryCallback() {
-
-      @Override
-      public boolean reportFixture(Fixture fixture) {
-        Body body = fixture.getBody();
-        Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
-        if (isPlayer(world, entity.getId()) || isAiUnit(world, entity.getId())) {
-          float distanceSq = new Vector2(body.getPosition()).sub(location).len2();
-          if (distanceSq <= radius * radius) {
-            entities.add(entity);
-          }
-        }
-        return true;
-      }
-    };
-    Vector2 lowerLeft = new Vector2(location).sub(radius, radius);
-    Vector2 upperRight = new Vector2(location).add(radius, radius);
-    PhysicsUtil.getPhysicsWorld(world).QueryAABB(callback, lowerLeft.x, lowerLeft.y, upperRight.x, upperRight.y);
-
-    return entities;
-  }
-
-  public static Vector2 getQueenPosition(final com.artemis.World world) {
-    final Vector2 queenPosition = null;
-    QueryCallback callback = new QueryCallback() {
-
-      @Override
-      public boolean reportFixture(Fixture fixture) {
-        Body body = fixture.getBody();
-        Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
-        if (isQueen(world, entity.getId())) {
-          queenPosition.x = body.getPosition().x;
-          queenPosition.y = body.getPosition().y;
-          return false;
-        }
-        return true;
-      }
-
-    };
-    PhysicsUtil.getPhysicsWorld(world)
-      .QueryAABB(callback, -scaleX, -scaleY, scaleX, scaleY);
-
-    return queenPosition;
-
-  }
-
-  public static Array<Entity> findFood(final com.artemis.World world, final Vector2 location, final float radius) {
-    final Array<Entity> entities = new Array<Entity>();
-
-    QueryCallback callback = new QueryCallback() {
-
-      @Override
-      public boolean reportFixture(Fixture fixture) {
-        Body body = fixture.getBody();
-        Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
-        if (isFood(world, entity.getId())) {
-          float distanceSq = new Vector2(body.getPosition()).sub(location).len2();
-          if (distanceSq <= radius * radius) {
-            entities.add(entity);
-          }
-        }
-        return true;
-      }
-    };
-    Vector2 lowerLeft = new Vector2(location).sub(radius, radius);
-    Vector2 upperRight = new Vector2(location).add(radius, radius);
-    PhysicsUtil.getPhysicsWorld(world).QueryAABB(callback, lowerLeft.x, lowerLeft.y, upperRight.x, upperRight.y);
-
-    return entities;
   }
 
 }

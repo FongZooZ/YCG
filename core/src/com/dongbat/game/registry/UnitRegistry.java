@@ -11,6 +11,7 @@ import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.Collision;
 import com.dongbat.game.component.DisplayPosition;
 import com.dongbat.game.component.Physics;
+import com.dongbat.game.component.Player;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.unit.UnitInfo;
@@ -102,6 +103,7 @@ public class UnitRegistry {
     AiControl aiControl = new AiControl(unitInfo.getDefinitionPath());
     e.edit().add(new BuffComponent())
       .add(aiControl)
+      .add(new Player())
       .add(displayPosition)
       .add(stats)
       .add(movement)
