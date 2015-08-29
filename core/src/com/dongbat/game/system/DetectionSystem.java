@@ -9,7 +9,6 @@ import com.artemis.Entity;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.WorldQueryUtil;
 import static com.dongbat.game.util.WorldQueryUtil.*;
@@ -47,9 +46,9 @@ public class DetectionSystem extends TimeSlicingSystem {
 
       Array<Entity> queenList = WorldQueryUtil.findQueenInRadius(world, position, radius + MIN_DETECTION_RADIUS);
       if (queenList.size > 0) {
-//        for (Entity queen : queenList) {
-//          addNearestPlayer(world, queen, e);
-//        }
+        for (Entity queen : queenList) {
+          addNearestPlayer(world, queen, e);
+        }
         Entity nearestQueen = WorldQueryUtil.findNearestEntityInList(world, position, foodList);
         addNearestQueen(world, e, nearestQueen);
       }
@@ -69,7 +68,6 @@ public class DetectionSystem extends TimeSlicingSystem {
       Entity e = world.getEntity(allQueen.get(i));
       Vector2 position = PhysicsUtil.getPosition(world, e);
       float radius = PhysicsUtil.getRadius(world, e);
-      
       Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, radius + MIN_DETECTION_RADIUS);
       if (playerAndAiList.size > 0) {
         Entity nearestPlayer = WorldQueryUtil.findNearestEntityInList(world, position, playerAndAiList);

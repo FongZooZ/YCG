@@ -140,7 +140,7 @@ public class UnitFactory {
     Entity e = world.createEntity(UUID.randomUUID());
 
     Stats stats = new Stats();
-    stats.setAllowComsumming(false);
+    stats.setAllowComsumming(true);
     stats.setConsumable(true);
     stats.setBaseRateSpeed(2000);
 
@@ -154,7 +154,7 @@ public class UnitFactory {
     UnitMovement movement = new UnitMovement();
     float posX = (float) ((Math.random() * 2 - 1) * scaleX);
     float posY = (float) ((Math.random() * 2 - 1) * scaleY);
-    movement.setDirectionVelocity(new Vector2(posX, posY));
+//    movement.setDirectionVelocity(new Vector2(posX, posY));
     movement.setDirectionVelocity(new Vector2(0, 0));
     e.edit().add(physics)
       .add(stats)
@@ -164,9 +164,10 @@ public class UnitFactory {
       .add(new Detection())
       .add(movement);
 
-    BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
-    BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
+//    BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
+//    BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
     BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
+    BuffUtil.addBuff(world, e, e, "SelfDefense", -1, 1);
 //    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);
     return e;
   }

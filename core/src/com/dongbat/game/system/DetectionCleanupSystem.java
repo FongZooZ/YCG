@@ -6,8 +6,9 @@
 package com.dongbat.game.system;
 
 import com.artemis.Aspect;
+import com.artemis.AspectSubscriptionManager;
 import com.artemis.Entity;
-import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.utils.IntBag;
 import com.dongbat.game.component.Detection;
 import com.dongbat.game.util.EntityUtil;
 
@@ -15,19 +16,25 @@ import com.dongbat.game.util.EntityUtil;
  *
  * @author Admin
  */
-public class DetectionCleanupSystem extends EntityProcessingSystem {
+public class DetectionCleanupSystem extends TimeSlicingSystem {
 
-  public DetectionCleanupSystem() {
-    super(Aspect.all(Detection.class));
+  public DetectionCleanupSystem(int frameSlicing) {
+    super(frameSlicing);
   }
 
   @Override
-  protected void process(Entity e) {
-
-    Detection detection = EntityUtil.getComponent(world, e, Detection.class);
-    detection.setNearestFood(null);
-    detection.setNearestPlayer(null);
-    detection.setNearestQueen(null);
+  protected void processTimeSlice() {
+    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Detection.class)).getEntities();
+    for (int i = 0; i < entities.size(); i++) {
+      Entity e = world.getEntity(i);
+      if (e == null) {
+        return;
+      }
+      Detection detection = EntityUtil.getComponent(world, e, Detection.class);
+      detection.setNearestFood(null);
+      detection.setNearestPlayer(null);
+      detection.setNearestQueen(null);
+    }
   }
 
 }

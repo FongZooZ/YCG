@@ -37,14 +37,14 @@ import com.dongbat.game.util.objectUtil.WorldProgress;
  * @author Admin
  */
 public class ECSUtil {
-
+  
   private static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
   private static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
-
+  
   public static World createWorld() {
     return createWorld(false);
   }
-
+  
   public static World createWorld(boolean isServer) {
     WorldConfiguration config = new WorldConfiguration();
 //    setSystem(config, new SpawnningFoodSystem(), false);
@@ -71,7 +71,7 @@ public class ECSUtil {
 //    worldRandomMap.put(world, new PredictableRandom());
     return world;
   }
-
+  
   public static WorldConfiguration initWorldConfig() {
     WorldConfiguration config = new WorldConfiguration();
 //    setSystem(config, new SpawnningFoodSystsem(), false);
@@ -81,7 +81,7 @@ public class ECSUtil {
     setSystem(config, new MovementSystem(), false);
     setSystem(config, new CollisionCleanupSystem(), false);
     setSystem(config, new CollisionSystem(), false);
-    setSystem(config, new DetectionCleanupSystem(), false);
+    setSystem(config, new DetectionCleanupSystem(50), false);
     setSystem(config, new DetectionSystem(50), false);
 //		setSystem(config, new FoodMovementSystem(), false);
     setSystem(config, new ConsumingSystem(), false);
@@ -93,7 +93,7 @@ public class ECSUtil {
     setSystem(config, new LocalInputSystem(), true);
     setSystem(config, new InputProcessorSystem(), false);
     setSystem(config, new Shaperenderer1(), false);
-
+    
     config.setManager(new UuidEntityManager());
     return config;
   }
@@ -120,12 +120,12 @@ public class ECSUtil {
     if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
       worldProgress.setRewinding(true);
     }
-
+    
     worldProgressMap.get(world).stepWorld(world, delta);
     processPassive(world, delta);
-
+    
   }
-
+  
   public static void normalProcess(World world, float delta) {
     world.setDelta(delta);
     world.process();
@@ -158,25 +158,25 @@ public class ECSUtil {
   private static void setSystem(WorldConfiguration config, BaseSystem system, boolean isPassive) {
     config.setSystem(system, isPassive);
   }
-
+  
   public static PredictableRandom getRandom(World world) {
     return worldRandomMap.get(world);
   }
-
+  
   public static WorldProgress getWorldProgress(World world) {
     return worldProgressMap.get(world);
   }
-
+  
   public static long getFrame(World world) {
     return worldProgressMap.get(world).getFrame();
   }
-
+  
   public static float getStep(World world) {
     return worldProgressMap.get(world).getStep();
   }
-
+  
   public static void setFrame(World world, long frame) {
     worldProgressMap.get(world).setFrame(frame);
   }
-
+  
 }

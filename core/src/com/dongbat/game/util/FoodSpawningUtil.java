@@ -35,7 +35,7 @@ public class FoodSpawningUtil {
     float width = (float) (ECSUtil.getRandom(world).getFloat(0, 1) * scaleX * 2 - scaleX);
     float height = (float) (ECSUtil.getRandom(world).getFloat(0, 1) * scaleY * 2 - scaleY);
     for (int i = 0; i < 1; i++) {
-      EntityFactory.createSteeringFood(world, new Vector2(width, height));
+      EntityFactory.createSteeringFood(world, new Vector2(width, height), null);
     }
 
   }

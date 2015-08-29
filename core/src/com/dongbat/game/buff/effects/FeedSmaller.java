@@ -16,6 +16,7 @@ import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UnitUtil;
 import com.dongbat.game.util.UuidUtil;
+import com.dongbat.game.util.WorldQueryUtil;
 import java.util.UUID;
 
 /**
@@ -49,6 +50,9 @@ public class FeedSmaller implements BuffEffect {
         continue;
       }
       if (stats != null && stats.isAllowComsumming()) {
+        if (WorldQueryUtil.isQueen(world, entity.getId())) {
+          continue;
+        }
         collidedEntityList.add(entity);
       }
 
