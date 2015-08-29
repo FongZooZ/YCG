@@ -4,26 +4,13 @@
   <auxiliary>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/util/MovementUtil.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/util/TimeUtil.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/buff/effects/Forced.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/system/BuffSystem.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/system/localSystem/CameraUpdateSystem.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/util/factory/UnitFactory.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/util/factory/EntityFactory.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/component/UnitMovement.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/buff/BuffInfo.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/YCG.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/util/BuffUtil.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/system/WrapAroundSystem.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/buff/effects/ProduceFoodSchedule.java</file>
-        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/util/PhysicsUtil.java</file>
-      </group>
+      <group/>
     </open-files>
     <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group/>
+      <group>
+        <file>file:/C:/Users/Admin/Desktop/ycg/core/src/com/dongbat/game/system/CollisionSystem.java</file>
+      </group>
     </open-files>
   </auxiliary>
 </gradle-project-properties>

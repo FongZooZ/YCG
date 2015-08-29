@@ -77,10 +77,6 @@ public class CollisionSystem extends BaseSystem {
     Detection detection = EntityUtil.getComponent(world, a, Detection.class);
 
     if (detection != null) {
-      detection.getDetectionList().add(UuidUtil.getUuid(b));
-      if (!detection.getLastDetectionList().contains(UuidUtil.getUuid(b), true)) {
-        detection.getJustDetectionList().add(UuidUtil.getUuid(b));
-      }
     }
   }
 }
