@@ -20,6 +20,18 @@ name:QueenGrowth
 class:com.dongbat.game.buff.effects.QueenGrowth
 1: growFrame = 450 |   growPercent= 4
 
+name:Feed
+class:com.dongbat.game.buff.effects.Feed
+1: feedPerSecond=0.05
+
+name:FeedSmaller
+class:com.dongbat.game.buff.effects.FeedSmaller
+1: feedPerSecond=0.05
+
+name:SelfDefense
+class:com.dongbat.game.buff.effects.SelfDefense
+1: foodPerFrame=1
+
 name:ToxicFood
 class:com.dongbat.game.buff.effects.ToxicFood
 1: toxicScale =1

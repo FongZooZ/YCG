@@ -199,6 +199,11 @@ public class WorldQueryUtil {
     return entities;
   }
 
+  public static IntBag getAllQueen(World world) {
+    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Queen.class)).getEntities();
+    return entities;
+  }
+
   public static int getEntityById(World world, int id) {
     //TODO: world is not update, entities bag is not update when world progress 
     IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all()).getEntities();

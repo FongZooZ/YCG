@@ -5,7 +5,7 @@
  */
 package com.dongbat.game.util;
 
-import com.dongbat.game.util.objectUtil.Constants;
+import com.dongbat.game.util.localUtil.Constants;
 import com.artemis.Entity;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -15,13 +15,11 @@ import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.Collision;
-import java.util.UUID;
 
 /**
  * @author Admin
@@ -91,8 +89,7 @@ public class PhysicsUtil {
 //    return 0;
 ////    return getBody(world, e).getFixtureList().get(0).getShape().getRadius();
 //  }
-
-  public static float getcollisionRadius(com.artemis.World world, Entity e) {
+  public static float getRadius(com.artemis.World world, Entity e) {
     if (getBody(world, e).getFixtureList().size == 0) {
       return 0;
     }
@@ -106,6 +103,16 @@ public class PhysicsUtil {
 //    return getBody(world, e).getFixtureList().get(0).getShape().getRadius();
   }
 
+  public static void increaseRadius(com.artemis.World world, Entity e, float ammount) {
+    float radius = getRadius(world, e);
+    radius += ammount;
+    if (radius <= 0) {
+      UnitUtil.destroy(e);
+      return;
+    }
+    setRadius(world, e, radius);
+  }
+
   /**
    * Set radius for an entity
    *
@@ -113,7 +120,7 @@ public class PhysicsUtil {
    * @param e entity that you want to set radius
    * @param r radius that you want to set for entity
    */
-  public static void setCollisionRadius(com.artemis.World world, Entity e, float r) {
+  public static void setRadius(com.artemis.World world, Entity e, float r) {
     Body body = PhysicsUtil.getBody(world, e);
     if (!body.isActive()) {
       return;
@@ -125,7 +132,7 @@ public class PhysicsUtil {
         return;
       }
     }
-//    getBody(world, e).getFixtureList().get(0).getShape().setCollisionRadius(r);
+//    getBody(world, e).getFixtureList().get(0).getShape().setRadius(r);
   }
 
 //  public static void setDetectionRadius(com.artemis.World world, Entity e, float r) {
@@ -140,9 +147,8 @@ public class PhysicsUtil {
 //        return;
 //      }
 //    }
-////    getBody(world, e).getFixtureList().get(0).getShape().setCollisionRadius(r);
+////    getBody(world, e).getFixtureList().get(0).getShape().setRadius(r);
 //  }
-
   /**
    * Get box2d Body of an entity from artemis world
    *
@@ -242,7 +248,7 @@ public class PhysicsUtil {
     }
     float len = getPosition(world, a).cpy().sub(getPosition(world, b).cpy()).len();
 
-    return (getcollisionRadius(world, a) - getcollisionRadius(world, b)) > len;
+    return (getRadius(world, a) - getRadius(world, b)) > len;
   }
 
   /**
@@ -258,7 +264,7 @@ public class PhysicsUtil {
     if (component == null) {
       return false;
     }
-    return component.getCollidedList().contains(b.getUuid(), true);
+    return component.getCollidedList().contains(UuidUtil.getUuid(b), true);
   }
 
   /**
@@ -409,7 +415,7 @@ public class PhysicsUtil {
     }
     float len = getPosition(world, a).cpy().sub(getPosition(world, b).cpy()).len();
 
-    return (getcollisionRadius(world, a) + getcollisionRadius(world, b)) > len;
+    return (getRadius(world, a) + getRadius(world, b)) > len;
   }
 
 }

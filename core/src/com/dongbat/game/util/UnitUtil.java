@@ -13,7 +13,7 @@ import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.Physics;
 import static com.dongbat.game.util.WorldQueryUtil.isAiUnit;
 import static com.dongbat.game.util.WorldQueryUtil.isPlayer;
-import com.dongbat.game.util.objectUtil.Constants;
+import com.dongbat.game.util.localUtil.Constants;
 
 /**
  * @author Admin
@@ -36,20 +36,21 @@ public class UnitUtil {
     boolean toxic = isToxic(world, b);
 
     if (consumable && !toxic) {
-      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getcollisionRadius(world, a), PhysicsUtil.getcollisionRadius(world, b), 2f);
-      PhysicsUtil.setCollisionRadius(world, a, increaseRadius);
+      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), 2f);
+      PhysicsUtil.setRadius(world, a, increaseRadius);
       destroy(b);
       return;
     }
     if (consumable && toxic) {
-      if (PhysicsUtil.getcollisionRadius(world, a) < PhysicsUtil.getcollisionRadius(world, b)) {
+      if (PhysicsUtil.getRadius(world, a) < PhysicsUtil.getRadius(world, b)) {
         destroy(b);
         destroy(a);
         return;
       }
-      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getcollisionRadius(world, a), PhysicsUtil.getcollisionRadius(world, b), -1f);
-      PhysicsUtil.setCollisionRadius(world, a, decreasedRadius);
-      if (PhysicsUtil.getcollisionRadius(world, a) <= 1) {
+      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -5f);
+      if (decreasedRadius > 0) {
+        PhysicsUtil.setRadius(world, a, decreasedRadius);
+      } else {
         destroy(a);
       }
       destroy(b);
@@ -111,11 +112,10 @@ public class UnitUtil {
     }
 
     if (isPlayer(e.getWorld(), e.getId())) {
-      PhysicsUtil.setCollisionRadius(e.getWorld(), e, 2);
+      PhysicsUtil.setRadius(e.getWorld(), e, 0.4f);
       PhysicsUtil.setPosition(e.getWorld(), e, new Vector2());
       return;
     }
-
     physicsWorld.destroyBody(physics.getBody());
     e.deleteFromWorld();
   }
@@ -131,7 +131,7 @@ public class UnitUtil {
       return;
     }
     Stats stat = EntityUtil.getComponent(world, a, Stats.class);
-    float speed = 15000 / PhysicsUtil.getcollisionRadius(world, a) + stat.getBaseRateSpeed() * 15;
+    float speed = 15000 / PhysicsUtil.getRadius(world, a) + stat.getBaseRateSpeed() * 15;
     if (speed >= Constants.PHYSICS.MAX_VELOCITY) {
       speed = Constants.PHYSICS.MAX_VELOCITY;
     }

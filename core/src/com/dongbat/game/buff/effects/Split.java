@@ -38,7 +38,7 @@ public class Split implements BuffEffect {
     Vector2 targetPosition = PhysicsUtil.getPosition(world, target);
     Vector2 sourcePosition = PhysicsUtil.getPosition(world, source);
     UnitMovement component = EntityUtil.getComponent(world, target, UnitMovement.class);
-    float targetRadius = PhysicsUtil.getcollisionRadius(world, target);
+    float targetRadius = PhysicsUtil.getRadius(world, target);
     float percentTaken = PlaneMathCalculator.getPercentTaken(targetPosition, sourcePosition, component.getDirectionVelocity(), targetRadius);
     if (percentTaken > 0.5) {
       percentTaken = 1 - percentTaken;
@@ -50,11 +50,11 @@ public class Split implements BuffEffect {
 
     float squareTargetRadius = (float) (targetRadius * targetRadius * Math.PI);
     float newRadius = (float) Math.sqrt(squareTargetRadius * (1 - percentTaken) / Math.PI);
-    float oldRadius = PhysicsUtil.getcollisionRadius(world, target);
+    float oldRadius = PhysicsUtil.getRadius(world, target);
     float newFoodSquare = (float) (oldRadius * oldRadius * Math.PI - newRadius * newRadius * Math.PI);
     float newFoodRadius = (float) Math.sqrt(newFoodSquare / Math.PI);
 
-    PhysicsUtil.setCollisionRadius(world, target, newRadius);
+    PhysicsUtil.setRadius(world, target, newRadius);
     EntityFactory.createAbsorbableFood(world, sourcePosition, newFoodRadius);
   }
 

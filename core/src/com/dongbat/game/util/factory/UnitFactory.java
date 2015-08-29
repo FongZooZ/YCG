@@ -141,7 +141,7 @@ public class UnitFactory {
 
     Stats stats = new Stats();
     stats.setAllowComsumming(false);
-    stats.setConsumable(false);
+    stats.setConsumable(true);
     stats.setBaseRateSpeed(2000);
 
 //    AbilityComponent abilityComponent = new AbilityComponent();
@@ -155,6 +155,7 @@ public class UnitFactory {
     float posX = (float) ((Math.random() * 2 - 1) * scaleX);
     float posY = (float) ((Math.random() * 2 - 1) * scaleY);
     movement.setDirectionVelocity(new Vector2(posX, posY));
+    movement.setDirectionVelocity(new Vector2(0, 0));
     e.edit().add(physics)
       .add(stats)
       .add(new Collision())
@@ -162,11 +163,11 @@ public class UnitFactory {
       .add(new Queen())
       .add(new Detection())
       .add(movement);
-    System.out.println("queen: " + (UUID) physics.getBody().getUserData());
 
-    BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", 99999999, 1);
-    BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", 99999999, 1);
-    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);
+    BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
+    BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
+    BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
+//    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);
     return e;
   }
 }

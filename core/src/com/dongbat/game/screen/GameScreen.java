@@ -41,11 +41,12 @@ public class GameScreen implements Screen {
     ECSUtil.init(world);
     PhysicsUtil.init(world);
     Entity localPlayer = EntityFactory.createPlayer(world, new Vector2(0, 100), "phong");
-
-    UnitFactory.createQueen(world, new Vector2(0, 80), 3);
+//    BuffUtil.addBuff(world, localPlayer, localPlayer, "FeedSmaller", -1, 1);
+    Entity queen = UnitFactory.createQueen(world, new Vector2(0, 80), 5);
+//    BuffUtil.addBuff(world, localPlayer, queen, "SelfDefense", -1, 1);
     LocalPlayerUtil.setLocalPlayer(UuidUtil.getUuid(localPlayer));
     LocalPlayerUtil.setLocalWorld(world);
-    UnitFactory.createUnit(world, "normal", new Vector2(10, 60));
+//    UnitFactory.createUnit(world, "normal", new Vector2(10, 60));
   }
 
   @Override
