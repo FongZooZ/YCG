@@ -10,7 +10,6 @@ import com.artemis.World;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.buff.BuffEffect;
-import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.MovementUtil;
 import com.dongbat.game.util.PhysicsUtil;
 

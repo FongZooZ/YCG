@@ -5,7 +5,6 @@
  */
 package com.dongbat.game.util;
 
-import com.dongbat.game.util.objectUtil.Constants;
 import com.artemis.Aspect;
 import com.artemis.AspectSubscriptionManager;
 import com.artemis.World;

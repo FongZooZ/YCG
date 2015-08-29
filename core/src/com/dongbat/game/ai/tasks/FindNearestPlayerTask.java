@@ -11,6 +11,7 @@ import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.utils.Array;
 import com.dongbat.game.util.MovementUtil;
 import com.dongbat.game.util.PhysicsUtil;
+import static com.dongbat.game.util.WorldQueryUtil.*;
 
 /**
  *
@@ -18,22 +19,22 @@ import com.dongbat.game.util.PhysicsUtil;
  */
 public class FindNearestPlayerTask extends LeafTask<Entity> {
 
-	@Override
-	public void run() {
-		Entity e = getObject();
-		Array<Entity> playerInRadius = PhysicsUtil.findPlayerInRadius(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), 100);
-		Entity nearestPlayer = PhysicsUtil.findNearestEntityInList(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), playerInRadius);
-		if (nearestPlayer == null) {
-			fail();
-		} else {
-			MovementUtil.setTarget(e, nearestPlayer);
-			success();
-		}
-	}
+  @Override
+  public void run() {
+    Entity e = getObject();
+    Array<Entity> playerInRadius = findPlayerWithAiInRadius(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), 100);
+    Entity nearestPlayer = findNearestEntityInList(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), playerInRadius);
+    if (nearestPlayer == null) {
+      fail();
+    } else {
+      MovementUtil.setTarget(e, nearestPlayer);
+      success();
+    }
+  }
 
-	@Override
-	protected Task<Entity> copyTo(Task<Entity> task) {
-		return task;
-	}
+  @Override
+  protected Task<Entity> copyTo(Task<Entity> task) {
+    return task;
+  }
 
 }

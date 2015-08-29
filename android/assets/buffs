@@ -95,4 +95,4 @@ class:com.dongbat.game.buff.effects.ImmunWithDuplicate
 
 name:Attractor
 class:com.dongbat.game.buff.effects.Attractor
-1: radius=100 | forceStrength=5000 | attractedTime=1000
+1: radius=100 | forceStrength=200 | attractedTime=1000

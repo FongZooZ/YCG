@@ -17,9 +17,11 @@ import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.EntityUtil;
+import com.dongbat.game.util.MovementUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.localUtil.LocalPlayerUtil;
+import com.dongbat.game.util.localUtil.PhysicsCameraUtil;
 import java.util.UUID;
 
 /**
@@ -51,10 +53,8 @@ public class HUDRenderSystem extends BaseSystem {
     Stats stat = EntityUtil.getComponent(world, localPlayer, Stats.class);
     bitmapFont.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), 100, 100);
     bitmapFont.draw(batch, "body count: " + PhysicsUtil.getPhysicsWorld(world).getBodyCount(), 100, 75);
-    if (stat != null) {
-      bitmapFont.draw(batch, "base speed: " + stat.getBaseMovementSpeed(), 100, 25);
-      bitmapFont.draw(batch, "modifier speed: " + stat.getModifierSpeed(), 100, 50);
-    }
+    bitmapFont.draw(batch, "speed: " + MovementUtil.calculalteDesiredSpeed(world, localPlayer), 100, 25);
+    bitmapFont.draw(batch, "zoom: " + PhysicsCameraUtil.getZoomScale(world, localPlayer), 100, 50);
     bitmapFont.draw(batch, "frame " + ECSUtil.getFrame(world), 100, 125);
     BuffComponent buffComponent = EntityUtil.getComponent(world, localPlayer, BuffComponent.class);
     ObjectMap<String, BuffInfo> buffs = buffComponent.getBuffs();

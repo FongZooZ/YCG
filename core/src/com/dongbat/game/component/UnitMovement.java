@@ -15,24 +15,24 @@ import com.badlogic.gdx.math.Vector2;
 public class UnitMovement extends Component {
 
   // move sang unit state
-	private Vector2 directionVelocity;
-	private boolean disabled = false;
+  private Vector2 directionVelocity;
+  private boolean disabled = false;
 
-	public Vector2 getDirectionVelocity() {
-		return directionVelocity;
-	}
+  public Vector2 getDirectionVelocity() {
+    return directionVelocity;
+  }
 
-	public void setDirectionVelocity(Vector2 destination) {
-		this.directionVelocity = destination;
-	}
+  public void setDirectionVelocity(Vector2 destination) {
+    this.directionVelocity = destination;
+  }
 
-	// TODO: check this
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
-	}
+  // TODO: check this
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
+  }
 
-	public boolean isDisabled() {
-		return disabled;
-	}
+  public boolean isDisabled() {
+    return disabled;
+  }
 
 }

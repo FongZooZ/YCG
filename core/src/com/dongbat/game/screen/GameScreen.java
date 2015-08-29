@@ -10,7 +10,6 @@ import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.dongbat.game.registry.AbilityRegistry;
 import com.dongbat.game.registry.BuffRegistry;
 import com.dongbat.game.registry.UnitRegistry;
@@ -20,9 +19,6 @@ import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.factory.EntityFactory;
 import com.dongbat.game.util.factory.UnitFactory;
 import com.dongbat.game.util.localUtil.LocalPlayerUtil;
-
-import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 
 /**
  *
@@ -40,20 +36,12 @@ public class GameScreen implements Screen {
     AbilityRegistry.load();
     ECSUtil.init(world);
     PhysicsUtil.init(world);
-//    PhysicsUtil.createEdge(world, BodyDef.BodyType.StaticBody, -0, 200, -0, -200, 0);
-    PhysicsUtil.createEdge(world, BodyDef.BodyType.StaticBody, scaleX, -scaleY, scaleX, scaleY, 0);
-//    PhysicsUtil.createEdge(world, BodyDef.BodyType.StaticBody, -scaleX, -scaleY, scaleX, -scaleY, 0);
-//    PhysicsUtil.createEdge(world, BodyDef.BodyType.StaticBody, -scaleX, scaleY, scaleX, scaleY, 0);
     Entity localPlayer = EntityFactory.createPlayer(world, new Vector2(0, 100), "phong");
 
-//    BuffUtil.addBuff(world, localPlayer, localPlayer, "Split", 10000, 1);
     UnitFactory.createQueen(world, new Vector2(0, 80), 3);
     LocalPlayerUtil.setLocalPlayer(UuidUtil.getUuid(localPlayer));
     LocalPlayerUtil.setLocalWorld(world);
-    UnitRegistry.createUnit(world, "normal", new Vector2(100, -100));
-		UnitRegistry.createUnit(world, "normal", new Vector2(-100, -100));
-		UnitRegistry.createUnit(world, "normal", new Vector2(-100, 100));
-		UnitRegistry.createUnit(world, "normal", new Vector2(500, 100));
+    UnitFactory.createUnit(world, "normal", new Vector2(10, 60));
   }
 
   @Override

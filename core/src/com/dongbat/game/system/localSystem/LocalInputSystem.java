@@ -59,13 +59,14 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
     Vector2 destination = move.getDirectionVelocity();
     Vector2 position = PhysicsUtil.getPosition(world, e);
     if (touchDown) {
-      Vector3 vector = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-      Vector3 unproject = getCamera().unproject(vector);
-      long lastFrameIndex = ECSUtil.getFrame(world);
-      Vector2 direction = new Vector2(unproject.x - position.x, unproject.y - position.y);
-      CustomInput customInput = new CustomInput(Constants.inputType.MOVE, direction, 0);
-      EntityUtil.getComponent(world, e, Player.class).getInputs().put(lastFrameIndex + 3, customInput);
-      touchDown = false;
+      if (ECSUtil.getFrame(world) - EntityUtil.getLastPlayerMovementInput(world, e) > 10) {
+        Vector3 vector = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        Vector3 unproject = getCamera().unproject(vector);
+        long lastFrameIndex = ECSUtil.getFrame(world);
+        Vector2 direction = new Vector2(unproject.x - position.x, unproject.y - position.y);
+        CustomInput customInput = new CustomInput(Constants.inputType.MOVE, direction, 0);
+        EntityUtil.getComponent(world, e, Player.class).getInputs().put(lastFrameIndex + 3, customInput);
+      }
     }
     if (skillOne == true) {
       skillOne = false;
@@ -139,6 +140,7 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
 
   @Override
   public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    touchDown = false;
     return true;
   }
 

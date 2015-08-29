@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.dongbat.game.buff.BuffEffect;
 import com.dongbat.game.util.BuffUtil;
-import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
+import com.dongbat.game.util.WorldQueryUtil;
 
 /**
  * Created by FongZooZ on 8/28/2015.
@@ -40,7 +40,7 @@ public class Attractor implements BuffEffect {
   @Override
   public void update(World world, Entity source, Entity target) {
     Vector2 playerPosition = PhysicsUtil.getPosition(world, source);
-    Array<Entity> foundList = EntityUtil.findAnyInRadius(world, playerPosition, radius);
+    Array<Entity> foundList = WorldQueryUtil.findAnyInRadius(world, playerPosition, radius);
     for (Entity e : foundList) {
       if (PhysicsUtil.getcollisionRadius(world, source) < PhysicsUtil.getcollisionRadius(world, e)) {
         return;

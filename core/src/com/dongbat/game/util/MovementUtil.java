@@ -10,8 +10,10 @@ import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.dongbat.game.component.Physics;
+import com.dongbat.game.component.Player;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
+import com.dongbat.game.dataobject.CustomInput;
 import com.dongbat.game.util.objectUtil.Constants;
 
 /**
@@ -85,11 +87,14 @@ public class MovementUtil {
 
     Vector2 directionVel = unitMovement.getDirectionVelocity().cpy();
 
+    //heading
+    float angleRad = body.getLinearVelocity().angleRad();
+    body.setTransform(body.getPosition(), angleRad);
+
     // TODO: calculate based on radius, use fixed mass
     // or make a steering-like behavior with real mass
     float desiredSpd = calculalteDesiredSpeed(world, e);
     Vector2 currentVector = body.getLinearVelocity();
-
     directionVel.nor().scl(desiredSpd).sub(currentVector);
 
     Vector2 impulse = directionVel.scl(mass);
@@ -99,8 +104,10 @@ public class MovementUtil {
 
   public static float calculalteDesiredSpeed(World world, Entity e) {
     float radius = PhysicsUtil.getcollisionRadius(world, e);
-
-    return 20;
+    float difference = radius - Constants.PHYSICS.MIN_RADIUS;
+    float speed = 25 - difference * 9 / 20;
+    speed = speed <= 13.3 ? 13.3f : speed;
+    return speed;
   }
 
   /**
@@ -158,7 +165,6 @@ public class MovementUtil {
    * @return true if entity has arrived
    */
   public static boolean hasArrived(Entity e) {
-    Physics physics = EntityUtil.getComponent(e.getWorld(), e, Physics.class);
     UnitMovement ms = EntityUtil.getComponent(e.getWorld(), e, UnitMovement.class);
     Vector2 position = PhysicsUtil.getPosition(e.getWorld(), e);
     Vector2 intent = ms.getDirectionVelocity();
@@ -185,5 +191,15 @@ public class MovementUtil {
   public static void setTarget(Entity e, Vector2 target) {
     UnitMovement component = EntityUtil.getComponent(e.getWorld(), e, UnitMovement.class);
     component.setDirectionVelocity(target);
+
+  }
+
+  public static void addMoveInput(World world, Entity e, Vector2 destination) {
+    long lastFrameIndex = ECSUtil.getFrame(world);
+
+    CustomInput customInput = new CustomInput(Constants.inputType.MOVE, destination, 0);
+
+    EntityUtil.getComponent(e.getWorld(), e, Player.class).getInputs().put(lastFrameIndex + 3, customInput);
+
   }
 }

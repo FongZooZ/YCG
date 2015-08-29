@@ -15,6 +15,7 @@ import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import static com.dongbat.game.util.UnitUtil.eat;
 import com.dongbat.game.util.UuidUtil;
+import static com.dongbat.game.util.WorldQueryUtil.isFood;
 import java.util.UUID;
 
 /**
@@ -23,40 +24,40 @@ import java.util.UUID;
  */
 public class ConsumingSystem extends EntityProcessingSystem {
 
-	public ConsumingSystem() {
-		super(Aspect.all(Collision.class));
-	}
+  public ConsumingSystem() {
+    super(Aspect.all(Collision.class));
+  }
 
-	@Override
-	protected void process(Entity e) {
+  @Override
+  protected void process(Entity e) {
 
-		Collision collision = EntityUtil.getComponent(world, e, Collision.class);
-		Stats stats = EntityUtil.getComponent(world, e, Stats.class);
-		Array<UUID> collidedList = collision.getCollidedList();
+    Collision collision = EntityUtil.getComponent(world, e, Collision.class);
+    Stats stats = EntityUtil.getComponent(world, e, Stats.class);
+    Array<UUID> collidedList = collision.getCollidedList();
 
-		for (UUID idB : collidedList) {
-			Entity b = UuidUtil.getEntityByUuid(world, idB);
+    for (UUID idB : collidedList) {
+      Entity b = UuidUtil.getEntityByUuid(world, idB);
 
-			if (!b.isActive()) {
-				continue;
-			}
-			if (stats != null) {
-				if (stats.getParent() == idB) {
-					continue;
-				}
-			}
+      if (!b.isActive()) {
+        continue;
+      }
+      if (stats != null) {
+        if (stats.getParent() == idB) {
+          continue;
+        }
+      }
 
-			if (EntityUtil.isFood(world, b.getId())) {
-				PhysicsUtil.isBodyTouch(world, e, b);
-				eat(world, e, b);
-			} else {
-				boolean bodyContain = PhysicsUtil.isBodyContain(world, e, b);
-				if (bodyContain) {
-					eat(world, e, b);
-				}
-			}
-		}
+      if (isFood(world, b.getId())) {
+        PhysicsUtil.isBodyTouch(world, e, b);
+        eat(world, e, b);
+      } else {
+        boolean bodyContain = PhysicsUtil.isBodyContain(world, e, b);
+        if (bodyContain) {
+          eat(world, e, b);
+        }
+      }
+    }
 
-	}
+  }
 
 }

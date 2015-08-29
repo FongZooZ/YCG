@@ -6,7 +6,6 @@
 package com.dongbat.game.component;
 
 import com.artemis.Component;
-import com.badlogic.gdx.utils.Array;
 import java.util.UUID;
 
 /**
@@ -15,41 +14,35 @@ import java.util.UUID;
  */
 public class Detection extends Component {
 
-  private Array<UUID> detectionList;
-  private Array<UUID> justDetectionList;
-  private Array<UUID> lastDetectionList;
-
-  public Detection(Array<UUID> detectionList, Array<UUID> justDetectionList, Array<UUID> lastDetectionList) {
-    this.detectionList = detectionList;
-    this.justDetectionList = justDetectionList;
-    this.lastDetectionList = lastDetectionList;
-  }
+  private UUID nearestQueen;
+  private UUID nearestPlayer;
+  private UUID nearestFood;
 
   public Detection() {
   }
 
-  public Array<UUID> getDetectionList() {
-    return detectionList;
+  public UUID getNearestQueen() {
+    return nearestQueen;
   }
 
-  public void setDetectionList(Array<UUID> detectionList) {
-    this.detectionList = detectionList;
+  public void setNearestQueen(UUID nearestQueen) {
+    this.nearestQueen = nearestQueen;
   }
 
-  public Array<UUID> getJustDetectionList() {
-    return justDetectionList;
+  public UUID getNearestPlayer() {
+    return nearestPlayer;
   }
 
-  public void setJustDetectionList(Array<UUID> justDetectionList) {
-    this.justDetectionList = justDetectionList;
+  public void setNearestPlayer(UUID nearestPlayer) {
+    this.nearestPlayer = nearestPlayer;
   }
 
-  public Array<UUID> getLastDetectionList() {
-    return lastDetectionList;
+  public UUID getNearestFood() {
+    return nearestFood;
   }
 
-  public void setLastDetectionList(Array<UUID> lastDetectionList) {
-    this.lastDetectionList = lastDetectionList;
+  public void setNearestFood(UUID nearestFood) {
+    this.nearestFood = nearestFood;
   }
 
 }
