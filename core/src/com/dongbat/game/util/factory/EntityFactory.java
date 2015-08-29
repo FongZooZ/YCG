@@ -7,13 +7,7 @@ package com.dongbat.game.util.factory;
 
 import com.artemis.Entity;
 import com.artemis.World;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.dongbat.game.component.AbilityComponent;
 import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.Collision;
@@ -30,8 +24,6 @@ import com.dongbat.game.unit.UnitInfo;
 import com.dongbat.game.util.AbilityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
-
-import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
 import java.util.UUID;
 
@@ -68,22 +60,6 @@ public class EntityFactory {
     Physics physics = new Physics();
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, info.getRadius(), e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
-
-    // start of shit
-    Texture texture = new Texture(Gdx.files.internal("circle.png"));
-    Sprite sprite = new Sprite(texture);
-    Box2DSprite box2DSprite = new Box2DSprite(sprite);
-
-    CircleShape circle = new CircleShape();
-    circle.setRadius(info.getRadius());
-
-    FixtureDef fixtureDef = new FixtureDef();
-    fixtureDef.density = 0;
-    fixtureDef.shape = circle;
-    Fixture spriteFixture = physics.getBody().createFixture(fixtureDef);
-    spriteFixture.setUserData(box2DSprite);
-    circle.dispose();
-    // end of shit
 
     UnitMovement movement = new UnitMovement();
     movement.setDisabled(false);

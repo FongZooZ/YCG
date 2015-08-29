@@ -15,7 +15,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.system.AiControlledSystem;
 import com.dongbat.game.system.BorderlandSystem;
-import com.dongbat.game.system.Box2dSpriteRenderSystem;
 import com.dongbat.game.system.Box2dSystem;
 import com.dongbat.game.system.BuffSystem;
 import com.dongbat.game.system.CollisionCleanupSystem;
@@ -77,7 +76,6 @@ public class ECSUtil {
 //    setSystem(config, new SpawnningFoodSystsem(), false);
     setSystem(config, new Box2dSystem(), false);
     setSystem(config, new Box2dDebugRendererSystem(), true);
-    setSystem(config, new Box2dSpriteRenderSystem(), true);
     setSystem(config, new HUDRenderSystem(), true);
     setSystem(config, new MovementSystem(), false);
     setSystem(config, new CollisionCleanupSystem(), false);
