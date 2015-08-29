@@ -5,7 +5,6 @@
  */
 package com.dongbat.game.util;
 
-import com.dongbat.game.util.objectUtil.MapperCache;
 import com.artemis.Aspect;
 import com.artemis.AspectSubscriptionManager;
 import com.artemis.Component;
@@ -16,6 +15,7 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.Player;
 import com.dongbat.game.dataobject.CustomInput;
+import com.dongbat.game.util.objectUtil.MapperCache;
 import com.dongbat.game.util.localUtil.Constants;
 
 /**
@@ -33,8 +33,8 @@ public class EntityUtil {
    * Get Mapper of an Component in artemis
    *
    * @param world artemis world
-   * @param type type of Component you want to get Mapper
-   * @param <T> class type
+   * @param type  type of Component you want to get Mapper
+   * @param <T>   class type
    * @return ComponentMapper
    */
   public static <T extends Component> ComponentMapper<T> getMapper(World world, Class<T> type) {
@@ -61,10 +61,10 @@ public class EntityUtil {
    * Get specific Component class of an entity in the artemis world
    *
    * @param world artemis world
-   * @param e entity that you want to get Component class
-   * @param type type of Component you want to get, example: Stats.class,
-   * Food.class
-   * @param <T> class type
+   * @param e     entity that you want to get Component class
+   * @param type  type of Component you want to get, example: Stats.class,
+   *              Food.class
+   * @param <T>   class type
    * @return Component class
    */
   public static <T extends Component> T getComponent(World world, Entity e, Class<T> type) {
@@ -83,6 +83,7 @@ public class EntityUtil {
           break;
         }
       }
+
     }
     return frame;
   }

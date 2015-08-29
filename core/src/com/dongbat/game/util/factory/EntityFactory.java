@@ -43,29 +43,29 @@ public class EntityFactory {
   public static Entity createPlayer(World world, Vector2 position, String type) {
     Entity e = world.createEntity(UUID.randomUUID());
     Collision collision = new Collision();
-    
+
     DisplayPosition displayPosition = new DisplayPosition();
-    
+
     UnitType unitType = new UnitType(type);
     UnitInfo info = UnitRegistry.get(type);
-    
+
     String abilities = info.getAbilities();
-    
+
     AbilityComponent abilityComponent = new AbilityComponent();
     AbilityUtil.abilityComponentFilled(abilities, abilityComponent);
-    
+
     Stats stats = new Stats();
     stats.setBaseRateSpeed(info.getBaseSpeedRate());
-    
+
     Physics physics = new Physics();
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, info.getRadius(), e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
-    
+
     UnitMovement movement = new UnitMovement();
     movement.setDisabled(false);
-    
+
     Player player = new Player();
-    
+
     e.edit().add(abilityComponent)
       .add(unitType)
       .add(new BuffComponent())
@@ -76,7 +76,6 @@ public class EntityFactory {
       .add(movement)
       .add(new Detection())
       .add(collision);
-    
     return e;
   }
 
@@ -92,22 +91,21 @@ public class EntityFactory {
     Physics physics = new Physics();
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, 0.25f, e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
-    
+
     Stats s = new Stats();
     s.setConsumable(true);
     s.setAllowComsumming(false);
     s.setParent(parent);
-    
     e.edit().add(new Collision())
-      .add(s)
       .add(physics)
       .add(new Food())
       .add(new UnitMovement())
       .add(new Detection())
       .add(new BuffComponent());
+
     return e;
   }
-  
+
   public static Entity createAbsorbableFood(World world, Vector2 position, float radius) {
     Entity e = world.createEntity(UUID.randomUUID());
     Physics physics = new Physics();
@@ -117,7 +115,7 @@ public class EntityFactory {
     Stats stats = new Stats();
     stats.setAllowComsumming(false);
     stats.setConsumable(false);
-    
+
     e.edit().add(new Collision())
       .add(physics)
       //      .add(food)
@@ -137,29 +135,28 @@ public class EntityFactory {
    */
   public static Entity createProjectileUnit(World world, Vector2 position) {
     Entity e = world.createEntity(UUID.randomUUID());
-    
+
     UnitInfo unitInfo = new UnitInfo();
     unitInfo.setRadius(10);
-    
+
     Collision collision = new Collision();
-    
+
     DisplayPosition displayPosition = new DisplayPosition();
-    
+
     Stats stats = new Stats();
     stats.setAllowComsumming(false);
     stats.setConsumable(false);
-    
+
     Physics physics = new Physics();
     e.edit().add(physics);
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, unitInfo.getRadius(), e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
-    
     e.edit().add(collision)
       .add(displayPosition)
       .add(stats)
       .add(new Detection())
       .add(physics);
-    
+
     return e;
   }
 }

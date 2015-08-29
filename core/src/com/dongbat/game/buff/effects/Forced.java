@@ -14,7 +14,6 @@ import com.dongbat.game.util.MovementUtil;
 import com.dongbat.game.util.PhysicsUtil;
 
 /**
- *
  * @author Admin
  */
 public class Forced implements BuffEffect {

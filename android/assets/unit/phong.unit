@@ -1,5 +1,5 @@
 name=phong
 radius=10f
 baseSpeedRate=195
-abilities=SpeedUp,SlowDown
+abilities=Flee,Attractor
 definitionPath=unit/tree/normal.tree

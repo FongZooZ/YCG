@@ -7,7 +7,6 @@ package com.dongbat.game.util;
 
 import com.artemis.Aspect;
 import com.artemis.AspectSubscriptionManager;
-import com.artemis.Component;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.utils.IntBag;
@@ -21,25 +20,56 @@ import com.dongbat.game.component.Detection;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Player;
 import com.dongbat.game.component.Queen;
-import static com.dongbat.game.util.EntityUtil.getMapper;
+
+import java.util.UUID;
+
 import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
 import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 import static com.dongbat.game.util.PhysicsUtil.getPhysicsWorld;
 import static com.dongbat.game.util.PhysicsUtil.getPosition;
-import java.util.UUID;
 
 /**
- *
  * @author Admin
  */
 public class WorldQueryUtil {
 
   /**
+   * Find any entity in radius
+   *
+   * @param world    artemis world
+   * @param location location to find
+   * @param radius   radius to find
+   * @return Array of nearest Entity in radius
+   */
+  public static Array<Entity> findAnyInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
+    final Array<Entity> entities = new Array<Entity>();
+
+    QueryCallback callback = new QueryCallback() {
+
+      @Override
+      public boolean reportFixture(Fixture fixture) {
+        Body body = fixture.getBody();
+        Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
+        float distanceSq = new Vector2(body.getPosition()).sub(location).len2();
+        if (distanceSq <= radius * radius) {
+          entities.add(entity);
+        }
+        return true;
+      }
+    };
+    Vector2 lowerLeft = new Vector2(location).sub(radius, radius);
+    Vector2 upperRight = new Vector2(location).add(radius, radius);
+    PhysicsUtil.getPhysicsWorld(world).QueryAABB(callback, lowerLeft.x, lowerLeft.y, upperRight.x, upperRight.y);
+
+    return entities;
+  }
+
+  /**
    * Find food in radius, centre is an point on map
    *
-   * @param world artemis world
+   * @param world    artemis world
    * @param location centre of circle
-   * @param radius radius to find
+   * @param radius   radius to find
    * @return Food entity list
    */
   public static Array<Entity> findFoodInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
@@ -72,9 +102,9 @@ public class WorldQueryUtil {
   /**
    * Find enemy in radius, centre is an point on map
    *
-   * @param world artemis world
+   * @param world    artemis world
    * @param location centre of circle
-   * @param radius radius to find
+   * @param radius   radius to find
    * @return Enemy entity list
    */
   public static Array<Entity> findEnemyInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
@@ -108,8 +138,8 @@ public class WorldQueryUtil {
   /**
    * Find nearest entity in list from a location
    *
-   * @param world artemis world
-   * @param location location
+   * @param world      artemis world
+   * @param location   location
    * @param entityList entity list that you want to find
    * @return one entity
    */
@@ -132,9 +162,9 @@ public class WorldQueryUtil {
   /**
    * Find player in radius from a location
    *
-   * @param world artemis world
+   * @param world    artemis world
    * @param location location that you want to find
-   * @param radius radius to find
+   * @param radius   radius to find
    * @return Player entity list
    */
   public static Array<Entity> findPlayerNonAiInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
@@ -283,7 +313,7 @@ public class WorldQueryUtil {
 
     };
     PhysicsUtil.getPhysicsWorld(world)
-      .QueryAABB(callback, -scaleX, -scaleY, scaleX, scaleY);
+            .QueryAABB(callback, -scaleX, -scaleY, scaleX, scaleY);
 
     return queenPosition;
 

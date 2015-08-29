@@ -19,15 +19,17 @@ import com.dongbat.game.component.Player;
 import com.dongbat.game.component.Queen;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
-import static com.dongbat.game.registry.UnitRegistry.get;
-import static com.dongbat.game.registry.UnitRegistry.setUnitData;
 import com.dongbat.game.unit.UnitInfo;
 import com.dongbat.game.util.BuffUtil;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
+
 import java.util.UUID;
+
+import static com.dongbat.game.registry.UnitRegistry.get;
+import static com.dongbat.game.registry.UnitRegistry.setUnitData;
+import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
+import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 
 /**
  * @author Admin
@@ -37,12 +39,12 @@ public class UnitFactory {
   /**
    * Create sub-unit from an entity
    *
-   * @param world artemis world
-   * @param parent parent of sub-unit
-   * @param position spawn position
+   * @param world         artemis world
+   * @param parent        parent of sub-unit
+   * @param position      spawn position
    * @param baseRateSpeed base speed
-   * @param radius radius of sub-unit
-   * @param args optional arguments for sub-unit
+   * @param radius        radius of sub-unit
+   * @param args          optional arguments for sub-unit
    * @return sub-unit entity that was just created
    */
   public static Entity createSubUnit(World world, Entity parent, Vector2 position, float baseRateSpeed, float radius, Object... args) {
@@ -69,10 +71,10 @@ public class UnitFactory {
   /**
    * Create projectile unit
    *
-   * @param world artemis world
-   * @param parent entity that execute that projectile unit
+   * @param world    artemis world
+   * @param parent   entity that execute that projectile unit
    * @param position spawn position
-   * @param radius unit radius
+   * @param radius   unit radius
    * @return projectile unit that was just created
    */
   public static Entity createProjectileUnit(World world, Entity parent, Vector2 position, float radius) {

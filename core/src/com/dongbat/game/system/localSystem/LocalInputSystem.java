@@ -23,8 +23,10 @@ import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.localUtil.LocalPlayerUtil;
-import static com.dongbat.game.util.localUtil.PhysicsCameraUtil.getCamera;
+
 import java.util.UUID;
+
+import static com.dongbat.game.util.localUtil.PhysicsCameraUtil.getCamera;
 
 /**
  * @author Admin
@@ -40,7 +42,7 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
 
   public LocalInputSystem() {
     touchDown = false;
-    skillOne = true;
+    skillOne = false;
     skillTwo = false;
     pause = false;
     Gdx.input.setInputProcessor(this);

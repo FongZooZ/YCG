@@ -5,7 +5,6 @@
  */
 package com.dongbat.game.util;
 
-import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.artemis.BaseSystem;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
@@ -15,22 +14,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.system.AiControlledSystem;
-import com.dongbat.game.system.localSystem.Box2dDebugRendererSystem;
+import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.Box2dSystem;
 import com.dongbat.game.system.BuffSystem;
-import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.CollisionCleanupSystem;
 import com.dongbat.game.system.CollisionSystem;
 import com.dongbat.game.system.ConsumingSystem;
+import com.dongbat.game.system.InputProcessorSystem;
+import com.dongbat.game.system.MovementSystem;
+import com.dongbat.game.system.localSystem.Box2dDebugRendererSystem;
+import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.localSystem.GridRendererSystem;
 import com.dongbat.game.system.localSystem.HUDRenderSystem;
-import com.dongbat.game.system.InputProcessorSystem;
 import com.dongbat.game.system.localSystem.LocalInputSystem;
 import com.dongbat.game.system.MovementSystem;
 import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.DetectionCleanupSystem;
 import com.dongbat.game.system.DetectionSystem;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
+import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.dongbat.game.util.objectUtil.WorldProgress;
 
 /**
@@ -151,8 +153,8 @@ public class ECSUtil {
   /**
    * Set a system to artemis world
    *
-   * @param world artemis world
-   * @param system system you want to add to world
+   * @param world     artemis world
+   * @param system    system you want to add to world
    * @param isPassive is passive system or not
    */
   private static void setSystem(WorldConfiguration config, BaseSystem system, boolean isPassive) {

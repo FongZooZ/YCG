@@ -26,7 +26,6 @@ public class Split implements BuffEffect {
 
   @Override
   public void durationStart(World world, Entity source, Entity target) {
-    System.out.println("dcm");
   }
 
   @Override
