@@ -143,7 +143,7 @@ public class UnitFactory {
 
     Stats stats = new Stats();
     stats.setAllowComsumming(true);
-    stats.setConsumable(true);
+    stats.setConsumable(false);
     stats.setBaseRateSpeed(2000);
 
 //    AbilityComponent abilityComponent = new AbilityComponent();
@@ -166,8 +166,8 @@ public class UnitFactory {
       .add(new Detection())
       .add(movement);
 
-//    BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
-//    BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
+    BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
+    BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
     BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
     BuffUtil.addBuff(world, e, e, "SelfDefense", -1, 1);
 //    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);

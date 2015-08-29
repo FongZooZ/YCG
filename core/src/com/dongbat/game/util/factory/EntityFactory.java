@@ -98,6 +98,7 @@ public class EntityFactory {
     s.setParent(parent);
     e.edit().add(new Collision())
       .add(physics)
+      .add(s)
       .add(new Food())
       .add(new UnitMovement())
       .add(new Detection())
