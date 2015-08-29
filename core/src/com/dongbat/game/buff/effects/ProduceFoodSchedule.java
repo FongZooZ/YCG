@@ -66,7 +66,7 @@ public class ProduceFoodSchedule implements BuffEffect {
         Entity food = EntityFactory.createSteeringFood(world, position);
         // TODO: food expiring system
         BuffUtil.addBuff(world, source, food, "ToBeRemoved", 10000, 1);
-        BuffUtil.addBuff(world, source, food, "ToxicFood", 5000, 1);
+        BuffUtil.addBuff(world, source, food, "ToxicFood", 400, 1);
         BuffUtil.addBuff(world, source, food, "Forced", (int) (400 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.5f, "direction", direction);
       }
     }

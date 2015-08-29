@@ -7,7 +7,7 @@ package com.dongbat.game.dataobject;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.dongbat.game.util.objectUtil.Constants.inputType;
+import com.dongbat.game.util.localUtil.Constants.inputType;
 
 /**
  *

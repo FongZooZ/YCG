@@ -11,7 +11,7 @@ import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.factory.EntityFactory;
-import com.dongbat.game.util.objectUtil.Constants;
+import com.dongbat.game.util.localUtil.Constants;
 
 /**
  * Created by FongZooZ on 8/28/2015.
@@ -46,7 +46,7 @@ public class Flee implements Ability {
     if (info == null) {
       return;
     }
-    float playerRadius = PhysicsUtil.getcollisionRadius(world, caster);
+    float playerRadius = PhysicsUtil.getRadius(world, caster);
     Vector2 playerPosition = PhysicsUtil.getPosition(world, caster);
     UnitMovement unitMovement = EntityUtil.getComponent(world, caster, UnitMovement.class);
 
@@ -62,7 +62,7 @@ public class Flee implements Ability {
     if (playerRadius <= Constants.FOOD.DEFAULT_RADIUS * 2) {
       return;
     }
-    PhysicsUtil.setCollisionRadius(world, caster, playerRadius - Constants.FOOD.DEFAULT_RADIUS);
+    PhysicsUtil.getRadius(world, caster);
     Entity food = EntityFactory.createSteeringFood(world, foodPosition);
     BuffUtil.addBuff(world, caster, food, "Forced", duration, 1, "forceStrength", forceStrength, "direction", direction);
   }

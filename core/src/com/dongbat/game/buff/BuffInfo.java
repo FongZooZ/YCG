@@ -15,61 +15,73 @@ import com.dongbat.game.util.TimeUtil;
  */
 public class BuffInfo {
 
-	private BuffEffect effect;
-	private long frame; // int
-	private long endTime; // frame
-	private int duration; // miliseconds
-	private Entity source;
+  private BuffEffect effect;
+  private long frame; // int
+  private long endTime; // frame
+  private int duration; // miliseconds
+  private Entity source;
+  private boolean permanent;
 
-	public BuffInfo() {
-	}
+  public BuffInfo() {
+  }
 
-	public BuffInfo(World world, BuffEffect effect, long frame, int duration, Entity source) {
-		this.effect = effect;
-		this.frame = frame;
-		this.duration = duration;
-		this.source = source;
-		long convertMilisToFrame = TimeUtil.convertMillisToFrame(world, this.duration);
-		this.endTime = this.frame + convertMilisToFrame;
-	}
+  public BuffInfo(World world, BuffEffect effect, long frame, int duration, Entity source) {
+    this.effect = effect;
+    this.frame = frame;
+    this.duration = duration;
+    this.source = source;
+    if (duration == -1) {
+      permanent = true;
+    }
+    long convertMilisToFrame = TimeUtil.convertMillisToFrame(world, this.duration);
+    this.endTime = this.frame + convertMilisToFrame;
+  }
 
-	public BuffEffect getEffect() {
-		return effect;
-	}
+  public boolean isPermanent() {
+    return permanent;
+  }
 
-	public void setEffect(BuffEffect effect) {
-		this.effect = effect;
-	}
+  public void setPermanent(boolean permanent) {
+    this.permanent = permanent;
+  }
 
-	public long getStartTime() {
-		return frame;
-	}
+  public BuffEffect getEffect() {
+    return effect;
+  }
 
-	public void setStartTime(long startTime) {
-		this.frame = startTime;
-	}
+  public void setEffect(BuffEffect effect) {
+    this.effect = effect;
+  }
 
-	public long getEndTime() {
-		return endTime;
-	}
+  public long getStartTime() {
+    return frame;
+  }
 
-	public void setEndTime(long endTime) {
-		this.endTime = endTime;
-	}
+  public void setStartTime(long startTime) {
+    this.frame = startTime;
+  }
 
-	public int getDuration() {
-		return duration;
-	}
+  public long getEndTime() {
+    return endTime;
+  }
 
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
+  public void setEndTime(long endTime) {
+    this.endTime = endTime;
+  }
 
-	public Entity getSource() {
-		return source;
-	}
+  public int getDuration() {
+    return duration;
+  }
 
-	public void setSource(Entity source) {
-		this.source = source;
-	}
+  public void setDuration(int duration) {
+    this.duration = duration;
+  }
+
+  public Entity getSource() {
+    return source;
+  }
+
+  public void setSource(Entity source) {
+    this.source = source;
+  }
 }

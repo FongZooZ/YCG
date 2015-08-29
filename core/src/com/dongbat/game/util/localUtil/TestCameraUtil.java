@@ -7,7 +7,6 @@ package com.dongbat.game.util.localUtil;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.dongbat.game.util.objectUtil.Constants;
 
 /**
  * @author Admin

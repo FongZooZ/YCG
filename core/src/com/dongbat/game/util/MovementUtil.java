@@ -14,7 +14,7 @@ import com.dongbat.game.component.Player;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.dataobject.CustomInput;
-import com.dongbat.game.util.objectUtil.Constants;
+import com.dongbat.game.util.localUtil.Constants;
 
 /**
  * @author Admin
@@ -43,7 +43,7 @@ public class MovementUtil {
       body.setLinearVelocity(new Vector2(0, 0));
       return;
     }
-    if (unitMovement.getDirectionVelocity().cpy().sub(position.cpy()).len() < PhysicsUtil.getcollisionRadius(world, e)) {
+    if (unitMovement.getDirectionVelocity().cpy().sub(position.cpy()).len() < PhysicsUtil.getRadius(world, e)) {
       body.setLinearVelocity(new Vector2(0, 0));
     }
 
@@ -103,7 +103,7 @@ public class MovementUtil {
   }
 
   public static float calculalteDesiredSpeed(World world, Entity e) {
-    float radius = PhysicsUtil.getcollisionRadius(world, e);
+    float radius = PhysicsUtil.getRadius(world, e);
     float difference = radius - Constants.PHYSICS.MIN_RADIUS;
     float speed = 25 - difference * 9 / 20;
     speed = speed <= 13.3 ? 13.3f : speed;

@@ -30,7 +30,7 @@ public class QueenGrowth implements BuffEffect {
   public void update(World world, Entity source, Entity target) {
     if (ECSUtil.getFrame(world) % growFrame == 5) {
       Physics physicsComponent = EntityUtil.getComponent(world, target, Physics.class);
-      float oldRadius = PhysicsUtil.getcollisionRadius(world, target);
+      float oldRadius = PhysicsUtil.getRadius(world, target);
       physicsComponent.getBody().getFixtureList().get(0).getShape().setRadius(oldRadius * (1 + growPercent / 100));
 
     }

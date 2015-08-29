@@ -15,8 +15,8 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.Player;
 import com.dongbat.game.dataobject.CustomInput;
-import com.dongbat.game.util.objectUtil.Constants;
 import com.dongbat.game.util.objectUtil.MapperCache;
+import com.dongbat.game.util.localUtil.Constants;
 
 /**
  * @author Admin

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dongbat.game.util.objectUtil;
+package com.dongbat.game.util.localUtil;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -57,6 +57,7 @@ public class Constants {
     public static final int GROUND_Y = -15;
     public static final float MIN_RADIUS = 0.1f;
     public static final float MAX_VELOCITY = 25000f;
+    public static final float MIN_DETECTION_RADIUS = 10;
   }
 
   public static class UNIT {

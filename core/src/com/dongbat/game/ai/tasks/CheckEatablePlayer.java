@@ -27,8 +27,8 @@ public class CheckEatablePlayer extends LeafTask<Entity> {
     if (nearestPlayer == null) {
       fail();
     } else {
-      float eaterRadius = PhysicsUtil.getcollisionRadius(e.getWorld(), e);
-      float playerRadius = PhysicsUtil.getcollisionRadius(e.getWorld(), nearestPlayer);
+      float eaterRadius = PhysicsUtil.getRadius(e.getWorld(), e);
+      float playerRadius = PhysicsUtil.getRadius(e.getWorld(), nearestPlayer);
       if (eaterRadius > playerRadius * 1.2) {
         MovementUtil.setTarget(e, nearestPlayer);
         success();

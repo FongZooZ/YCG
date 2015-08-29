@@ -35,7 +35,7 @@ public class BuffSystem extends EntityProcessingSystem {
     for (ObjectMap.Entry<String, BuffInfo> buff : buffs) {
       BuffEffect effect = buff.value.getEffect();
       Entity source = buff.value.getSource();
-      if (buff.value.getEndTime() <= TimeUtil.getCurrentFrame(world)) {
+      if (buff.value.getEndTime() <= TimeUtil.getCurrentFrame(world) && !buff.value.isPermanent()) {
         effect.durationEnd(world, source, entity);
         toRemove.add(buff.key);
         continue;

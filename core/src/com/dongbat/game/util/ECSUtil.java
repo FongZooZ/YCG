@@ -27,6 +27,9 @@ import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.localSystem.GridRendererSystem;
 import com.dongbat.game.system.localSystem.HUDRenderSystem;
 import com.dongbat.game.system.localSystem.LocalInputSystem;
+import com.dongbat.game.system.MovementSystem;
+import com.dongbat.game.system.BorderlandSystem;
+import com.dongbat.game.system.DetectionCleanupSystem;
 import com.dongbat.game.system.DetectionSystem;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
@@ -80,6 +83,7 @@ public class ECSUtil {
     setSystem(config, new MovementSystem(), false);
     setSystem(config, new CollisionCleanupSystem(), false);
     setSystem(config, new CollisionSystem(), false);
+    setSystem(config, new DetectionCleanupSystem(), false);
     setSystem(config, new DetectionSystem(50), false);
 //		setSystem(config, new FoodMovementSystem(), false);
     setSystem(config, new ConsumingSystem(), false);
@@ -149,8 +153,8 @@ public class ECSUtil {
   /**
    * Set a system to artemis world
    *
-   * @param world artemis world
-   * @param system system you want to add to world
+   * @param world     artemis world
+   * @param system    system you want to add to world
    * @param isPassive is passive system or not
    */
   private static void setSystem(WorldConfiguration config, BaseSystem system, boolean isPassive) {

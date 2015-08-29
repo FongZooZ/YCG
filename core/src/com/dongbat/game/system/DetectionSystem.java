@@ -13,6 +13,7 @@ import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.WorldQueryUtil;
 import static com.dongbat.game.util.WorldQueryUtil.*;
+import static com.dongbat.game.util.localUtil.Constants.PHYSICS.MIN_DETECTION_RADIUS;
 
 /**
  *
@@ -31,8 +32,9 @@ public class DetectionSystem extends TimeSlicingSystem {
       Entity e = world.getEntity(allPlayer.get(i));
 
       Vector2 position = PhysicsUtil.getPosition(world, e);
+      float radius = PhysicsUtil.getRadius(world, e);
 
-      Array<Entity> foodList = WorldQueryUtil.findFoodInRadius(world, position, 50);
+      Array<Entity> foodList = WorldQueryUtil.findFoodInRadius(world, position, radius + MIN_DETECTION_RADIUS);
       if (foodList.size > 0) {
         //Add nearest player to Food
         for (Entity food : foodList) {
@@ -43,21 +45,34 @@ public class DetectionSystem extends TimeSlicingSystem {
         addNearestFood(world, e, nearestFood);
       }
 
-      Array<Entity> queenList = WorldQueryUtil.findQueenInRadius(world, position, 50);
+      Array<Entity> queenList = WorldQueryUtil.findQueenInRadius(world, position, radius + MIN_DETECTION_RADIUS);
       if (queenList.size > 0) {
-        for (Entity queen : queenList) {
-          addNearestPlayer(world, queen, e);
-        }
+//        for (Entity queen : queenList) {
+//          addNearestPlayer(world, queen, e);
+//        }
         Entity nearestQueen = WorldQueryUtil.findNearestEntityInList(world, position, foodList);
         addNearestQueen(world, e, nearestQueen);
       }
 
-      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, 50);
+      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, radius + MIN_DETECTION_RADIUS);
       if (playerAndAiList.size > 0) {
         for (Entity playerOrAi : playerAndAiList) {
           addNearestPlayer(world, playerOrAi, e);
         }
         Entity nearestPlayer = WorldQueryUtil.findNearestEntityInList(world, position, foodList);
+        addNearestPlayer(world, e, nearestPlayer);
+      }
+    }
+
+    IntBag allQueen = getAllQueen(world);
+    for (int i = 0; i < allQueen.size(); i++) {
+      Entity e = world.getEntity(allQueen.get(i));
+      Vector2 position = PhysicsUtil.getPosition(world, e);
+      float radius = PhysicsUtil.getRadius(world, e);
+      
+      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, radius + MIN_DETECTION_RADIUS);
+      if (playerAndAiList.size > 0) {
+        Entity nearestPlayer = WorldQueryUtil.findNearestEntityInList(world, position, playerAndAiList);
         addNearestPlayer(world, e, nearestPlayer);
       }
     }

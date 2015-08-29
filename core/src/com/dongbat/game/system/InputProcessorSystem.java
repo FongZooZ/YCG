@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.Player;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.dataobject.CustomInput;
-import com.dongbat.game.util.objectUtil.Constants;
+import com.dongbat.game.util.localUtil.Constants;
 import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;

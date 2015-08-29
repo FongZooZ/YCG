@@ -10,7 +10,6 @@ import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.dongbat.game.util.PhysicsUtil;
-import com.dongbat.game.util.objectUtil.Constants;
 
 /**
  * @author Admin
@@ -45,7 +44,7 @@ public class PhysicsCameraUtil {
 
   public static float getZoomScale(World world, Entity e) {
     float zoom;
-    float collisionRadius = PhysicsUtil.getcollisionRadius(world, e);
+    float collisionRadius = PhysicsUtil.getRadius(world, e);
     zoom = 15 + collisionRadius * 8 / 20;
     if (zoom >= 25) {
       zoom = 25;
