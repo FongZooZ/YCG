@@ -5,36 +5,61 @@
  */
 package com.dongbat.game.system;
 
-import com.artemis.Aspect;
 import com.artemis.Entity;
-import com.artemis.systems.EntityProcessingSystem;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.dongbat.game.component.Detection;
-import com.dongbat.game.component.Player;
+import com.dongbat.game.util.ECSUtil;
+import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.WorldQueryUtil;
+import static com.dongbat.game.util.WorldQueryUtil.*;
 
 /**
  *
  * @author Admin
  */
-public class DetectionSystem extends EntityProcessingSystem {
+public class DetectionSystem extends TimeSlicingSystem {
 
-  public DetectionSystem() {
-    super(Aspect.all(Player.class, Detection.class));
+  public DetectionSystem(int frameSlicing) {
+    super(frameSlicing);
   }
 
   @Override
-  protected void process(Entity e) {
+  protected void processTimeSlice() {
+    IntBag allPlayer = getAllPlayerAndAi(world);
+    for (int i = 0; i < allPlayer.size(); i++) {
+      Entity e = world.getEntity(allPlayer.get(i));
 
-    WorldQueryUtil.findFoodInRadius(world, Vector2.Zero, 10);
+      Vector2 position = PhysicsUtil.getPosition(world, e);
 
-    WorldQueryUtil.findPlayerInRadius(world, Vector2.Zero, 10);
+      Array<Entity> foodList = WorldQueryUtil.findFoodInRadius(world, position, 50);
+      if (foodList.size > 0) {
+        //Add nearest player to Food
+        for (Entity food : foodList) {
+          addNearestPlayer(world, food, e);
+        }
+        //Add nearest food to player
+        Entity nearestFood = WorldQueryUtil.findNearestEntityInList(world, position, foodList);
+        addNearestFood(world, e, nearestFood);
+      }
 
-    Array<Entity> findQueenInRadius = WorldQueryUtil.findQueenInRadius(world, Vector2.Zero, 100);
+      Array<Entity> queenList = WorldQueryUtil.findQueenInRadius(world, position, 50);
+      if (queenList.size > 0) {
+        for (Entity queen : queenList) {
+          addNearestPlayer(world, queen, e);
+        }
+        Entity nearestQueen = WorldQueryUtil.findNearestEntityInList(world, position, foodList);
+        addNearestQueen(world, e, nearestQueen);
+      }
 
-    if (findQueenInRadius.size > 0) {
-      System.out.println("dccm");
+      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, 50);
+      if (playerAndAiList.size > 0) {
+        for (Entity playerOrAi : playerAndAiList) {
+          addNearestPlayer(world, playerOrAi, e);
+        }
+        Entity nearestPlayer = WorldQueryUtil.findNearestEntityInList(world, position, foodList);
+        addNearestPlayer(world, e, nearestPlayer);
+      }
     }
   }
 

@@ -6,8 +6,6 @@
 package com.dongbat.game.component;
 
 import com.artemis.Component;
-import com.artemis.Entity;
-import com.badlogic.gdx.utils.Array;
 import java.util.UUID;
 
 /**
@@ -16,31 +14,35 @@ import java.util.UUID;
  */
 public class Detection extends Component {
 
-  private Entity queen;
-  private Entity player;
+  private UUID nearestQueen;
+  private UUID nearestPlayer;
+  private UUID nearestFood;
 
   public Detection() {
   }
 
-  public Detection(Entity queen, Entity player) {
-    this.queen = queen;
-    this.player = player;
+  public UUID getNearestQueen() {
+    return nearestQueen;
   }
 
-  public Entity getQueen() {
-    return queen;
+  public void setNearestQueen(UUID nearestQueen) {
+    this.nearestQueen = nearestQueen;
   }
 
-  public void setQueen(Entity queen) {
-    this.queen = queen;
+  public UUID getNearestPlayer() {
+    return nearestPlayer;
   }
 
-  public Entity getPlayer() {
-    return player;
+  public void setNearestPlayer(UUID nearestPlayer) {
+    this.nearestPlayer = nearestPlayer;
   }
 
-  public void setPlayer(Entity player) {
-    this.player = player;
+  public UUID getNearestFood() {
+    return nearestFood;
+  }
+
+  public void setNearestFood(UUID nearestFood) {
+    this.nearestFood = nearestFood;
   }
 
 }

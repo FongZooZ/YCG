@@ -72,44 +72,7 @@ public class UnitRegistry {
     }
   }
 
-  /**
-   * Create unit and add to artemis world
-   *
-   * @param world artemis world
-   * @param unitType type of unit in String
-   * @param position spawn position
-   * @param args optional arguments
-   * @return Unit that was just created
-   */
-  public static Entity createUnit(World world, String unitType, Vector2 position, Object... args) {
-    Entity e = world.createEntity(UUID.randomUUID());
-
-    UnitInfo unitInfo = get(unitType);
-    setUnitData(world, e, args);
-
-    Collision collision = new Collision();
-
-    DisplayPosition displayPosition = new DisplayPosition();
-
-    Stats stats = new Stats();
-    stats.setBaseRateSpeed(unitInfo.getBaseSpeedRate());
-
-    Physics physics = new Physics();
-    e.edit().add(physics);
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, unitInfo.getRadius(), e));
-    physics.getBody().setUserData(UuidUtil.getUuid(e));
-    UnitMovement movement = new UnitMovement();
-
-    AiControl aiControl = new AiControl(unitInfo.getDefinitionPath());
-    e.edit().add(new BuffComponent())
-      .add(aiControl)
-      .add(new Player())
-      .add(displayPosition)
-      .add(stats)
-      .add(movement)
-      .add(collision);
-    return e;
-  }
+ 
 
   /**
    * Private function to get UnitInfo from string

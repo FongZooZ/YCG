@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
 import com.badlogic.gdx.utils.Array;
 import com.dongbat.game.component.AiControl;
+import com.dongbat.game.component.Detection;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Player;
 import com.dongbat.game.component.Queen;
@@ -136,7 +137,7 @@ public class WorldQueryUtil {
    * @param radius radius to find
    * @return Player entity list
    */
-  public static Array<Entity> findPlayerInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
+  public static Array<Entity> findPlayerNonAiInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
     final Array<Entity> playerAndAIList = new Array<Entity>();
 
     QueryCallback callback = new QueryCallback() {
@@ -145,7 +146,7 @@ public class WorldQueryUtil {
       public boolean reportFixture(Fixture fixture) {
         Body body = fixture.getBody();
         Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
-        if (isPlayer(world, entity.getId())) {
+        if (isPlayerNonAiUnit(world, entity.getId())) {
           float distanceSq = new Vector2(body.getPosition()).sub(location).len2();
           if (distanceSq <= radius * radius) {
             playerAndAIList.add(entity);
@@ -175,6 +176,7 @@ public class WorldQueryUtil {
           if (distanceSq <= radius * radius) {
             queenList.add(entity);
           }
+          return false;
         }
         return true;
       }
@@ -189,6 +191,11 @@ public class WorldQueryUtil {
   public static IntBag getAllEntities(World world) {
     //TODO: world is not update, entities bag is not update when world progress 
     IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all()).getEntities();
+    return entities;
+  }
+
+  public static IntBag getAllPlayerAndAi(World world) {
+    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Player.class)).getEntities();
     return entities;
   }
 
@@ -228,7 +235,7 @@ public class WorldQueryUtil {
     return entities.contains(id);
   }
 
-  public static Array<Entity> findUnitAndPlayerInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
+  public static Array<Entity> findPlayerWithAiInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
     final Array<Entity> entities = new Array<Entity>();
 
     QueryCallback callback = new QueryCallback() {
@@ -300,5 +307,44 @@ public class WorldQueryUtil {
     PhysicsUtil.getPhysicsWorld(world).QueryAABB(callback, lowerLeft.x, lowerLeft.y, upperRight.x, upperRight.y);
 
     return entities;
+  }
+
+  public static void addNearestPlayer(World world, Entity base, Entity newEntity) {
+    if (isNearer(world, base, newEntity)) {
+      EntityUtil.getComponent(world, base, Detection.class).setNearestPlayer(UuidUtil.getUuid(newEntity));
+    }
+  }
+
+  public static void addNearestQueen(World world, Entity base, Entity newEntity) {
+    if (isNearer(world, base, newEntity)) {
+      EntityUtil.getComponent(world, base, Detection.class).setNearestQueen(UuidUtil.getUuid(newEntity));
+    }
+  }
+
+  public static void addNearestFood(World world, Entity base, Entity newEntity) {
+    if (isNearer(world, base, newEntity)) {
+      EntityUtil.getComponent(world, base, Detection.class).setNearestFood(UuidUtil.getUuid(newEntity));
+    }
+  }
+
+  public static boolean isNearer(World world, Entity base, Entity newEntity) {
+    if (base == null || newEntity == null) {
+      return false;
+    }
+    Detection detect = EntityUtil.getComponent(world, base, Detection.class);
+    UUID lastNearestUuid = detect.getNearestPlayer();
+    if (base.equals(newEntity)) {
+      return false;
+    }
+    Entity lastNearestEntity = UuidUtil.getEntityByUuid(world, lastNearestUuid);
+    if (lastNearestEntity == null) {
+      return true;
+    }
+    Vector2 basePos = getPosition(world, base);
+    Vector2 newEntityPos = getPosition(world, newEntity);
+    Vector2 oldPos = getPosition(world, lastNearestEntity);
+    float distanceFromOld = basePos.cpy().sub(oldPos.cpy()).len2();
+    float distanceFromNew = basePos.cpy().sub(newEntityPos.cpy()).len2();
+    return distanceFromNew <= distanceFromOld;
   }
 }

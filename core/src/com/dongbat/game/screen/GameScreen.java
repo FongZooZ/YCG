@@ -40,20 +40,12 @@ public class GameScreen implements Screen {
     AbilityRegistry.load();
     ECSUtil.init(world);
     PhysicsUtil.init(world);
-//    PhysicsUtil.createEdge(world, BodyDef.BodyType.StaticBody, -0, 200, -0, -200, 0);
-    PhysicsUtil.createEdge(world, BodyDef.BodyType.StaticBody, scaleX, -scaleY, scaleX, scaleY, 0);
-//    PhysicsUtil.createEdge(world, BodyDef.BodyType.StaticBody, -scaleX, -scaleY, scaleX, -scaleY, 0);
-//    PhysicsUtil.createEdge(world, BodyDef.BodyType.StaticBody, -scaleX, scaleY, scaleX, scaleY, 0);
     Entity localPlayer = EntityFactory.createPlayer(world, new Vector2(0, 100), "phong");
 
-//    BuffUtil.addBuff(world, localPlayer, localPlayer, "Split", 10000, 1);
     UnitFactory.createQueen(world, new Vector2(0, 80), 3);
     LocalPlayerUtil.setLocalPlayer(UuidUtil.getUuid(localPlayer));
     LocalPlayerUtil.setLocalWorld(world);
-    UnitRegistry.createUnit(world, "normal", new Vector2(10, 60));
-//		UnitRegistry.createUnit(world, "normal", new Vector2(-100, -100));
-//		UnitRegistry.createUnit(world, "normal", new Vector2(-100, 100));
-//		UnitRegistry.createUnit(world, "normal", new Vector2(500, 100));
+    UnitFactory.createUnit(world, "normal", new Vector2(10, 60));
   }
 
   @Override

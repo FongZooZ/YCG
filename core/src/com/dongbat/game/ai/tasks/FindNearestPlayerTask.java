@@ -22,7 +22,7 @@ public class FindNearestPlayerTask extends LeafTask<Entity> {
   @Override
   public void run() {
     Entity e = getObject();
-    Array<Entity> playerInRadius = findPlayerInRadius(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), 100);
+    Array<Entity> playerInRadius = findPlayerWithAiInRadius(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), 100);
     Entity nearestPlayer = findNearestEntityInList(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), playerInRadius);
     if (nearestPlayer == null) {
       fail();

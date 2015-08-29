@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.AbilityComponent;
 import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.Detection;
 import com.dongbat.game.component.DisplayPosition;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Physics;
@@ -73,6 +74,7 @@ public class EntityFactory {
       .add(stats)
       .add(player)
       .add(movement)
+      .add(new Detection())
       .add(collision);
 
     return e;
@@ -95,6 +97,7 @@ public class EntityFactory {
       .add(physics)
       .add(new Food())
       .add(new UnitMovement())
+      .add(new Detection())
       .add(new BuffComponent());
     return e;
   }
@@ -114,6 +117,7 @@ public class EntityFactory {
       //      .add(food)
       .add(stats)
       .add(new UnitMovement())
+      .add(new Detection())
       .add(new BuffComponent());
     return e;
   }
@@ -147,6 +151,7 @@ public class EntityFactory {
     e.edit().add(collision)
       .add(displayPosition)
       .add(stats)
+      .add(new Detection())
       .add(physics);
 
     return e;

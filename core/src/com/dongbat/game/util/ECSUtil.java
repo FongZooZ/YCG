@@ -29,6 +29,7 @@ import com.dongbat.game.system.localSystem.LocalInputSystem;
 import com.dongbat.game.system.MovementSystem;
 import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.DetectionSystem;
+import com.dongbat.game.system.TimeSlicingTest;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
 import com.dongbat.game.util.objectUtil.WorldProgress;
 
@@ -81,7 +82,7 @@ public class ECSUtil {
     setSystem(config, new MovementSystem(), false);
     setSystem(config, new CollisionCleanupSystem(), false);
     setSystem(config, new CollisionSystem(), false);
-    setSystem(config, new DetectionSystem(), false);
+    setSystem(config, new DetectionSystem(50), false);
 //		setSystem(config, new FoodMovementSystem(), false);
     setSystem(config, new ConsumingSystem(), false);
     setSystem(config, new GridRendererSystem(), true);
