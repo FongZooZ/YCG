@@ -22,11 +22,11 @@ import com.dongbat.game.util.PhysicsUtil;
  *
  * @author Admin
  */
-public class WrapAroundSystem extends EntityProcessingSystem {
+public class BorderlandSystem extends EntityProcessingSystem {
 
   boolean pushing = false;
 
-  public WrapAroundSystem() {
+  public BorderlandSystem() {
     super(Aspect.all(Physics.class));
 
   }
@@ -36,26 +36,27 @@ public class WrapAroundSystem extends EntityProcessingSystem {
     Physics physics = EntityUtil.getComponent(world, e, Physics.class);
     UnitMovement movement = EntityUtil.getComponent(world, e, UnitMovement.class);
     Vector2 pos = physics.getBody().getPosition();
-    if (movement == null || movement.getDirectionVelocity() == null) {
+    if (movement == null) {
       return;
     }
-    float k = Float.POSITIVE_INFINITY;
     if (pos.x > scaleX) {
-      BuffUtil.addBuff(world, e, e, "Forced", 500, 1, "forcedVector", new Vector2(-500, 0));
+
+      BuffUtil.addBuff(world, e, e, "Forced", 50, 1, "forceStrength", 0.5f, "direction", new Vector2(-1, 0));
     }
 
     if (pos.x < -scaleX) {
-      BuffUtil.addBuff(world, e, e, "Forced", 500, 1, "forcedVector", new Vector2(500, 0));
+      BuffUtil.addBuff(world, e, e, "Forced", 50, 1, "forceStrength", 0.5f, "direction", new Vector2(1, 0));
 
     }
 
     if (pos.y < -scaleY) {
-      BuffUtil.addBuff(world, e, e, "Forced", 500, 1, "forcedVector", new Vector2(0, 500));
+      BuffUtil.addBuff(world, e, e, "Forced", 50, 1, "forceStrength", 0.5f, "direction", new Vector2(0, 1));
 
     }
 
     if (pos.y > scaleY) {
-      BuffUtil.addBuff(world, e, e, "Forced", 500, 1, "forcedVector", new Vector2(0, -500));
+      BuffUtil.addBuff(world, e, e, "Forced", 50, 1, "forceStrength", 0.5f, "direction", new Vector2(0, -1));
+
     }
 
   }

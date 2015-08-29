@@ -42,7 +42,7 @@ public class Attractor implements BuffEffect {
     Vector2 playerPosition = PhysicsUtil.getPosition(world, source);
     Array<Entity> foundList = EntityUtil.findAnyInRadius(world, playerPosition, radius);
     for (Entity e : foundList) {
-      if (PhysicsUtil.getRadius(world, source) < PhysicsUtil.getRadius(world, e)) {
+      if (PhysicsUtil.getcollisionRadius(world, source) < PhysicsUtil.getcollisionRadius(world, e)) {
         return;
       }
       if (e != source) {

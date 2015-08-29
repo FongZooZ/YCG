@@ -17,52 +17,59 @@ import com.dongbat.game.registry.BuffRegistry;
  */
 public class BuffUtil {
 
-	/**
-	 * Add a buff to an entity BuffComponent will contain source, target to make the target
- entity is added from which entity
-	 *
-	 * @param world artemis world
-	 * @param source entity that affect a buff to target
-	 * @param target entity that receive a buff from source
-	 * @param name name of BuffComponent in String
-	 * @param duration duration of BuffComponent in millisecond
-	 * @param level level of BuffComponent
-	 * @param args optional arguments
-	 */
-	public static void addBuff(World world, Entity source, Entity target, String name, int duration, int level, Object... args) {
-		BuffComponent buffComponent = EntityUtil.getComponent(world, target, BuffComponent.class);
-		if (buffComponent == null) {
-			return;
-		}
+  /**
+   * Add a buff to an entity BuffComponent will contain source, target to make
+   * the target entity is added from which entity
+   *
+   * @param world artemis world
+   * @param source entity that affect a buff to target
+   * @param target entity that receive a buff from source
+   * @param name name of BuffComponent in String
+   * @param duration duration of BuffComponent in millisecond
+   * @param level level of BuffComponent
+   * @param args optional arguments
+   */
+  public static void addBuff(World world, Entity source, Entity target, String name, int duration, int level, Object... args) {
+    BuffComponent buffComponent = EntityUtil.getComponent(world, target, BuffComponent.class);
+    if (buffComponent == null) {
+      return;
+    }
 
-		BuffEffect effect = BuffRegistry.getEffect(name, level);
-		BuffRegistry.setBuffData(effect, args);
-		BuffInfo buffInfo = new BuffInfo(world, effect, TimeUtil.getCurrentFrame(world), duration, source);
-		BuffInfo prevBuff = buffComponent.getBuffs().put(name, buffInfo);
-		if (prevBuff != null) {
-			prevBuff.getEffect().durationEnd(world, prevBuff.getSource(), target);
-		}
-		// start effect
-		effect.durationStart(world, source, target);
-	}
+    BuffEffect effect = BuffRegistry.getEffect(name, level);
+    BuffRegistry.setBuffData(effect, args);
+    if (buffComponent.getBuffInfo(name) != null) {
+      BuffInfo buffInfo = buffComponent.getBuffInfo(name);
+      long endTime = buffInfo.getEndTime();
+      long convertMilisToFrame = TimeUtil.convertMillisToFrame(world, duration);
+      buffInfo.setEndTime(endTime + convertMilisToFrame);
+      return;
+    }
+    BuffInfo buffInfo = new BuffInfo(world, effect, TimeUtil.getCurrentFrame(world), duration, source);
+    BuffInfo prevBuff = buffComponent.getBuffs().put(name, buffInfo);
+    if (prevBuff != null) {
+      prevBuff.getEffect().durationEnd(world, prevBuff.getSource(), target);
+    }
+    // start effect
+    effect.durationStart(world, source, target);
+  }
 
-	/**
-	 * Check an entity has a buff or not
-	 *
-	 * @param world artemis world
-	 * @param entity entity you want to check
-	 * @param name name of BuffComponent in String
-	 * @return return true if entity has that buff
-	 */
-	public static boolean hasBuff(World world, Entity entity, String name) {
-		BuffComponent buffComponent = EntityUtil.getComponent(world, entity, BuffComponent.class);
-		if (buffComponent == null) {
-			return false;
-		}
-		BuffInfo buffInfo = buffComponent.getBuffs().get(name);
-		if (buffInfo == null) {
-			return false;
-		}
-		return true;
-	}
+  /**
+   * Check an entity has a buff or not
+   *
+   * @param world artemis world
+   * @param entity entity you want to check
+   * @param name name of BuffComponent in String
+   * @return return true if entity has that buff
+   */
+  public static boolean hasBuff(World world, Entity entity, String name) {
+    BuffComponent buffComponent = EntityUtil.getComponent(world, entity, BuffComponent.class);
+    if (buffComponent == null) {
+      return false;
+    }
+    BuffInfo buffInfo = buffComponent.getBuffs().get(name);
+    if (buffInfo == null) {
+      return false;
+    }
+    return true;
+  }
 }

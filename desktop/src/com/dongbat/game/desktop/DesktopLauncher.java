@@ -7,6 +7,9 @@ import com.dongbat.game.YCG;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new YCG(), config);
+		config.width = 960;
+		config.height = 540;
+    new LwjglApplication(new YCG(), config);
+    
 	}
 }

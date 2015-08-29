@@ -7,7 +7,13 @@ package com.dongbat.game.util.factory;
 
 import com.artemis.Entity;
 import com.artemis.World;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.dongbat.game.component.AbilityComponent;
 import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.Collision;
@@ -23,7 +29,8 @@ import com.dongbat.game.unit.UnitInfo;
 import com.dongbat.game.util.AbilityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
-import com.dongbat.game.util.objectUtil.Constants;
+
+import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
 import java.util.UUID;
 
@@ -35,7 +42,7 @@ public class EntityFactory {
   /**
    * Create player unit and add to world
    *
-   * @param world artemis world
+   * @param world    artemis world
    * @param type
    * @param position spawn position
    * @return Player entity that was just created
@@ -61,20 +68,36 @@ public class EntityFactory {
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, info.getRadius(), e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
 
+    // start of shit
+    Texture texture = new Texture(Gdx.files.internal("circle.png"));
+    Sprite sprite = new Sprite(texture);
+    Box2DSprite box2DSprite = new Box2DSprite(sprite);
+
+    CircleShape circle = new CircleShape();
+    circle.setRadius(info.getRadius());
+
+    FixtureDef fixtureDef = new FixtureDef();
+    fixtureDef.density = 0;
+    fixtureDef.shape = circle;
+    Fixture spriteFixture = physics.getBody().createFixture(fixtureDef);
+    spriteFixture.setUserData(box2DSprite);
+    circle.dispose();
+    // end of shit
+
     UnitMovement movement = new UnitMovement();
     movement.setDisabled(false);
 
     Player player = new Player();
 
     e.edit().add(abilityComponent)
-      .add(unitType)
-      .add(new BuffComponent())
-      .add(displayPosition)
-      .add(physics)
-      .add(stats)
-      .add(player)
-      .add(movement)
-      .add(collision);
+            .add(unitType)
+            .add(new BuffComponent())
+            .add(displayPosition)
+            .add(physics)
+            .add(stats)
+            .add(player)
+            .add(movement)
+            .add(collision);
 
     return e;
   }
@@ -82,28 +105,47 @@ public class EntityFactory {
   /**
    * Create Food with box2d Steering behavior
    *
-   * @param world artemis world
+   * @param world    artemis world
    * @param position spawn position
    * @return Food entity that was just created
    */
   public static Entity createSteeringFood(World world, Vector2 position) {
     Entity e = world.createEntity(UUID.randomUUID());
     Physics physics = new Physics();
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, Constants.FOOD.DEFAULT_RADIUS, e));
+    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, 0.25f, e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
 
     e.edit().add(new Collision())
-      .add(physics)
-      .add(new Food())
-      .add(new UnitMovement())
-      .add(new BuffComponent());
+            .add(physics)
+            .add(new Food())
+            .add(new UnitMovement())
+            .add(new BuffComponent());
+    return e;
+  }
+
+  public static Entity createAbsorbableFood(World world, Vector2 position, float radius) {
+    Entity e = world.createEntity(UUID.randomUUID());
+    Physics physics = new Physics();
+    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
+    physics.getBody().setUserData(UuidUtil.getUuid(e));
+    Food food = new Food();
+    Stats stats = new Stats();
+    stats.setAllowComsumming(false);
+    stats.setConsumable(false);
+
+    e.edit().add(new Collision())
+            .add(physics)
+                    //      .add(food)
+            .add(stats)
+            .add(new UnitMovement())
+            .add(new BuffComponent());
     return e;
   }
 
   /**
    * Create projectile unit, used for firing an ability from player unit
    *
-   * @param world artemis world
+   * @param world    artemis world
    * @param position spawn position
    * @return unit that was just created
    */
@@ -127,9 +169,9 @@ public class EntityFactory {
     physics.getBody().setUserData(UuidUtil.getUuid(e));
 
     e.edit().add(collision)
-      .add(displayPosition)
-      .add(stats)
-      .add(physics);
+            .add(displayPosition)
+            .add(stats)
+            .add(physics);
 
     return e;
   }

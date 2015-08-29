@@ -13,6 +13,7 @@ import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.EntityUtil;
 import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
 import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
+import com.dongbat.game.util.PhysicsUtil;
 
 /**
  *
@@ -25,7 +26,9 @@ public class RandomDestinationSchedule implements BuffEffect {
     UnitMovement unitComponent = EntityUtil.getComponent(world, target, UnitMovement.class);
     float posX = (float) ((Math.random() * 2 - 1) * scaleX);
     float posY = (float) ((Math.random() * 2 - 1) * scaleY);
-    unitComponent.setDirectionVelocity(new Vector2(posX, posY).nor().scl(100));
+    Vector2 position = PhysicsUtil.getPosition(world, target);
+    Vector2 destination = (new Vector2(posX, posY)).cpy().sub(position.cpy());
+    unitComponent.setDirectionVelocity(destination.cpy().nor());
   }
 
   @Override

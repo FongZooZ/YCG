@@ -46,7 +46,7 @@ public class Flee implements Ability {
     if (info == null) {
       return;
     }
-    float playerRadius = PhysicsUtil.getRadius(world, caster);
+    float playerRadius = PhysicsUtil.getcollisionRadius(world, caster);
     Vector2 playerPosition = PhysicsUtil.getPosition(world, caster);
     UnitMovement unitMovement = EntityUtil.getComponent(world, caster, UnitMovement.class);
 
@@ -62,7 +62,7 @@ public class Flee implements Ability {
     if (playerRadius <= Constants.FOOD.DEFAULT_RADIUS * 2) {
       return;
     }
-    PhysicsUtil.setRadius(world, caster, playerRadius - Constants.FOOD.DEFAULT_RADIUS);
+    PhysicsUtil.setCollisionRadius(world, caster, playerRadius - Constants.FOOD.DEFAULT_RADIUS);
     Entity food = EntityFactory.createSteeringFood(world, foodPosition);
     BuffUtil.addBuff(world, caster, food, "Forced", duration, 1, "forceStrength", forceStrength, "direction", direction);
   }

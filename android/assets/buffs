@@ -24,9 +24,13 @@ name:ToxicFood
 class:com.dongbat.game.buff.effects.ToxicFood
 1: toxicScale =1
 
+name:Split
+class:com.dongbat.game.buff.effects.Split
+1: split =0.5f
+
 name:QueenTeleportSchedule
 class:com.dongbat.game.buff.effects.QueenTeleportSchedule
-1: scheduleFrame=500
+1: scheduleFrame=100
 
 name:ProduceFoodSchedule
 class:com.dongbat.game.buff.effects.ProduceFoodSchedule
@@ -91,4 +95,4 @@ class:com.dongbat.game.buff.effects.ImmunWithDuplicate
 
 name:Attractor
 class:com.dongbat.game.buff.effects.Attractor
-1: radius=100 | forceStrength=250 | attractedTime=2000
+1: radius=100 | forceStrength=5000 | attractedTime=1000

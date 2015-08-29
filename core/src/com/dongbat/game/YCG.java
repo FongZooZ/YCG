@@ -12,10 +12,10 @@ import com.dongbat.game.screen.GameScreen;
 import com.dongbat.game.util.ScreenUtil;
 
 public class YCG extends Game {
-
+  
   SpriteBatch batch;
   Texture img;
-
+  
   @Override
   public void create() {
     ScreenUtil.setGame(this);
@@ -25,7 +25,7 @@ public class YCG extends Game {
     AbilityRegistry.load();
     setScreen(new GameScreen());
   }
-
+  
   @Override
   public void render() {
     Gdx.gl.glClearColor(0, 0, 0, 1);

@@ -5,7 +5,6 @@
  */
 package com.dongbat.game.util;
 
-import com.dongbat.game.util.objectUtil.MapperCache;
 import com.artemis.Aspect;
 import com.artemis.AspectSubscriptionManager;
 import com.artemis.Component;
@@ -22,8 +21,13 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.AiControl;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Player;
+import com.dongbat.game.component.Queen;
+import com.dongbat.game.util.objectUtil.MapperCache;
 
 import java.util.UUID;
+
+import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
+import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 
 /**
  * @author Admin
@@ -73,6 +77,11 @@ public class EntityUtil {
     return entities.contains(id);
   }
 
+  public static boolean isQueen(World world, int id) {
+    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Queen.class)).getEntities();
+    return entities.contains(id);
+  }
+
   /**
    * Get specific Component class of an entity in the artemis world
    *
@@ -115,10 +124,10 @@ public class EntityUtil {
   /**
    * Find any entity in radius
    *
-   * @param world     artemis world
-   * @param location  location to find
-   * @param radius    radius to find
-   * @return          Array of nearest Entity in radius
+   * @param world    artemis world
+   * @param location location to find
+   * @param radius   radius to find
+   * @return Array of nearest Entity in radius
    */
   public static Array<Entity> findAnyInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
     final Array<Entity> entities = new Array<Entity>();
@@ -141,6 +150,29 @@ public class EntityUtil {
     PhysicsUtil.getPhysicsWorld(world).QueryAABB(callback, lowerLeft.x, lowerLeft.y, upperRight.x, upperRight.y);
 
     return entities;
+  }
+
+  public static Vector2 getQueenPosition(final com.artemis.World world) {
+    final Vector2 queenPosition = null;
+    QueryCallback callback = new QueryCallback() {
+
+      @Override
+      public boolean reportFixture(Fixture fixture) {
+        Body body = fixture.getBody();
+        Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
+        if (isQueen(world, entity.getId())) {
+          queenPosition.x = body.getPosition().x;
+          queenPosition.y = body.getPosition().y;
+          return false;
+        }
+        return true;
+      }
+
+    };
+    PhysicsUtil.getPhysicsWorld(world)
+            .QueryAABB(callback, -scaleX, -scaleY, scaleX, scaleY);
+
+    return queenPosition;
   }
 
   public static Array<Entity> findFood(final com.artemis.World world, final Vector2 location, final float radius) {

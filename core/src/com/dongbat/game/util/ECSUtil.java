@@ -5,7 +5,6 @@
  */
 package com.dongbat.game.util;
 
-import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.artemis.BaseSystem;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
@@ -15,20 +14,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.system.AiControlledSystem;
-import com.dongbat.game.system.localSystem.Box2dDebugRendererSystem;
+import com.dongbat.game.system.BorderlandSystem;
+import com.dongbat.game.system.Box2dSpriteRenderSystem;
 import com.dongbat.game.system.Box2dSystem;
 import com.dongbat.game.system.BuffSystem;
-import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.CollisionCleanupSystem;
 import com.dongbat.game.system.CollisionSystem;
 import com.dongbat.game.system.ConsumingSystem;
+import com.dongbat.game.system.InputProcessorSystem;
+import com.dongbat.game.system.MovementSystem;
+import com.dongbat.game.system.localSystem.Box2dDebugRendererSystem;
+import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.localSystem.GridRendererSystem;
 import com.dongbat.game.system.localSystem.HUDRenderSystem;
-import com.dongbat.game.system.InputProcessorSystem;
 import com.dongbat.game.system.localSystem.LocalInputSystem;
-import com.dongbat.game.system.MovementSystem;
-import com.dongbat.game.system.SpawnningFoodSystem;
-import com.dongbat.game.system.WrapAroundSystem;
+import com.dongbat.game.system.localSystem.Shaperenderer1;
+import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.dongbat.game.util.objectUtil.WorldProgress;
 
 /**
@@ -56,7 +57,7 @@ public class ECSUtil {
 ////		setSystem(config, new FoodMovementSystem(), false);
 //    setSystem(config, new ConsumingSystem(), false);
 //    setSystem(config, new GridRendererSystem(), true);
-//    setSystem(config, new WrapAroundSystem(), false);
+//    setSystem(config, new BorderlandSystem(), false);
 //    setSystem(config, new CameraUpdateSystem(), true);
 //    setSystem(config, new AiControlledSystem(), false);
 //    setSystem(config, new LocalInputSystem(), false);
@@ -72,10 +73,11 @@ public class ECSUtil {
 
   public static WorldConfiguration initWorldConfig() {
     WorldConfiguration config = new WorldConfiguration();
-    setSystem(config, new SpawnningFoodSystem(), false);
+//    setSystem(config, new SpawnningFoodSystsem(), false);
     setSystem(config, new Box2dSystem(), false);
     setSystem(config, new BuffSystem(), false);
     setSystem(config, new Box2dDebugRendererSystem(), true);
+    setSystem(config, new Box2dSpriteRenderSystem(), true);
     setSystem(config, new HUDRenderSystem(), true);
     setSystem(config, new MovementSystem(), false);
     setSystem(config, new CollisionCleanupSystem(), false);
@@ -83,12 +85,13 @@ public class ECSUtil {
 //		setSystem(config, new FoodMovementSystem(), false);
     setSystem(config, new ConsumingSystem(), false);
     setSystem(config, new GridRendererSystem(), true);
-    setSystem(config, new WrapAroundSystem(), false);
+    setSystem(config, new BorderlandSystem(), false);
     setSystem(config, new CameraUpdateSystem(), true);
     setSystem(config, new AiControlledSystem(), false);
     setSystem(config, new LocalInputSystem(), true);
     setSystem(config, new InputProcessorSystem(), false);
-    
+    setSystem(config, new Shaperenderer1(), false);
+
     config.setManager(new UuidEntityManager());
     return config;
   }
