@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.AiControl;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Player;
+
 import java.util.UUID;
 
 /**
@@ -39,8 +40,8 @@ public class EntityUtil {
    * Get Mapper of an Component in artemis
    *
    * @param world artemis world
-   * @param type type of Component you want to get Mapper
-   * @param <T> class type
+   * @param type  type of Component you want to get Mapper
+   * @param <T>   class type
    * @return ComponentMapper
    */
   public static <T extends Component> ComponentMapper<T> getMapper(World world, Class<T> type) {
@@ -76,10 +77,10 @@ public class EntityUtil {
    * Get specific Component class of an entity in the artemis world
    *
    * @param world artemis world
-   * @param e entity that you want to get Component class
-   * @param type type of Component you want to get, example: Stats.class,
-   * Food.class
-   * @param <T> class type
+   * @param e     entity that you want to get Component class
+   * @param type  type of Component you want to get, example: Stats.class,
+   *              Food.class
+   * @param <T>   class type
    * @return Component class
    */
   public static <T extends Component> T getComponent(World world, Entity e, Class<T> type) {
@@ -100,6 +101,37 @@ public class EntityUtil {
           if (distanceSq <= radius * radius) {
             entities.add(entity);
           }
+        }
+        return true;
+      }
+    };
+    Vector2 lowerLeft = new Vector2(location).sub(radius, radius);
+    Vector2 upperRight = new Vector2(location).add(radius, radius);
+    PhysicsUtil.getPhysicsWorld(world).QueryAABB(callback, lowerLeft.x, lowerLeft.y, upperRight.x, upperRight.y);
+
+    return entities;
+  }
+
+  /**
+   * Find any entity in radius
+   *
+   * @param world     artemis world
+   * @param location  location to find
+   * @param radius    radius to find
+   * @return          Array of nearest Entity in radius
+   */
+  public static Array<Entity> findAnyInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
+    final Array<Entity> entities = new Array<Entity>();
+
+    QueryCallback callback = new QueryCallback() {
+
+      @Override
+      public boolean reportFixture(Fixture fixture) {
+        Body body = fixture.getBody();
+        Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
+        float distanceSq = new Vector2(body.getPosition()).sub(location).len2();
+        if (distanceSq <= radius * radius) {
+          entities.add(entity);
         }
         return true;
       }

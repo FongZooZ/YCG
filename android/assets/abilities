@@ -51,3 +51,11 @@ class:com.dongbat.game.ability.types.Duplicate
 1: cooldown=0 | duration=2000 | force=75000 | radius=7.5
 2: cooldown=0 | duration=3000 | force=100000 | radius=10
 3: cooldown=0 | duration=4000 | force=125000 | radius=12.5
+
+name:Flee
+class:com.dongbat.game.ability.types.Flee
+1: cooldown=0 | duration=2000 | forceStrength=100
+
+name:Attractor
+class:com.dongbat.game.ability.types.Attractor
+1: cooldown=0 | duration=5000

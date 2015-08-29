@@ -15,13 +15,14 @@ import com.dongbat.game.registry.AbilityRegistry;
 import com.dongbat.game.registry.BuffRegistry;
 import com.dongbat.game.registry.UnitRegistry;
 import com.dongbat.game.util.ECSUtil;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.factory.EntityFactory;
 import com.dongbat.game.util.factory.UnitFactory;
 import com.dongbat.game.util.localUtil.LocalPlayerUtil;
+
+import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
+import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 
 /**
  *
@@ -48,9 +49,9 @@ public class GameScreen implements Screen {
     LocalPlayerUtil.setLocalPlayer(UuidUtil.getUuid(localPlayer));
     LocalPlayerUtil.setLocalWorld(world);
     UnitRegistry.createUnit(world, "normal", new Vector2(100, -100));
-//		UnitRegistry.createUnit(world, "normal", new Vector2(-100, -100));
-//		UnitRegistry.createUnit(world, "normal", new Vector2(-100, 100));
-//		UnitRegistry.createUnit(world, "normal", new Vector2(500, 100));
+		UnitRegistry.createUnit(world, "normal", new Vector2(-100, -100));
+		UnitRegistry.createUnit(world, "normal", new Vector2(-100, 100));
+		UnitRegistry.createUnit(world, "normal", new Vector2(500, 100));
   }
 
   @Override

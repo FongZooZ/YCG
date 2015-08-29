@@ -88,3 +88,7 @@ class:com.dongbat.game.buff.effects.DuplicateOnTouch
 
 name:ImmunWithDuplicate
 class:com.dongbat.game.buff.effects.ImmunWithDuplicate
+
+name:Attractor
+class:com.dongbat.game.buff.effects.Attractor
+1: radius=100 | forceStrength=250 | attractedTime=2000

@@ -67,8 +67,7 @@ public class Constants {
 
   public static class FOOD {
 
-    public static final float DEFAULT_RADIUS = 3;
-    public static final float DEFAULT_SPEED = 10;
+    public static final float DEFAULT_RADIUS = 1.5f;
   }
 
   public static class BUFF {

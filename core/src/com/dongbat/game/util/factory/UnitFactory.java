@@ -15,11 +15,13 @@ import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.BuffUtil;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
+
 import java.util.UUID;
+
+import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
+import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 
 /**
  * @author Admin
@@ -29,12 +31,12 @@ public class UnitFactory {
   /**
    * Create sub-unit from an entity
    *
-   * @param world artemis world
-   * @param parent parent of sub-unit
-   * @param position spawn position
+   * @param world         artemis world
+   * @param parent        parent of sub-unit
+   * @param position      spawn position
    * @param baseRateSpeed base speed
-   * @param radius radius of sub-unit
-   * @param args optional arguments for sub-unit
+   * @param radius        radius of sub-unit
+   * @param args          optional arguments for sub-unit
    * @return sub-unit entity that was just created
    */
   public static Entity createSubUnit(World world, Entity parent, Vector2 position, float baseRateSpeed, float radius, Object... args) {
@@ -50,19 +52,20 @@ public class UnitFactory {
 //    DisplayPosition displayPosition = new DisplayPosition();
     Collision collision = new Collision();
     e.edit().add(physics)
-      .add(stats)
-      .add(collision)
-      .add(new UnitMovement());
+            .add(stats)
+            .add(new BuffComponent())
+            .add(collision)
+            .add(new UnitMovement());
     return e;
   }
 
   /**
    * Create projectile unit
    *
-   * @param world artemis world
-   * @param parent entity that execute that projectile unit
+   * @param world    artemis world
+   * @param parent   entity that execute that projectile unit
    * @param position spawn position
-   * @param radius unit radius
+   * @param radius   unit radius
    * @return projectile unit that was just created
    */
   public static Entity createProjectileUnit(World world, Entity parent, Vector2 position, float radius) {
@@ -77,9 +80,10 @@ public class UnitFactory {
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
 
     e.edit().add(physics)
-      .add(stats)
-      .add(new Collision())
-      .add(new UnitMovement());
+            .add(stats)
+            .add(new BuffComponent())
+            .add(new Collision())
+            .add(new UnitMovement());
 
     return e;
   }
@@ -104,10 +108,10 @@ public class UnitFactory {
     float posY = (float) ((Math.random() * 2 - 1) * scaleY);
     unitComponent.setDirectionVelocity(new Vector2(posX, posY).nor().scl(100));
     e.edit().add(physics)
-      .add(stats)
-      .add(new Collision())
-      .add(buff)
-      .add(unitComponent);
+            .add(stats)
+            .add(new Collision())
+            .add(buff)
+            .add(unitComponent);
 
     BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", 99999999, 1);
     BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", 99999999, 1);
