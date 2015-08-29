@@ -87,11 +87,14 @@ public class MovementUtil {
 
     Vector2 directionVel = unitMovement.getDirectionVelocity().cpy();
 
+    //heading
+    float angleRad = body.getLinearVelocity().angleRad();
+    body.setTransform(body.getPosition(), angleRad);
+
     // TODO: calculate based on radius, use fixed mass
     // or make a steering-like behavior with real mass
     float desiredSpd = calculalteDesiredSpeed(world, e);
     Vector2 currentVector = body.getLinearVelocity();
-
     directionVel.nor().scl(desiredSpd).sub(currentVector);
 
     Vector2 impulse = directionVel.scl(mass);
@@ -101,8 +104,10 @@ public class MovementUtil {
 
   public static float calculalteDesiredSpeed(World world, Entity e) {
     float radius = PhysicsUtil.getcollisionRadius(world, e);
-
-    return 20;
+    float difference = radius - Constants.PHYSICS.MIN_RADIUS;
+    float speed = 25 - difference * 9 / 20;
+    speed = speed <= 13.3 ? 13.3f : speed;
+    return speed;
   }
 
   /**

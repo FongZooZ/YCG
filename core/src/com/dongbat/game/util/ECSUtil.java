@@ -76,7 +76,6 @@ public class ECSUtil {
     WorldConfiguration config = new WorldConfiguration();
 //    setSystem(config, new SpawnningFoodSystsem(), false);
     setSystem(config, new Box2dSystem(), false);
-    setSystem(config, new BuffSystem(), false);
     setSystem(config, new Box2dDebugRendererSystem(), true);
     setSystem(config, new HUDRenderSystem(), true);
     setSystem(config, new MovementSystem(), false);
@@ -89,6 +88,7 @@ public class ECSUtil {
     setSystem(config, new BorderlandSystem(), false);
     setSystem(config, new CameraUpdateSystem(), true);
     setSystem(config, new AiControlledSystem(), false);
+    setSystem(config, new BuffSystem(), false);
     setSystem(config, new LocalInputSystem(), true);
     setSystem(config, new InputProcessorSystem(), false);
     setSystem(config, new Shaperenderer1(), false);

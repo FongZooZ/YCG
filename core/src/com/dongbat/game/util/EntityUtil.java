@@ -13,19 +13,10 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.utils.IntBag;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.QueryCallback;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.dongbat.game.component.AiControl;
-import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Player;
-import com.dongbat.game.component.Queen;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
-import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
-import java.util.UUID;
+import com.dongbat.game.dataobject.CustomInput;
+import com.dongbat.game.util.objectUtil.Constants;
 
 /**
  * @author Admin
@@ -78,6 +69,22 @@ public class EntityUtil {
    */
   public static <T extends Component> T getComponent(World world, Entity e, Class<T> type) {
     return getMapper(world, type).getSafe(e);
+  }
+
+  public static long getLastPlayerMovementInput(World world, Entity e) {
+    Player player = EntityUtil.getComponent(world, e, Player.class);
+    ObjectMap<Long, CustomInput> inputs = player.getInputs();
+    long frame = -1;
+    for (long i = ECSUtil.getFrame(world); i > 0; i--) {
+      CustomInput custom = inputs.get(i);
+      if (custom != null) {
+        if (custom.getType().equals(Constants.inputType.MOVE)) {
+          frame = i;
+          break;
+        }
+      }
+    }
+    return frame;
   }
 
 }
