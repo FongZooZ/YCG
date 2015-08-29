@@ -24,9 +24,13 @@ name:ToxicFood
 class:com.dongbat.game.buff.effects.ToxicFood
 1: toxicScale =1
 
+name:Split
+class:com.dongbat.game.buff.effects.Split
+1: split =0.5f
+
 name:QueenTeleportSchedule
 class:com.dongbat.game.buff.effects.QueenTeleportSchedule
-1: scheduleFrame=500
+1: scheduleFrame=100
 
 name:ProduceFoodSchedule
 class:com.dongbat.game.buff.effects.ProduceFoodSchedule

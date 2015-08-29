@@ -23,7 +23,6 @@ public class Forced implements BuffEffect {
 
   private float forceStrength;
   private Vector2 direction;
-  private Vector2 forcedVector;
 
   @Override
   public void durationStart(World world, Entity source, Entity target) {
@@ -32,29 +31,18 @@ public class Forced implements BuffEffect {
       float posY = (float) MathUtils.random(-1f, 1f);
       direction = new Vector2(posX, posY);
     }
-    if (forcedVector != null) {
-      PhysicsUtil.applyForce(world, target, forcedVector);
-    }
     MovementUtil.disableMovement(target);
-//    PhysicsUtil.setVelocity(world, target, new Vector2());
+    PhysicsUtil.setVelocity(world, target, new Vector2());
   }
 
   @Override
   public void update(World world, Entity source, Entity target) {
-    if (forcedVector != null) {
-      PhysicsUtil.applyForce(world, target, forcedVector);
-    } else {
-      PhysicsUtil.applyImpulse(world, target, direction.cpy().nor().scl(forceStrength));
-    }
-//    PhysicsUtil.setVelocity(world, target, direction.cpy().nor().scl(forceStrength));
+    PhysicsUtil.applyImpulse(world, target, direction.cpy().nor().scl(forceStrength));
   }
 
   @Override
   public void durationEnd(World world, Entity source, Entity target) {
     MovementUtil.enableMovement(target);
-    if (EntityUtil.isFood(world, target.getId())) {
-      PhysicsUtil.setVelocity(world, target, new Vector2());
-    }
-//    PhysicsUtil.setVelocity(world, target, new Vector2());
+    PhysicsUtil.setVelocity(world, target, new Vector2());
   }
 }

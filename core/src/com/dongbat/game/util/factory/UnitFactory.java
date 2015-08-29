@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.Collision;
 import com.dongbat.game.component.Physics;
+import com.dongbat.game.component.Queen;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.BuffUtil;
@@ -75,6 +76,7 @@ public class UnitFactory {
 
     Physics physics = new Physics();
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
+    physics.getBody().setUserData(UuidUtil.getUuid(e));
 
     e.edit().add(physics)
       .add(stats)
@@ -99,15 +101,16 @@ public class UnitFactory {
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
 
-    UnitMovement unitComponent = new UnitMovement();
+    UnitMovement movement = new UnitMovement();
     float posX = (float) ((Math.random() * 2 - 1) * scaleX);
     float posY = (float) ((Math.random() * 2 - 1) * scaleY);
-    unitComponent.setDirectionVelocity(new Vector2(posX, posY).nor().scl(100));
+    movement.setDirectionVelocity(new Vector2(posX, posY));
     e.edit().add(physics)
       .add(stats)
       .add(new Collision())
       .add(buff)
-      .add(unitComponent);
+      .add(new Queen())
+      .add(movement);
 
     BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", 99999999, 1);
     BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", 99999999, 1);

@@ -88,12 +88,31 @@ public class EntityFactory {
   public static Entity createSteeringFood(World world, Vector2 position) {
     Entity e = world.createEntity(UUID.randomUUID());
     Physics physics = new Physics();
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, 1.5f, e));
+    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, 0.25f, e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
 
     e.edit().add(new Collision())
       .add(physics)
       .add(new Food())
+      .add(new UnitMovement())
+      .add(new BuffComponent());
+    return e;
+  }
+
+  public static Entity createAbsorbableFood(World world, Vector2 position, float radius) {
+    Entity e = world.createEntity(UUID.randomUUID());
+    Physics physics = new Physics();
+    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
+    physics.getBody().setUserData(UuidUtil.getUuid(e));
+    Food food = new Food();
+    Stats stats = new Stats();
+    stats.setAllowComsumming(false);
+    stats.setConsumable(false);
+
+    e.edit().add(new Collision())
+      .add(physics)
+      //      .add(food)
+      .add(stats)
       .add(new UnitMovement())
       .add(new BuffComponent());
     return e;

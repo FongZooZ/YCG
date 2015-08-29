@@ -37,7 +37,7 @@ public class InputProcessorSystem extends EntityProcessingSystem {
       if (customInput.getType() == Constants.inputType.MOVE) {
         Vector2 position = customInput.getPosition();
         UnitMovement move = EntityUtil.getComponent(world, e, UnitMovement.class);
-        if (position.cpy().dst2(PhysicsUtil.getPosition(world, e)) > (PhysicsUtil.getRadius(world, e) * PhysicsUtil.getRadius(world, e))) {
+        if (position.cpy().dst2(PhysicsUtil.getPosition(world, e)) > (PhysicsUtil.getcollisionRadius(world, e) * PhysicsUtil.getcollisionRadius(world, e))) {
           move.setDirectionVelocity(position);
         } else {
           move.setDirectionVelocity(null);

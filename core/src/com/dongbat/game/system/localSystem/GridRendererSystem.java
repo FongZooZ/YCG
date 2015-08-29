@@ -31,7 +31,7 @@ public class GridRendererSystem extends BaseSystem {
 		renderer.setProjectionMatrix(camera.combined);
 		Vector3 topLeft = camera.unproject(new Vector3(0, 0, 0));
 		Vector3 bottomRight = camera.unproject(new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0));
-		int gridSize = 40;
+		int gridSize = 10;
 		float minX = (float) Math.floor(topLeft.x / gridSize) * gridSize;
 		float maxX = (float) Math.ceil(bottomRight.x / gridSize) * gridSize;
 		float minY = (float) Math.floor(bottomRight.y / gridSize) * gridSize;

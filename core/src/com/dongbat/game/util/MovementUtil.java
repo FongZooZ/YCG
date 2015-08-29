@@ -41,7 +41,7 @@ public class MovementUtil {
       body.setLinearVelocity(new Vector2(0, 0));
       return;
     }
-    if (unitMovement.getDirectionVelocity().cpy().sub(position.cpy()).len() < PhysicsUtil.getRadius(world, e)) {
+    if (unitMovement.getDirectionVelocity().cpy().sub(position.cpy()).len() < PhysicsUtil.getcollisionRadius(world, e)) {
       body.setLinearVelocity(new Vector2(0, 0));
     }
 
@@ -98,9 +98,9 @@ public class MovementUtil {
   }
 
   public static float calculalteDesiredSpeed(World world, Entity e) {
-    float radius = PhysicsUtil.getRadius(world, e);
+    float radius = PhysicsUtil.getcollisionRadius(world, e);
 
-    return 100 / radius;
+    return 20;
   }
 
   /**

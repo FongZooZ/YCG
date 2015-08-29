@@ -34,20 +34,20 @@ public class UnitUtil {
     boolean toxic = isToxic(world, b);
 
     if (consumable && !toxic) {
-      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), 1f);
-      PhysicsUtil.setRadius(world, a, increaseRadius);
+      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getcollisionRadius(world, a), PhysicsUtil.getcollisionRadius(world, b), 2f);
+      PhysicsUtil.setCollisionRadius(world, a, increaseRadius);
       destroy(b);
       return;
     }
     if (consumable && toxic) {
-      if (PhysicsUtil.getRadius(world, a) < PhysicsUtil.getRadius(world, b)) {
+      if (PhysicsUtil.getcollisionRadius(world, a) < PhysicsUtil.getcollisionRadius(world, b)) {
         destroy(b);
         destroy(a);
         return;
       }
-      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -1f);
-      PhysicsUtil.setRadius(world, a, decreasedRadius);
-      if (PhysicsUtil.getRadius(world, a) <= 1) {
+      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getcollisionRadius(world, a), PhysicsUtil.getcollisionRadius(world, b), -1f);
+      PhysicsUtil.setCollisionRadius(world, a, decreasedRadius);
+      if (PhysicsUtil.getcollisionRadius(world, a) <= 1) {
         destroy(a);
       }
       destroy(b);
@@ -109,7 +109,7 @@ public class UnitUtil {
     }
 
     if (EntityUtil.isAiUnit(e.getWorld(), e.getId()) || EntityUtil.isPlayer(e.getWorld(), e.getId())) {
-      PhysicsUtil.setRadius(e.getWorld(), e, 2);
+      PhysicsUtil.setCollisionRadius(e.getWorld(), e, 2);
       PhysicsUtil.setPosition(e.getWorld(), e, new Vector2());
       return;
     }
@@ -129,7 +129,7 @@ public class UnitUtil {
       return;
     }
     Stats stat = EntityUtil.getComponent(world, a, Stats.class);
-    float speed = 15000 / PhysicsUtil.getRadius(world, a) + stat.getBaseRateSpeed() * 15;
+    float speed = 15000 / PhysicsUtil.getcollisionRadius(world, a) + stat.getBaseRateSpeed() * 15;
     if (speed >= Constants.PHYSICS.MAX_VELOCITY) {
       speed = Constants.PHYSICS.MAX_VELOCITY;
     }

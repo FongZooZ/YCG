@@ -22,7 +22,7 @@ public class ToxicFood implements BuffEffect {
   @Override
   public void durationStart(World world, Entity source, Entity target) {
     Food foodComponent = EntityUtil.getComponent(world, target, Food.class);
-    foodComponent.setToxic(true);
+    foodComponent.setToxic(false);
   }
 
   @Override

@@ -29,9 +29,9 @@ public class QueenTeleportSchedule implements BuffEffect {
   @Override
   public void update(World world, Entity source, Entity target) {
     if (ECSUtil.getFrame(world) % scheduleFrame == 0) {
-      float posX = (float) ((Math.random() * 2 - 1) * scaleX);
-      float posY = (float) ((Math.random() * 2 - 1) * scaleY);
-      PhysicsUtil.setPosition(world, target, new Vector2(posX, posY));
+//      float posX = (float) ((Math.random() * 2 - 1) * scaleX);
+//      float posY = (float) ((Math.random() * 2 - 1) * scaleY);
+//      PhysicsUtil.setPosition(world, target, new Vector2(posX, posY));
       BuffUtil.addBuff(world, source, target, "RandomDestinationSchedule", 1000, 1);
     }
   }
