@@ -36,8 +36,8 @@ name:ToxicFood
 class:com.dongbat.game.buff.effects.ToxicFood
 1: toxicScale =1
 
-name:Split
-class:com.dongbat.game.buff.effects.Split
+name:CutProjectile
+class:com.dongbat.game.buff.effects.CutProjectile
 1: split =0.5f
 
 name:QueenTeleportSchedule
@@ -73,7 +73,9 @@ class:com.dongbat.game.buff.effects.ReturnOnInvestment
 
 name:Forced
 class:com.dongbat.game.buff.effects.Forced
-1: forceStrength=100
+1: forceStrength=5
+2: forceStrength=10
+3: forceStrength=15
 
 name:SlowDown
 class:com.dongbat.game.buff.effects.SlowDown

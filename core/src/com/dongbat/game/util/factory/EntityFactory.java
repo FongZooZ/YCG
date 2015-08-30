@@ -22,6 +22,7 @@ import com.dongbat.game.component.UnitType;
 import com.dongbat.game.registry.UnitRegistry;
 import com.dongbat.game.unit.UnitInfo;
 import com.dongbat.game.util.AbilityUtil;
+import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
 
@@ -35,7 +36,7 @@ public class EntityFactory {
   /**
    * Create player unit and add to world
    *
-   * @param world    artemis world
+   * @param world artemis world
    * @param type
    * @param position spawn position
    * @return Player entity that was just created
@@ -66,39 +67,45 @@ public class EntityFactory {
 
     Player player = new Player();
 
-    e.edit().add(abilityComponent)
-            .add(unitType)
-            .add(new BuffComponent())
-            .add(displayPosition)
-            .add(physics)
-            .add(stats)
-            .add(player)
-            .add(movement)
-            .add(new Detection())
-            .add(collision);
-
+    e.edit()
+      .add(abilityComponent)
+      .add(unitType)
+      .add(new BuffComponent())
+      .add(displayPosition)
+      .add(physics)
+      .add(stats)
+      .add(player)
+      .add(movement)
+      .add(new Detection())
+      .add(collision);
     return e;
   }
 
   /**
    * Create Food with box2d Steering behavior
    *
-   * @param world    artemis world
+   * @param world artemis world
    * @param position spawn position
    * @return Food entity that was just created
    */
-  public static Entity createSteeringFood(World world, Vector2 position) {
+  public static Entity createSteeringFood(World world, Vector2 position, UUID parent) {
     Entity e = world.createEntity(UUID.randomUUID());
     Physics physics = new Physics();
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, 0.25f, e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
 
+    Stats s = new Stats();
+    s.setConsumable(true);
+    s.setAllowComsumming(false);
+    s.setParent(parent);
     e.edit().add(new Collision())
-            .add(physics)
-            .add(new Food())
-            .add(new UnitMovement())
-            .add(new Detection())
-            .add(new BuffComponent());
+      .add(physics)
+      .add(s)
+      .add(new Food())
+      .add(new UnitMovement())
+      .add(new Detection())
+      .add(new BuffComponent());
+
     return e;
   }
 
@@ -107,53 +114,22 @@ public class EntityFactory {
     Physics physics = new Physics();
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
-    Food food = new Food();
+//    Food food = new Food();
     Stats stats = new Stats();
     stats.setAllowComsumming(false);
     stats.setConsumable(false);
 
     e.edit().add(new Collision())
-            .add(physics)
-                    //      .add(food)
-            .add(stats)
-            .add(new UnitMovement())
-            .add(new Detection())
-            .add(new BuffComponent());
-    return e;
-  }
+      .add(physics)
+      .add(new BuffComponent())
+      .add(stats)
+      .add(new UnitMovement())
+      .add(new Detection())
+      .add(new BuffComponent());
 
-  /**
-   * Create projectile unit, used for firing an ability from player unit
-   *
-   * @param world    artemis world
-   * @param position spawn position
-   * @return unit that was just created
-   */
-  public static Entity createProjectileUnit(World world, Vector2 position) {
-    Entity e = world.createEntity(UUID.randomUUID());
-
-    UnitInfo unitInfo = new UnitInfo();
-    unitInfo.setRadius(10);
-
-    Collision collision = new Collision();
-
-    DisplayPosition displayPosition = new DisplayPosition();
-
-    Stats stats = new Stats();
-    stats.setAllowComsumming(false);
-    stats.setConsumable(false);
-
-    Physics physics = new Physics();
-    e.edit().add(physics);
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, unitInfo.getRadius(), e));
-    physics.getBody().setUserData(UuidUtil.getUuid(e));
-
-    e.edit().add(collision)
-            .add(displayPosition)
-            .add(stats)
-            .add(new Detection())
-            .add(physics);
+    BuffUtil.addBuff(world, e, e, "Feed", -1, 1, "feedPerSecond", 0.5f);
 
     return e;
   }
+
 }

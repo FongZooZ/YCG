@@ -21,59 +21,6 @@ import com.dongbat.game.util.localUtil.Constants;
  */
 public class MovementUtil {
 
-  /**
-   * Move an unit
-   *
-   * @param world artemis world
-   * @param e entity want to move
-   * @param isImpulse is receive impulse, force or not
-   */
-  public static void move(World world, Entity e, boolean isImpulse) {
-    UnitMovement unitMovement = EntityUtil.getComponent(world, e, UnitMovement.class);
-    Stats stat = EntityUtil.getComponent(world, e, Stats.class);
-    float scale = stat.getBaseMovementSpeed() + stat.getModifierSpeed();
-
-    Physics physicsComponent = EntityUtil.getComponent(world, e, Physics.class);
-    Body body = physicsComponent.getBody();
-    float mass = body.getMass();
-    Vector2 currentVelocity = body.getLinearVelocity();
-    Vector2 position = body.getPosition();
-    if (unitMovement.getDirectionVelocity() == null) {
-
-      body.setLinearVelocity(new Vector2(0, 0));
-      return;
-    }
-    if (unitMovement.getDirectionVelocity().cpy().sub(position.cpy()).len() < PhysicsUtil.getRadius(world, e)) {
-      body.setLinearVelocity(new Vector2(0, 0));
-    }
-
-//		Vector2 desiredVelocity = unitMovement.getDirectionVelocity().cpy().sub(PhysicsUtil.getPosition(world, e).cpy()).nor().scl(scale * world.delta);
-    // TODO: fix this
-    Vector2 desiredVelocity = unitMovement.getDirectionVelocity().cpy().nor().scl(scale / 10 * world.delta * 10);
-    Vector2 impulse = desiredVelocity.sub(currentVelocity).scl(1f / mass);
-
-    if (isImpulse) {
-//      body.setLinearVelocity(desiredVelocity);
-      PhysicsUtil.applyImpulse(world, e, impulse);
-
-//      PhysicsUtil.applyForceToCenter(world, e, impulse);
-    } else {
-//      body.setLinearVelocity(desiredVelocity);
-      PhysicsUtil.applyImpulse(world, e, impulse);
-
-//      PhysicsUtil.applyForce(world, e, desiredVelocity);
-    }
-    Vector2 add = position.cpy().add(body.getLinearVelocity().cpy().scl(world.getDelta()));
-    Vector2 v1 = add.cpy().sub(unitMovement.getDirectionVelocity());
-    Vector2 v2 = position.sub(unitMovement.getDirectionVelocity());
-    if (v1.dot(v2) < 0) {
-      unitMovement.setDirectionVelocity(null);
-    }
-
-    float angleRad = body.getLinearVelocity().angleRad();
-    body.setTransform(body.getPosition(), angleRad);
-  }
-
   public static void newMovementMechanism(World world, Entity e) {
     UnitMovement unitMovement = EntityUtil.getComponent(world, e, UnitMovement.class);
 
@@ -105,8 +52,8 @@ public class MovementUtil {
   public static float calculalteDesiredSpeed(World world, Entity e) {
     float radius = PhysicsUtil.getRadius(world, e);
     float difference = radius - Constants.PHYSICS.MIN_RADIUS;
-    float speed = 25 - difference * 9 / 20;
-    speed = speed <= 13.3 ? 13.3f : speed;
+    float speed = 28 - difference * 9 / 20;
+    speed = speed <= 15 ? 15f : speed;
     return speed;
   }
 
@@ -199,7 +146,7 @@ public class MovementUtil {
 
     CustomInput customInput = new CustomInput(Constants.inputType.MOVE, destination, 0);
 
-    EntityUtil.getComponent(e.getWorld(), e, Player.class).getInputs().put(lastFrameIndex + 3, customInput);
+    EntityUtil.getComponent(e.getWorld(), e, Player.class).getInputs().put(lastFrameIndex + 1, customInput);
 
   }
 }

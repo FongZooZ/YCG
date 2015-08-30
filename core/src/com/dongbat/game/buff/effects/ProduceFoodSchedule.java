@@ -16,6 +16,7 @@ import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.TimeUtil;
+import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.factory.EntityFactory;
 
 /**
@@ -63,7 +64,11 @@ public class ProduceFoodSchedule implements BuffEffect {
       for (int i = 0; i < 1; i++) {
         float d = MathUtils.random(-degree / 2, degree / 2);
         Vector2 direction = destination.cpy().scl(-1).nor().rotate(d);
-        Entity food = EntityFactory.createSteeringFood(world, position);
+        if (direction.cpy().nor().len2() == 0) {
+          //TODO: fixxxxxxxxxxxxx this
+          direction = new Vector2((float)(Math.random() * 2 - 1), (float) (Math.random() * 2 - 1));
+        }
+        Entity food = EntityFactory.createSteeringFood(world, position, UuidUtil.getUuid(source));
         // TODO: food expiring system
         BuffUtil.addBuff(world, source, food, "ToBeRemoved", 10000, 1);
         BuffUtil.addBuff(world, source, food, "ToxicFood", 400, 1);

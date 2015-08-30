@@ -10,16 +10,22 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.dongbat.game.util.PhysicsUtil;
 
 /**
- *
  * @author Admin
  */
 public class Box2dSystem extends BaseSystem {
 
-	@Override
-	protected void processSystem() {
-		World physicsWorld = PhysicsUtil.getPhysicsWorld(world);
-		physicsWorld.step(world.delta, 8, 3);
+    private World physicWorld;
 
-	}
+    @Override
+    protected void initialize() {
+        physicWorld = PhysicsUtil.getPhysicsWorld(world);
+    }
+
+    @Override
+    protected void processSystem() {
+        physicWorld = PhysicsUtil.getPhysicsWorld(world);
+        physicWorld.step(world.getDelta(), 8, 3);
+
+    }
 
 }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.registry.AbilityRegistry;
 import com.dongbat.game.registry.BuffRegistry;
 import com.dongbat.game.registry.UnitRegistry;
+import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
@@ -36,12 +37,14 @@ public class GameScreen implements Screen {
     AbilityRegistry.load();
     ECSUtil.init(world);
     PhysicsUtil.init(world);
-    Entity localPlayer = EntityFactory.createPlayer(world, new Vector2(0, 100), "phong");
-//    BuffUtil.addBuff(world, localPlayer, localPlayer, "FeedSmaller", -1, 1);
-    Entity queen = UnitFactory.createQueen(world, new Vector2(0, 80), 5);
-//    BuffUtil.addBuff(world, localPlayer, queen, "SelfDefense", -1, 1);
+    System.out.println(PhysicsUtil.getPhysicsWorld(world).getBodyCount());
+    Entity localPlayer = EntityFactory.createPlayer(world, new Vector2(0, 80), "phong");
+    System.out.println(PhysicsUtil.getPhysicsWorld(world).getBodyCount());
+    BuffUtil.addBuff(world, localPlayer, localPlayer, "FeedSmaller", -1, 1);
     LocalPlayerUtil.setLocalPlayer(UuidUtil.getUuid(localPlayer));
     LocalPlayerUtil.setLocalWorld(world);
+
+    UnitFactory.createQueen(world, new Vector2(0, 20), 5);
 //    UnitFactory.createUnit(world, "normal", new Vector2(10, 60));
   }
 

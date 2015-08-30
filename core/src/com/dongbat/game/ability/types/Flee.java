@@ -10,6 +10,7 @@ import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
+import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.factory.EntityFactory;
 import com.dongbat.game.util.localUtil.Constants;
 
@@ -63,7 +64,7 @@ public class Flee implements Ability {
       return;
     }
     PhysicsUtil.getRadius(world, caster);
-    Entity food = EntityFactory.createSteeringFood(world, foodPosition);
+    Entity food = EntityFactory.createSteeringFood(world, foodPosition, UuidUtil.getUuid(caster));
     BuffUtil.addBuff(world, caster, food, "Forced", duration, 1, "forceStrength", forceStrength, "direction", direction);
   }
 }

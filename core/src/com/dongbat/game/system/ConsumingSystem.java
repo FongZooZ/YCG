@@ -48,8 +48,9 @@ public class ConsumingSystem extends EntityProcessingSystem {
       }
 
       if (isFood(world, b.getId())) {
-        PhysicsUtil.isBodyTouch(world, e, b);
-        eat(world, e, b);
+        if (PhysicsUtil.isBodyTouch(world, e, b)) {
+          eat(world, e, b);
+        }
       } else {
         boolean bodyContain = PhysicsUtil.isBodyContain(world, e, b);
         if (bodyContain) {
