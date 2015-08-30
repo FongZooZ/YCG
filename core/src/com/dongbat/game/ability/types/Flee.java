@@ -2,6 +2,7 @@ package com.dongbat.game.ability.types;
 
 import com.artemis.Entity;
 import com.artemis.World;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.ability.Ability;
 import com.dongbat.game.ability.AbilityInfo;
@@ -13,6 +14,7 @@ import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.factory.EntityFactory;
 import com.dongbat.game.util.localUtil.Constants;
+import static com.dongbat.game.util.localUtil.Constants.PHYSICS.*;
 
 /**
  * Created by FongZooZ on 8/28/2015.
@@ -21,6 +23,7 @@ public class Flee implements Ability {
 
   private int duration;
   private float forceStrength;
+  private int foodNumber = 10;
 
   /**
    * Get tooltip of ability
@@ -33,10 +36,9 @@ public class Flee implements Ability {
   }
 
   /**
-   * Cast ability to the target when entity caster
-   * cast by using input on screen
+   * Cast ability to the target when entity caster cast by using input on screen
    *
-   * @param world  artemis world
+   * @param world artemis world
    * @param caster entity which use ability
    * @param target target of ability
    */
@@ -47,24 +49,30 @@ public class Flee implements Ability {
     if (info == null) {
       return;
     }
-    float playerRadius = PhysicsUtil.getRadius(world, caster);
-    Vector2 playerPosition = PhysicsUtil.getPosition(world, caster);
     UnitMovement unitMovement = EntityUtil.getComponent(world, caster, UnitMovement.class);
 
     Vector2 destination = unitMovement.getDirectionVelocity();
-    if (destination == null) {
+    if (destination == null || destination.cpy().nor().len2() == 0) {
       return;
     }
 
-    // TODO: vi tri spawn sai!
-    Vector2 direction = destination.cpy().scl(-1).nor();
-//    Vector2 foodPosition = playerPosition.add((new Vector2(playerRadius, playerRadius)).add(new Vector2(Constants.FOOD.DEFAULT_RADIUS, Constants.FOOD.DEFAULT_RADIUS)).scl(direction));
-    Vector2 foodPosition = playerPosition.cpy().nor().scl(playerPosition.len() - playerRadius - Constants.FOOD.DEFAULT_RADIUS - 1).add(playerPosition);
-    if (playerRadius <= Constants.FOOD.DEFAULT_RADIUS * 2) {
+    Vector2 position = PhysicsUtil.getPosition(world, caster);
+
+    float degree = 60;
+    float totalSquare = PhysicsUtil.getSquare(FOOD_RADIUS) * foodNumber;
+    if (totalSquare > PhysicsUtil.getSquare(world, caster) + MIN_SQUARE) {
       return;
     }
-    PhysicsUtil.getRadius(world, caster);
-    Entity food = EntityFactory.createSteeringFood(world, foodPosition, UuidUtil.getUuid(caster));
-    BuffUtil.addBuff(world, caster, food, "Forced", duration, 1, "forceStrength", forceStrength, "direction", direction);
+    PhysicsUtil.increaseSquare(world, caster, -totalSquare);
+    for (int i = 0; i < foodNumber; i++) {
+      float d = MathUtils.random(-degree / 2, degree / 2);
+      Vector2 direction = destination.cpy().scl(-1).nor().rotate(d);
+
+      Entity food = EntityFactory.createSteeringFood(world, position, UuidUtil.getUuid(caster));
+      // TODO: food expiring system
+      BuffUtil.addBuff(world, caster, food, "ToBeRemoved", 2000, 1);
+      BuffUtil.addBuff(world, caster, food, "ToxicFood", 400, 1);
+      BuffUtil.addBuff(world, caster, food, "Forced", (int) (400 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.5f, "direction", direction);
+    }
   }
 }

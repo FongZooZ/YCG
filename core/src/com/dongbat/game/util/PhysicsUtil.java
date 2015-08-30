@@ -103,6 +103,30 @@ public class PhysicsUtil {
 //    return getBody(world, e).getFixtureList().get(0).getShape().getRadius();
   }
 
+  public static float getSquare(com.artemis.World world, Entity e) {
+    float radius = getRadius(world, e);
+    return getSquare(radius);
+  }
+
+  public static float getSquare(float radius) {
+    return (float) (radius * radius * Math.PI);
+  }
+
+  public static void setSquare(com.artemis.World world, Entity e, float newSquare) {
+    float newRadius = getRadiusBySquare(newSquare);
+    setRadius(world, e, newRadius);
+  }
+
+  public static void setRadiusBySquare(com.artemis.World world, Entity e, float square) {
+    float radius = getRadiusBySquare(square);
+    setRadius(world, e, radius);
+  }
+
+  public static float getRadiusBySquare(float square) {
+    float radius = (float) Math.sqrt(square / Math.PI);
+    return radius;
+  }
+
   public static void increaseRadius(com.artemis.World world, Entity e, float ammount) {
     float radius = getRadius(world, e);
     radius += ammount;
@@ -111,6 +135,16 @@ public class PhysicsUtil {
       return;
     }
     setRadius(world, e, radius);
+  }
+
+  public static void increaseSquare(com.artemis.World world, Entity e, float ammount) {
+    float square = getSquare(world, e);
+    square += ammount;
+    if (square <= 0) {
+      UnitUtil.destroy(e);
+      return;
+    }
+    setSquare(world, e, square);
   }
 
   /**
@@ -276,9 +310,9 @@ public class PhysicsUtil {
    * @return radius after eating
    */
   public static float increaseRadius(float radiusA, float radiusB, float rate) {
-    float volumeA = (float) (radiusA * radiusA * 3.14);
-    float volumeB = (float) (radiusB * radiusB * 3.14) * rate;
-    double newRadius = Math.sqrt((volumeA + volumeB) / 3.14);
+    float volumeA = getSquare(radiusA);
+    float volumeB = getSquare(radiusB) * rate;
+    double newRadius = Math.sqrt((volumeA + volumeB) / Math.PI);
 
     return (float) newRadius;
   }

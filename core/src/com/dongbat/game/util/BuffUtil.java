@@ -45,11 +45,7 @@ public class BuffUtil {
       return;
     }
     BuffInfo buffInfo = new BuffInfo(world, effect, TimeUtil.getCurrentFrame(world), duration, source);
-    BuffInfo prevBuff = buffComponent.getBuffs().put(name, buffInfo);
-    if (prevBuff != null) {
-
-      prevBuff.getEffect().durationEnd(world, prevBuff.getSource(), target);
-    }
+    buffComponent.getBuffs().put(name, buffInfo);
     // start effect
     effect.durationStart(world, source, target);
   }

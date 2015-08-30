@@ -25,6 +25,7 @@ import com.dongbat.game.util.AbilityUtil;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
+import static com.dongbat.game.util.localUtil.Constants.PHYSICS.FOOD_RADIUS;
 
 import java.util.UUID;
 
@@ -91,7 +92,7 @@ public class EntityFactory {
   public static Entity createSteeringFood(World world, Vector2 position, UUID parent) {
     Entity e = world.createEntity(UUID.randomUUID());
     Physics physics = new Physics();
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, 0.25f, e));
+    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, FOOD_RADIUS, e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
 
     Stats s = new Stats();

@@ -54,7 +54,7 @@ class:com.dongbat.game.ability.types.Duplicate
 
 name:Flee
 class:com.dongbat.game.ability.types.Flee
-1: cooldown=0 | duration=2000 | forceStrength=100
+1: cooldown=0 | duration=500 | forceStrength=0.5 | foodNumber=10
 
 name:Cut
 class:com.dongbat.game.ability.types.Cut

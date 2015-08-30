@@ -37,7 +37,7 @@ public class UnitUtil {
     boolean toxic = isToxic(world, b);
 
     if (consumable && !toxic) {
-      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), 2f);
+      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), 1f);
       PhysicsUtil.setRadius(world, a, increaseRadius);
       destroy(b);
       return;
@@ -48,7 +48,7 @@ public class UnitUtil {
         destroy(a);
         return;
       }
-      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -5f);
+      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -1f);
       if (decreasedRadius > 0) {
         PhysicsUtil.setRadius(world, a, decreasedRadius);
       } else {

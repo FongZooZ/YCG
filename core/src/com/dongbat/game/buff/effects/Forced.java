@@ -21,6 +21,8 @@ public class Forced implements BuffEffect {
   private float forceStrength;
   private Vector2 direction;
 
+  private boolean ignoreMass = false;
+
   @Override
   public void durationStart(World world, Entity source, Entity target) {
     if (direction == null) {
@@ -34,7 +36,11 @@ public class Forced implements BuffEffect {
 
   @Override
   public void update(World world, Entity source, Entity target) {
-    PhysicsUtil.applyImpulse(world, target, direction.cpy().nor().scl(forceStrength));
+    Vector2 impulse = direction.cpy().nor().scl(forceStrength);
+    if (ignoreMass) {
+      impulse.scl(PhysicsUtil.getBody(world, target).getMass());
+    }
+    PhysicsUtil.applyImpulse(world, target, impulse);
   }
 
   @Override

@@ -36,6 +36,10 @@ name:ToxicFood
 class:com.dongbat.game.buff.effects.ToxicFood
 1: toxicScale =1
 
+name:DelayBuff
+class:com.dongbat.game.buff.effects.DelayBuff
+1: level=1
+
 name:CutProjectile
 class:com.dongbat.game.buff.effects.CutProjectile
 1: split =0.5f
@@ -74,6 +78,12 @@ class:com.dongbat.game.buff.effects.ReturnOnInvestment
 name:Forced
 class:com.dongbat.game.buff.effects.Forced
 1: forceStrength=5
+2: forceStrength=10
+3: forceStrength=15
+
+name:WallForced
+class:com.dongbat.game.buff.effects.Forced
+1: forceStrength=5 | ignoreMass=true
 2: forceStrength=10
 3: forceStrength=15
 

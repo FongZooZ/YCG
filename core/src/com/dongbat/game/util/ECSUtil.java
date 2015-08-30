@@ -72,23 +72,23 @@ public class ECSUtil {
 //  }
   public static WorldConfiguration initWorldConfig() {
     WorldConfiguration config = new WorldConfiguration();
-    setSystem(config, new Box2dSystem(), true);
-    setSystem(config, new Box2dDebugRendererSystem(), false);
-    setSystem(config, new HUDRenderSystem(), false);
-    setSystem(config, new MovementSystem(), true);
-    setSystem(config, new CollisionCleanupSystem(), true);
-    setSystem(config, new CollisionSystem(), true);
-    setSystem(config, new DetectionCleanupSystem(50), true);
-    setSystem(config, new DetectionSystem(50), true);
-    setSystem(config, new ConsumingSystem(), true);
-    setSystem(config, new GridRendererSystem(), false);
-    setSystem(config, new BorderlandSystem(), false);
-    setSystem(config, new CameraUpdateSystem(), true);
-    setSystem(config, new AiControlledSystem(), true);
+    setSystem(config, new Box2dSystem(), false);
+    setSystem(config, new AiControlledSystem(), false);
     setSystem(config, new BuffSystem(), false);
-    setSystem(config, new LocalInputSystem(), false);
-    setSystem(config, new InputProcessorSystem(), true);
+    setSystem(config, new CollisionCleanupSystem(), false);
+    setSystem(config, new CollisionSystem(), false);
+    setSystem(config, new DetectionCleanupSystem(50), false);
+    setSystem(config, new DetectionSystem(50), false);
+    setSystem(config, new ConsumingSystem(), false);
+    setSystem(config, new InputProcessorSystem(), false);
+    setSystem(config, new HUDRenderSystem(), false);
     setSystem(config, new Shaperenderer1(), true);
+    setSystem(config, new LocalInputSystem(), true);
+    setSystem(config, new MovementSystem(), true);
+    setSystem(config, new GridRendererSystem(), true);
+    setSystem(config, new CameraUpdateSystem(), true);
+    setSystem(config, new BorderlandSystem(), true);
+    setSystem(config, new Box2dDebugRendererSystem(), true);
 
     config.setManager(new UuidEntityManager());
     return config;
