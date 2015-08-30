@@ -115,7 +115,7 @@ public class UnitFactory {
     Entity e = world.createEntity(UUID.randomUUID());
 
     Stats stats = new Stats();
-    stats.setAllowComsumming(true);
+    stats.setAllowComsumming(false);
     stats.setConsumable(true);
     stats.setBaseRateSpeed(2000);
 

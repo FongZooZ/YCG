@@ -31,7 +31,7 @@ public class SelfDefense implements BuffEffect {
 
   @Override
   public void durationStart(World world, Entity source, Entity target) {
-    framePerFood = framePerFood == 0 ? framePerFood : 5;
+    framePerFood = framePerFood == 0 ? framePerFood : 60;
     foodRadius = foodRadius == 0 ? 2 : foodRadius;
     lastFrameCast = ECSUtil.getFrame(world);
   }
