@@ -29,9 +29,7 @@ import com.dongbat.game.system.MovementSystem;
 import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.DetectionCleanupSystem;
 import com.dongbat.game.system.DetectionSystem;
-import com.dongbat.game.system.localSystem.ParallaxBackgroundSystem;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
-import com.dongbat.game.system.localSystem.SpriteRenderSystem;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.dongbat.game.util.objectUtil.WorldProgress;
 
@@ -43,7 +41,7 @@ public class ECSUtil {
   private static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
   private static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
 
-  //  public static World createWorld() {
+//  public static World createWorld() {
 //    return createWorld(false);
 //  }
 //  public static World createWorld(boolean isServer) {
@@ -117,8 +115,11 @@ public class ECSUtil {
     WorldProgress worldProgress = getWorldProgress(world);
     if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
       worldProgress.setRewinding(true);
-
     }
+
+    worldProgressMap.get(world).stepWorld(world, delta);
+    processPassive(world, delta);
+
   }
 
   public static void normalProcess(World world, float delta) {
