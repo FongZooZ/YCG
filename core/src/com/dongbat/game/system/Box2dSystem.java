@@ -25,7 +25,5 @@ public class Box2dSystem extends BaseSystem {
     protected void processSystem() {
         physicWorld = PhysicsUtil.getPhysicsWorld(world);
         physicWorld.step(world.getDelta(), 8, 3);
-
     }
-
 }
