@@ -30,7 +30,7 @@ class:com.dongbat.game.buff.effects.FeedSmaller
 
 name:SelfDefense
 class:com.dongbat.game.buff.effects.SelfDefense
-1: framePerFood=1
+1: framePerFood=10
 
 name:ToxicFood
 class:com.dongbat.game.buff.effects.ToxicFood
