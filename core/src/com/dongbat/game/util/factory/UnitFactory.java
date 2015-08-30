@@ -37,60 +37,30 @@ import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
 public class UnitFactory {
 
   /**
-   * Create sub-unit from an entity
-   *
-   * @param world         artemis world
-   * @param parent        parent of sub-unit
-   * @param position      spawn position
-   * @param baseRateSpeed base speed
-   * @param radius        radius of sub-unit
-   * @param args          optional arguments for sub-unit
-   * @return sub-unit entity that was just created
-   */
-  public static Entity createSubUnit(World world, Entity parent, Vector2 position, float baseRateSpeed, float radius, Object... args) {
-    Entity e = world.createEntity();
-
-    Stats stats = new Stats();
-    stats.setBaseRateSpeed(baseRateSpeed);
-    stats.setParent(world.getManager(UuidEntityManager.class).getUuid(e));
-
-    Physics physics = new Physics();
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
-    physics.getBody().setUserData(UuidUtil.getUuid(e));
-
-//    DisplayPosition displayPosition = new DisplayPosition();
-    Collision collision = new Collision();
-    e.edit().add(physics)
-      .add(stats)
-      .add(collision)
-      .add(new Detection())
-      .add(new UnitMovement());
-    return e;
-  }
-
-  /**
    * Create projectile unit
    *
-   * @param world    artemis world
-   * @param parent   entity that execute that projectile unit
+   * @param world artemis world
+   * @param parent entity that execute that projectile unit
    * @param position spawn position
-   * @param radius   unit radius
+   * @param radius unit radius
    * @return projectile unit that was just created
    */
-  public static Entity createProjectileUnit(World world, Entity parent, Vector2 position, float radius) {
+  public static Entity createProjectileUnit(World world, Entity parent, Vector2 position, float radius, boolean allowConsumming, boolean consumable) {
     Entity e = world.createEntity(UUID.randomUUID());
 
     Stats stats = new Stats();
-    stats.setAllowComsumming(false);
-    stats.setConsumable(false);
+    stats.setAllowComsumming(allowConsumming);
+    stats.setConsumable(consumable);
     stats.setParent(world.getManager(UuidEntityManager.class).getUuid(e));
 
     Physics physics = new Physics();
     physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
     physics.getBody().setUserData(UuidUtil.getUuid(e));
+    physics.getBody().setBullet(true);
 
     e.edit().add(physics)
       .add(stats)
+      .add(new BuffComponent())
       .add(new Collision())
       .add(new Detection())
       .add(new UnitMovement());
@@ -127,7 +97,8 @@ public class UnitFactory {
     UnitMovement movement = new UnitMovement();
 
     AiControl aiControl = new AiControl(unitInfo.getDefinitionPath());
-    e.edit().add(new BuffComponent())
+    e.edit()
+      .add(new BuffComponent())
       .add(aiControl)
       .add(new Player())
       .add(new Detection())
@@ -135,6 +106,8 @@ public class UnitFactory {
       .add(stats)
       .add(movement)
       .add(collision);
+    BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
+
     return e;
   }
 
@@ -142,11 +115,10 @@ public class UnitFactory {
     Entity e = world.createEntity(UUID.randomUUID());
 
     Stats stats = new Stats();
-    stats.setAllowComsumming(true);
+    stats.setAllowComsumming(false);
     stats.setConsumable(false);
     stats.setBaseRateSpeed(2000);
 
-//    AbilityComponent abilityComponent = new AbilityComponent();
     BuffComponent buff = new BuffComponent();
 
     Physics physics = new Physics();
@@ -156,8 +128,7 @@ public class UnitFactory {
     UnitMovement movement = new UnitMovement();
     float posX = (float) ((Math.random() * 2 - 1) * scaleX);
     float posY = (float) ((Math.random() * 2 - 1) * scaleY);
-//    movement.setDirectionVelocity(new Vector2(posX, posY));
-    movement.setDirectionVelocity(new Vector2(0, 0));
+    movement.setDirectionVelocity(new Vector2(posX, posY));
     e.edit().add(physics)
       .add(stats)
       .add(new Collision())
@@ -170,7 +141,7 @@ public class UnitFactory {
     BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
     BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
     BuffUtil.addBuff(world, e, e, "SelfDefense", -1, 1);
-//    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);
+    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);
     return e;
   }
 }

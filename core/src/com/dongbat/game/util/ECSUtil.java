@@ -14,14 +14,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.system.AiControlledSystem;
-import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.Box2dSystem;
 import com.dongbat.game.system.BuffSystem;
 import com.dongbat.game.system.CollisionCleanupSystem;
 import com.dongbat.game.system.CollisionSystem;
 import com.dongbat.game.system.ConsumingSystem;
 import com.dongbat.game.system.InputProcessorSystem;
-import com.dongbat.game.system.MovementSystem;
 import com.dongbat.game.system.localSystem.Box2dDebugRendererSystem;
 import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.localSystem.GridRendererSystem;
@@ -39,16 +37,15 @@ import com.dongbat.game.util.objectUtil.WorldProgress;
  * @author Admin
  */
 public class ECSUtil {
-  
+
   private static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
   private static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
-  
-  public static World createWorld() {
-    return createWorld(false);
-  }
-  
-  public static World createWorld(boolean isServer) {
-    WorldConfiguration config = new WorldConfiguration();
+
+//  public static World createWorld() {
+//    return createWorld(false);
+//  }
+//  public static World createWorld(boolean isServer) {
+//    WorldConfiguration config = new WorldConfiguration();
 //    setSystem(config, new SpawnningFoodSystem(), false);
 //    setSystem(config, new Box2dSystem(), false);
 //    setSystem(config, new BuffSystem(), false);
@@ -67,35 +64,32 @@ public class ECSUtil {
 //    setSystem(config, new InputProcessorSystem(), false);
 //
 //    config.setManager(new UuidEntityManager());
-    World world = new World(config);
+//    World world = new World(config);
 //    WorldProgress worldProgress = new WorldProgress(0.01f);
 //    worldProgressMap.put(world, worldProgress);
 //    worldRandomMap.put(world, new PredictableRandom());
-    return world;
-  }
-  
+//    return world;
+//  }
   public static WorldConfiguration initWorldConfig() {
     WorldConfiguration config = new WorldConfiguration();
-//    setSystem(config, new SpawnningFoodSystsem(), false);
-    setSystem(config, new Box2dSystem(), false);
-    setSystem(config, new Box2dDebugRendererSystem(), true);
-    setSystem(config, new HUDRenderSystem(), true);
-    setSystem(config, new MovementSystem(), false);
-    setSystem(config, new CollisionCleanupSystem(), false);
-    setSystem(config, new CollisionSystem(), false);
-    setSystem(config, new DetectionCleanupSystem(50), false);
-    setSystem(config, new DetectionSystem(50), false);
-//		setSystem(config, new FoodMovementSystem(), false);
-    setSystem(config, new ConsumingSystem(), false);
-    setSystem(config, new GridRendererSystem(), true);
+    setSystem(config, new Box2dSystem(), true);
+    setSystem(config, new Box2dDebugRendererSystem(), false);
+    setSystem(config, new HUDRenderSystem(), false);
+    setSystem(config, new MovementSystem(), true);
+    setSystem(config, new CollisionCleanupSystem(), true);
+    setSystem(config, new CollisionSystem(), true);
+    setSystem(config, new DetectionCleanupSystem(50), true);
+    setSystem(config, new DetectionSystem(50), true);
+    setSystem(config, new ConsumingSystem(), true);
+    setSystem(config, new GridRendererSystem(), false);
     setSystem(config, new BorderlandSystem(), false);
     setSystem(config, new CameraUpdateSystem(), true);
-    setSystem(config, new AiControlledSystem(), false);
+    setSystem(config, new AiControlledSystem(), true);
     setSystem(config, new BuffSystem(), false);
-    setSystem(config, new LocalInputSystem(), true);
-    setSystem(config, new InputProcessorSystem(), false);
-    setSystem(config, new Shaperenderer1(), false);
-    
+    setSystem(config, new LocalInputSystem(), false);
+    setSystem(config, new InputProcessorSystem(), true);
+    setSystem(config, new Shaperenderer1(), true);
+
     config.setManager(new UuidEntityManager());
     return config;
   }
@@ -122,12 +116,12 @@ public class ECSUtil {
     if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
       worldProgress.setRewinding(true);
     }
-    
+
     worldProgressMap.get(world).stepWorld(world, delta);
     processPassive(world, delta);
-    
+
   }
-  
+
   public static void normalProcess(World world, float delta) {
     world.setDelta(delta);
     world.process();
@@ -153,32 +147,32 @@ public class ECSUtil {
   /**
    * Set a system to artemis world
    *
-   * @param world     artemis world
-   * @param system    system you want to add to world
+   * @param world artemis world
+   * @param system system you want to add to world
    * @param isPassive is passive system or not
    */
   private static void setSystem(WorldConfiguration config, BaseSystem system, boolean isPassive) {
     config.setSystem(system, isPassive);
   }
-  
+
   public static PredictableRandom getRandom(World world) {
     return worldRandomMap.get(world);
   }
-  
+
   public static WorldProgress getWorldProgress(World world) {
     return worldProgressMap.get(world);
   }
-  
+
   public static long getFrame(World world) {
     return worldProgressMap.get(world).getFrame();
   }
-  
+
   public static float getStep(World world) {
     return worldProgressMap.get(world).getStep();
   }
-  
+
   public static void setFrame(World world, long frame) {
     worldProgressMap.get(world).setFrame(frame);
   }
-  
+
 }

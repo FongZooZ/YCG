@@ -57,7 +57,7 @@ public class Constants {
     public static final int GROUND_Y = -15;
     public static final float MIN_RADIUS = 0.1f;
     public static final float MAX_VELOCITY = 25000f;
-    public static final float MIN_DETECTION_RADIUS = 30;
+    public static final float MIN_DETECTION_RADIUS = 10;
   }
 
   public static class UNIT {

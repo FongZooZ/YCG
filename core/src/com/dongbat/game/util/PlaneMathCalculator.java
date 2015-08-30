@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 public class PlaneMathCalculator {
 
   public static Vector2 getPerpendicularVector(Vector2 oldVector) {
-    Vector2 newVector = new Vector2(-oldVector.y, oldVector.x);
+    Vector2 newVector = new Vector2(oldVector.y, -oldVector.x);
     return newVector;
   }
 
@@ -22,17 +22,17 @@ public class PlaneMathCalculator {
     Vector2 perpendicularVector = getPerpendicularVector(bulletDirection.cpy());
     Vector2 centerToConner = collisionPosition.cpy().sub(centerPosition.cpy());
     float angleRad = centerToConner.angleRad(perpendicularVector);
-    return angleRad;
+    return angleRad * 2;
   }
 
   public static float getPercentTaken(Vector2 centerPosition, Vector2 collisionPosition, Vector2 bulletDirection, float radius) {
     float alpha = getAlpha(centerPosition, collisionPosition, bulletDirection);
-    float percentTaken = getPercentTaken(alpha, radius);
+    float percentTaken = getPercentTaken(alpha);
     return percentTaken;
   }
 
-  public static float getPercentTaken(float alpla, float radius) {
-    return (float) ((radius * radius * (float) Math.sin(alpla)) / (4 * Math.PI));
+  public static float getPercentTaken(float alpla) {
+    return (float) ((alpla - Math.sin(alpla)) / (2 * Math.PI));
   }
 
   public static Vector2 giaiPtBacNhat2An(float a1, float b1, float c1, float a2, float b2, float c2) {

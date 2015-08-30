@@ -55,6 +55,9 @@ public class Feed implements BuffEffect {
     } else {
       int size = collidedEntityList.size;
       float feedAmount = totalFeed * feedPerSecond * ECSUtil.getStep(world);
+      if (feedAmount < 0.005) {
+        feedAmount = 0.001f;
+      }
       if (feedAmount >= PhysicsUtil.getRadius(world, target)) {
         feedAmount = PhysicsUtil.getRadius(world, target);
         UnitUtil.destroy(target);

@@ -22,12 +22,11 @@ import com.dongbat.game.util.UnitUtil;
 public class MovementSystem extends EntityProcessingSystem {
 
   public MovementSystem() {
-    super(Aspect.all(UnitMovement.class, Stats.class, Physics.class));
+    super(Aspect.all(UnitMovement.class));
   }
 
   @Override
   protected void process(Entity e) {
-    UnitUtil.speedCalculation(world, e);
     UnitMovement ms = EntityUtil.getComponent(world, e, UnitMovement.class);
     if (!ms.isDisabled()) {
       MovementUtil.newMovementMechanism(world, e);

@@ -37,11 +37,14 @@ public class GameScreen implements Screen {
     AbilityRegistry.load();
     ECSUtil.init(world);
     PhysicsUtil.init(world);
-    Entity localPlayer = EntityFactory.createPlayer(world, new Vector2(0, 100), "phong");
+    System.out.println(PhysicsUtil.getPhysicsWorld(world).getBodyCount());
+    Entity localPlayer = EntityFactory.createPlayer(world, new Vector2(0, 80), "phong");
+    System.out.println(PhysicsUtil.getPhysicsWorld(world).getBodyCount());
     BuffUtil.addBuff(world, localPlayer, localPlayer, "FeedSmaller", -1, 1);
-    Entity queen = UnitFactory.createQueen(world, new Vector2(0, 20), 5);
     LocalPlayerUtil.setLocalPlayer(UuidUtil.getUuid(localPlayer));
     LocalPlayerUtil.setLocalWorld(world);
+
+    UnitFactory.createQueen(world, new Vector2(0, 20), 5);
 //    UnitFactory.createUnit(world, "normal", new Vector2(10, 60));
   }
 

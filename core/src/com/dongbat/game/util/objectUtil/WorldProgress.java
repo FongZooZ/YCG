@@ -7,6 +7,7 @@ package com.dongbat.game.util.objectUtil;
 
 import com.artemis.World;
 import com.badlogic.gdx.utils.Array;
+import com.dongbat.game.util.PhysicsUtil;
 
 /**
  *
@@ -45,11 +46,12 @@ public class WorldProgress {
   public void stepWorld(World world, float delta) {
 
     increaseAccumulated(delta);
+
     while (accumulated >= step) {
       world.setDelta(step);
+      increaseAccumulated(-step);
       advanced();
       world.process();
-      increaseAccumulated(-step);
     }
   }
 
