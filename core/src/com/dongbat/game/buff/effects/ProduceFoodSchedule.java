@@ -66,13 +66,13 @@ public class ProduceFoodSchedule implements BuffEffect {
         Vector2 direction = destination.cpy().scl(-1).nor().rotate(d);
         if (direction.cpy().nor().len2() == 0) {
           //TODO: fixxxxxxxxxxxxx this
-          direction = new Vector2((float)(Math.random() * 2 - 1), (float) (Math.random() * 2 - 1));
+          direction = new Vector2((float) (Math.random() * 2 - 1), (float) (Math.random() * 2 - 1));
         }
         Entity food = EntityFactory.createSteeringFood(world, position, UuidUtil.getUuid(source));
         // TODO: food expiring system
-        BuffUtil.addBuff(world, source, food, "ToBeRemoved", 10000, 1);
+        BuffUtil.addBuff(world, source, food, "ToBeRemoved", 5000, 1);
         BuffUtil.addBuff(world, source, food, "ToxicFood", 400, 1);
-        BuffUtil.addBuff(world, source, food, "Forced", (int) (400 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.5f, "direction", direction);
+        BuffUtil.addBuff(world, source, food, "Forced", (int) (500 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.5f, "direction", direction);
       }
     }
   }

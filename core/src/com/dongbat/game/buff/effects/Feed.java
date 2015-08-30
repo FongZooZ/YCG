@@ -26,13 +26,12 @@ import java.util.UUID;
 public class Feed implements BuffEffect {
 
   private float feedPerSecond = 0.5f;
-  private float totalFeed;
+  private float totalFeedVolume;
 
   @Override
   public void durationStart(World world, Entity source, Entity target) {
 
-    totalFeed = PhysicsUtil.getRadius(world, target);
-
+    totalFeedVolume = PhysicsUtil.getSquare(world, target);
   }
 
   @Override
@@ -47,27 +46,27 @@ public class Feed implements BuffEffect {
       }
       Stats stats = EntityUtil.getComponent(world, entity, Stats.class);
       if (stats != null && stats.isAllowComsumming()) {
+        if (WorldQueryUtil.isQueen(world, entity.getId())) {
+          continue;
+        }
         collidedEntityList.add(entity);
       }
     }
     if (collidedEntityList.size == 0) {
-      totalFeed = PhysicsUtil.getRadius(world, target);
+      totalFeedVolume = PhysicsUtil.getSquare(world, target);
     } else {
       int size = collidedEntityList.size;
-      float feedAmount = totalFeed * feedPerSecond * ECSUtil.getStep(world);
-      if (feedAmount < 0.005) {
-        feedAmount = 0.001f;
-      }
-      if (feedAmount >= PhysicsUtil.getRadius(world, target)) {
-        feedAmount = PhysicsUtil.getRadius(world, target);
+      float feedAmount = totalFeedVolume * feedPerSecond * ECSUtil.getStep(world);
+      if (feedAmount >= PhysicsUtil.getSquare(world, target)) {
+        feedAmount = PhysicsUtil.getSquare(world, target);
         UnitUtil.destroy(target);
       } else {
-        PhysicsUtil.increaseRadius(world, target, -feedAmount);
+        PhysicsUtil.increaseSquare(world, target, -feedAmount);
       }
       float dividend = feedAmount / size;
 
       for (Entity e : collidedEntityList) {
-        PhysicsUtil.increaseRadius(world, e, dividend);
+        PhysicsUtil.increaseSquare(world, e, dividend);
       }
     }
   }

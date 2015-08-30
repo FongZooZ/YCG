@@ -56,6 +56,8 @@ public class Constants {
     public static final int GROUND_END_X = 30;
     public static final int GROUND_Y = -15;
     public static final float MIN_RADIUS = 0.1f;
+    public static final float MIN_SQUARE = 0.1f;
+    public static final float FOOD_RADIUS = 0.25f;
     public static final float MAX_VELOCITY = 25000f;
     public static final float MIN_DETECTION_RADIUS = 10;
   }

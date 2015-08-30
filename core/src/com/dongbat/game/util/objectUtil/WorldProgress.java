@@ -48,10 +48,10 @@ public class WorldProgress {
     increaseAccumulated(delta);
 
     while (accumulated >= step) {
-      world.setDelta(step);
       increaseAccumulated(-step);
-      advanced();
+      world.setDelta(step);
       world.process();
+      advanced();
     }
   }
 

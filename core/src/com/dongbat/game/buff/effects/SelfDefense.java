@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.buff.BuffEffect;
 import com.dongbat.game.component.Detection;
 import com.dongbat.game.util.BuffUtil;
+import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
@@ -24,34 +25,42 @@ import java.util.UUID;
  */
 public class SelfDefense implements BuffEffect {
 
-  private int foodPerFrame;
+  private int framePerFood;
+  private float foodRadius;
+  private long lastFrameCast;
 
   @Override
   public void durationStart(World world, Entity source, Entity target) {
-    foodPerFrame = 1;
+    framePerFood = framePerFood == 0 ? framePerFood : 5;
+    foodRadius = foodRadius == 0 ? 2 : foodRadius;
+    lastFrameCast = ECSUtil.getFrame(world);
   }
 
   @Override
   public void update(World world, Entity source, Entity target) {
+    if (ECSUtil.getFrame(world) - lastFrameCast > framePerFood) {
+      lastFrameCast = ECSUtil.getFrame(world);
+      Detection detection = EntityUtil.getComponent(world, target, Detection.class);
+      UUID id = detection.getNearestPlayer();
+      if (id != null) {
+        Entity e = UuidUtil.getEntityByUuid(world, id);
+        Vector2 entityPos = PhysicsUtil.getPosition(world, e);
+        Vector2 queenPos = PhysicsUtil.getPosition(world, source);
+        Vector2 destination = entityPos.cpy().sub(queenPos.cpy());
+        for (int i = 0; i < 1; i++) {
+          float d = MathUtils.random(- 30, 30);
 
-    Detection detection = EntityUtil.getComponent(world, target, Detection.class);
-    UUID id = detection.getNearestPlayer();
-    if (id != null) {
-      Entity e = UuidUtil.getEntityByUuid(world, id);
-      Vector2 entityPos = PhysicsUtil.getPosition(world, e);
-      Vector2 queenPos = PhysicsUtil.getPosition(world, source);
-      Vector2 destination = entityPos.cpy().sub(queenPos.cpy());
-      float degree = destination.angle();
-      for (int i = 0; i < 1; i++) {
-        float d = MathUtils.random(- 30, 30);
+          Vector2 direction = destination.cpy().scl(1).nor().rotate(d);
+          Entity food = EntityFactory.createSteeringFood(world, queenPos, UuidUtil.getUuid(source));
+          PhysicsUtil.setRadius(world, food, foodRadius);
 
-        Vector2 direction = destination.cpy().scl(1).nor().rotate(d);
-        Entity food = EntityFactory.createSteeringFood(world, queenPos, UuidUtil.getUuid(source));
-        BuffUtil.addBuff(world, source, food, "ToBeRemoved", 10000, 1);
-        BuffUtil.addBuff(world, source, food, "ToxicFood", 400, 1);
-        BuffUtil.addBuff(world, source, food, "Forced", (int) (400 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.5f, "direction", direction);
+          BuffUtil.addBuff(world, source, food, "ToBeRemoved", 10000, 1);
+          BuffUtil.addBuff(world, source, food, "ToxicFood", 400, 1);
+          BuffUtil.addBuff(world, source, food, "Forced", (int) (400 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.5f, "direction", direction);
+        }
       }
     }
+
   }
 
   @Override

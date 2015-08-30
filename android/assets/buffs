@@ -30,11 +30,15 @@ class:com.dongbat.game.buff.effects.FeedSmaller
 
 name:SelfDefense
 class:com.dongbat.game.buff.effects.SelfDefense
-1: foodPerFrame=1
+1: framePerFood=1
 
 name:ToxicFood
 class:com.dongbat.game.buff.effects.ToxicFood
 1: toxicScale =1
+
+name:DelayBuff
+class:com.dongbat.game.buff.effects.DelayBuff
+1: level=1
 
 name:CutProjectile
 class:com.dongbat.game.buff.effects.CutProjectile
@@ -46,7 +50,7 @@ class:com.dongbat.game.buff.effects.QueenTeleportSchedule
 
 name:ProduceFoodSchedule
 class:com.dongbat.game.buff.effects.ProduceFoodSchedule
-1: scheduleFrame = 5 | overheatFrame = 35 | cooldownFrame = 5
+1: scheduleFrame = 3 | overheatFrame = 50 | cooldownFrame = 20
 2: scheduleFrame = 18
 3: scheduleFrame = 15
 
@@ -74,6 +78,12 @@ class:com.dongbat.game.buff.effects.ReturnOnInvestment
 name:Forced
 class:com.dongbat.game.buff.effects.Forced
 1: forceStrength=5
+2: forceStrength=10
+3: forceStrength=15
+
+name:WallForced
+class:com.dongbat.game.buff.effects.Forced
+1: forceStrength=5 | ignoreMass=true
 2: forceStrength=10
 3: forceStrength=15
 

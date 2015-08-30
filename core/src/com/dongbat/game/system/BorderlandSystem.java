@@ -36,25 +36,39 @@ public class BorderlandSystem extends EntityProcessingSystem {
     UnitMovement movement = EntityUtil.getComponent(world, e, UnitMovement.class);
     Vector2 pos = physics.getBody().getPosition();
     float radius = PhysicsUtil.getRadius(world, e);
+    if (radius < 0.5f) {
+      radius = 0.5f;
+    }
     if (movement == null) {
       return;
     }
+
+    if (BuffUtil.hasBuff(world, e, "WallForced")) {
+      return;
+    }
+
+    float x = 0;
+    float y = 0;
+
     if (pos.x > scaleX) {
-      BuffUtil.addBuff(world, e, e, "Forced", 50, 1, "forceStrength", radius, "direction", new Vector2(-1, 0));
+      x = -1;
     }
 
     if (pos.x < -scaleX) {
-      BuffUtil.addBuff(world, e, e, "Forced", 50, 1, "forceStrength", radius, "direction", new Vector2(1, 0));
+      x = 1;
     }
 
     if (pos.y < -scaleY) {
-      BuffUtil.addBuff(world, e, e, "Forced", 50, 1, "forceStrength", radius, "direction", new Vector2(0, 1));
+      y = 1;
     }
 
     if (pos.y > scaleY) {
-      BuffUtil.addBuff(world, e, e, "Forced", 50, 1, "forceStrength", radius, "direction", new Vector2(0, -1));
+      y = -1;
     }
 
+    if (x != 0 || y != 0) {
+      BuffUtil.addBuff(world, e, e, "WallForced", 150, 1, "forceStrength", radius, "direction", new Vector2(x, y));
+    }
   }
 
 }

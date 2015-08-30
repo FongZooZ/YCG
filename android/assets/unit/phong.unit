@@ -1,5 +1,5 @@
 name=phong
-radius=25
+radius=10
 baseSpeedRate=195
 abilities=SplitAndJoin
 definitionPath=unit/tree/normal.tree

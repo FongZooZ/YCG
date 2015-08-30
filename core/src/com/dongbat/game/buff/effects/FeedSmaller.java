@@ -51,7 +51,6 @@ public class FeedSmaller implements BuffEffect {
       }
       if (stats != null && stats.isAllowComsumming()) {
         if (WorldQueryUtil.isQueen(world, entity.getId())) {
-          System.out.println("dcm");
           continue;
         }
         collidedEntityList.add(entity);
