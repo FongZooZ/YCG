@@ -35,6 +35,7 @@ public class CameraUpdateSystem extends BaseSystem {
 
     PhysicsCameraUtil.getCamera().position.set(new Vector3(PhysicsUtil.getPosition(world, e), 0));
     PhysicsCameraUtil.getCamera().zoom = PhysicsCameraUtil.getZoomScale(world, e);
+//    PhysicsCameraUtil.getCamera().zoom = 100f;
     PhysicsCameraUtil.getCamera().update();
 
   }

@@ -31,7 +31,9 @@ import com.dongbat.game.system.MovementSystem;
 import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.DetectionCleanupSystem;
 import com.dongbat.game.system.DetectionSystem;
+import com.dongbat.game.system.localSystem.ParallaxBackgroundSystem;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
+import com.dongbat.game.system.localSystem.SpriteRenderSystem;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.dongbat.game.util.objectUtil.WorldProgress;
 
@@ -80,6 +82,7 @@ public class ECSUtil {
     setSystem(config, new Box2dSystem(), false);
     setSystem(config, new Box2dDebugRendererSystem(), true);
     setSystem(config, new HUDRenderSystem(), true);
+    setSystem(config, new SpriteRenderSystem(), true);
     setSystem(config, new MovementSystem(), false);
     setSystem(config, new CollisionCleanupSystem(), false);
     setSystem(config, new CollisionSystem(), false);
@@ -95,7 +98,7 @@ public class ECSUtil {
     setSystem(config, new LocalInputSystem(), true);
     setSystem(config, new InputProcessorSystem(), false);
     setSystem(config, new Shaperenderer1(), false);
-
+    setSystem(config, new ParallaxBackgroundSystem(), true);
     config.setManager(new UuidEntityManager());
     return config;
   }

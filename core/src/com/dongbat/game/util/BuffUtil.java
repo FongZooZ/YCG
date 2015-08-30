@@ -41,14 +41,11 @@ public class BuffUtil {
       BuffInfo buffInfo = buffComponent.getBuffInfo(name);
       long endTime = buffInfo.getEndTime();
       long convertMilisToFrame = TimeUtil.convertMillisToFrame(world, duration);
-      buffInfo.setEndTime(endTime + convertMilisToFrame);
+      buffInfo.setEndTime(ECSUtil.getFrame(world) + convertMilisToFrame);
       return;
     }
     BuffInfo buffInfo = new BuffInfo(world, effect, TimeUtil.getCurrentFrame(world), duration, source);
-    BuffInfo prevBuff = buffComponent.getBuffs().put(name, buffInfo);
-    if (prevBuff != null) {
-      prevBuff.getEffect().durationEnd(world, prevBuff.getSource(), target);
-    }
+    buffComponent.getBuffs().put(name, buffInfo);
     // start effect
     effect.durationStart(world, source, target);
   }
