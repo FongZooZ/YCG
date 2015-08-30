@@ -8,12 +8,13 @@ package com.dongbat.game.system.localSystem;
 import com.artemis.BaseSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.dongbat.game.util.RenderUtil;
+import com.dongbat.game.util.localUtil.PhysicsCameraUtil;
+
 import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
 import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
-import com.dongbat.game.util.localUtil.PhysicsCameraUtil;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Shaperenderer1 extends BaseSystem {
   private OrthographicCamera camera;
 
   public Shaperenderer1() {
-    batch = new SpriteBatch();
+    batch = RenderUtil.getBatch();
     render = new ShapeRenderer();
     camera = PhysicsCameraUtil.getCamera();
   }
