@@ -22,6 +22,8 @@ public class AssetUtil {
     private static TextureLoader.TextureParameter parameter;
 
     private static ObjectMap<String, TextureAtlas> unitAtlas;
+    public static Texture db;
+    public static Texture logo;
 
     public static ObjectMap<String, TextureAtlas> getUnitAtlas() {
         return unitAtlas;
@@ -60,6 +62,8 @@ public class AssetUtil {
         manager.load("texture/background/bg01.png", Texture.class, parameter);
         manager.load("texture/background/bg02.png", Texture.class, parameter);
         manager.load("texture/background/bg03.png", Texture.class, parameter);
+        manager.load("db.png", Texture.class, parameter);
+        manager.load("Bluebird logo.png", Texture.class, parameter);
 
     }
 
@@ -82,8 +86,10 @@ public class AssetUtil {
             bg01 = manager.get("texture/background/bg01.png", Texture.class);
             bg02 = manager.get("texture/background/bg02.png", Texture.class);
             bg03 = manager.get("texture/background/bg03.png", Texture.class);
+            db = manager.get("db.png", Texture.class);
+            logo = manager.get("Bluebird logo.png", Texture.class);
         }
         return done;
     }
-
 }
+

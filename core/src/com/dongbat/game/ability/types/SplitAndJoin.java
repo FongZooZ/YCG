@@ -61,7 +61,7 @@ public class SplitAndJoin implements Ability {
 //    BuffUtil.addBuff(world, caster, bullet, "DelayBuff", 0, 1, "buffName", "Forced", "duration", 3000, "args", args);
     BuffUtil.addBuff(world, caster, bullet, "Forced", 500, 1, "forceStrength", 20, "direction", direction.cpy().scl(1), "ignoreMass", true);
 
-    args.put("feedPerSecond", 0.55f);
+    args.put("feedPerSecond", 2f);
     BuffUtil.addBuff(world, caster, bullet, "DelayBuff", 1000, 1, "buffName", "Feed", "duration", -1, "args", args);
 
 //    BuffUtil.addBuff(world, bullet, bullet, "Feed", -1, 1, "feedPerSecond", 0.55f);

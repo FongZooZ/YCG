@@ -15,24 +15,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.system.AiControlledSystem;
 import com.dongbat.game.system.AnimationRenderSystem;
+import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.Box2dSystem;
 import com.dongbat.game.system.BuffSystem;
 import com.dongbat.game.system.CollisionCleanupSystem;
 import com.dongbat.game.system.CollisionSystem;
 import com.dongbat.game.system.ConsumingSystem;
+import com.dongbat.game.system.DetectionCleanupSystem;
+import com.dongbat.game.system.DetectionSystem;
 import com.dongbat.game.system.DisplayUpdateSystem;
 import com.dongbat.game.system.FoodAnimationSystem;
+import com.dongbat.game.system.GameStageSystem;
 import com.dongbat.game.system.InputProcessorSystem;
-import com.dongbat.game.system.localSystem.Box2dDebugRendererSystem;
+import com.dongbat.game.system.MovementSystem;
 import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.localSystem.GridRendererSystem;
 import com.dongbat.game.system.localSystem.HUDRenderSystem;
 import com.dongbat.game.system.localSystem.LocalInputSystem;
-import com.dongbat.game.system.MovementSystem;
-import com.dongbat.game.system.BorderlandSystem;
-import com.dongbat.game.system.DetectionCleanupSystem;
-import com.dongbat.game.system.DetectionSystem;
-import com.dongbat.game.system.localSystem.ParallaxBackgroundSystem;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
 import com.dongbat.game.system.localSystem.SpriteRenderSystem;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
@@ -95,13 +94,17 @@ public class ECSUtil {
     setSystem(config, new SpriteRenderSystem(), true); // gay lag: mat 1200 entites
     setSystem(config, new HUDRenderSystem(), true); // gay lag
     setSystem(config, new Shaperenderer1(), true);
+
     setSystem(config, new LocalInputSystem(), true); // gay lag, mat 200
     setSystem(config, new GridRendererSystem(), true); // gay lag, mat hon 300
+
 //    setSystem(config, new Box2dDebugRendererSystem(), true);
 //    setSystem(config, new ParallaxBackgroundSystem(), true);
     setSystem(config, new DisplayUpdateSystem(), true);
     setSystem(config, new FoodAnimationSystem(), true);
     setSystem(config, new AnimationRenderSystem(), true);
+
+    setSystem(config, new GameStageSystem(), true);
 
     config.setManager(new UuidEntityManager());
     return config;
