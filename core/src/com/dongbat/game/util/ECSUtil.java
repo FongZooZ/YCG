@@ -91,7 +91,7 @@ public class ECSUtil {
     setSystem(config, new Shaperenderer1(), true);
     setSystem(config, new LocalInputSystem(), true); // gay lag, mat 200
     setSystem(config, new MovementSystem(), true); // gay lag, mat 400
-    setSystem(config, new GridRendererSystem(), true); // gay lag, mat hon 300
+//    setSystem(config, new GridRendererSystem(), true); // gay lag, mat hon 300
     setSystem(config, new BorderlandSystem(), true);
 //    setSystem(config, new Box2dDebugRendererSystem(), true);
 
