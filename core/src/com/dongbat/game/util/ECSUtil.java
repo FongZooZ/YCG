@@ -29,6 +29,7 @@ import com.dongbat.game.system.MovementSystem;
 import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.DetectionCleanupSystem;
 import com.dongbat.game.system.DetectionSystem;
+import com.dongbat.game.system.GameStageSystem;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
 import com.dongbat.game.system.localSystem.SpriteRenderSystem;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
@@ -89,11 +90,15 @@ public class ECSUtil {
     setSystem(config, new SpriteRenderSystem(), true); // gay lag: mat 1200 entites
     setSystem(config, new HUDRenderSystem(), true); // gay lag
     setSystem(config, new Shaperenderer1(), true);
+
     setSystem(config, new LocalInputSystem(), true); // gay lag, mat 200
+
     setSystem(config, new MovementSystem(), true); // gay lag, mat 400
 //    setSystem(config, new GridRendererSystem(), true); // gay lag, mat hon 300
     setSystem(config, new BorderlandSystem(), true);
 //    setSystem(config, new Box2dDebugRendererSystem(), true);
+
+    setSystem(config, new GameStageSystem(), true);
 
     config.setManager(new UuidEntityManager());
     return config;

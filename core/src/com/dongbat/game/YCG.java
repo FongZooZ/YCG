@@ -11,6 +11,7 @@ import com.dongbat.game.registry.UnitRegistry;
 import com.dongbat.game.screen.GameScreen;
 import com.dongbat.game.screen.SplashScreen;
 import com.dongbat.game.util.AssetUtil;
+import com.dongbat.game.util.InputUtil;
 import com.dongbat.game.util.ScreenUtil;
 
 public class YCG extends Game {
@@ -24,8 +25,9 @@ public class YCG extends Game {
     UnitRegistry.load();
     BuffRegistry.load();
     AbilityRegistry.load();
+    InputUtil.init();
     resume();
-    setScreen(new SplashScreen());
+    setScreen(new GameScreen());
   }
 
   @Override

@@ -20,6 +20,7 @@ import com.dongbat.game.util.AbilityUtil;
 import com.dongbat.game.util.localUtil.Constants;
 import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.EntityUtil;
+import com.dongbat.game.util.InputUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.localUtil.LocalPlayerUtil;
@@ -35,17 +36,24 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
 
   private Entity e;
   private final CustomInput pendingInput = null;
-  private boolean touchDown;
-  private boolean skillOne;
-  private boolean skillTwo;
-  private boolean pause;
+  public static boolean touchDown;
+  public static boolean skillOne;
+  public static boolean skillTwo;
+  public static boolean skillThree;
+  public static boolean skillFour;
+  public static boolean pause;
 
   public LocalInputSystem() {
     touchDown = false;
     skillOne = false;
     skillTwo = false;
     pause = false;
-    Gdx.input.setInputProcessor(this);
+    InputUtil.addProcessor(this, 0);
+  }
+
+  @Override
+  protected void dispose() {
+    InputUtil.removeProcessor(this);
   }
 
   @Override
@@ -68,29 +76,55 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
         EntityUtil.getComponent(world, e, Player.class).getInputs().put(lastFrameIndex + 3, customInput);
       }
     }
-    if (skillOne == true) {
-      skillOne = false;
-      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
-      String abilityName = abilityComponent.getAbilitiesOrder().get(0);
-      if (abilityName == null) {
-        return;
-      }
-      System.out.println(abilityName);
-      AbilityUtil.use(world, e, abilityName, destination);
-    }
-    if (skillTwo == true) {
-      skillTwo = false;
-      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
-      if(abilityComponent.getAbilities().size <=1){
-        return;
-      }
-      String abilityName = abilityComponent.getAbilitiesOrder().get(1);
-      if (abilityName == null) {
-        return;
-      }
-            System.out.println(abilityName);
-      AbilityUtil.use(world, e, abilityName, destination);
-    }
+//    if (skillOne == true) {
+//      skillOne = false;
+//      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
+//      String abilityName = abilityComponent.getAbilitiesOrder().get(0);
+//      if (abilityName == null) {
+//        return;
+//      }
+//      System.out.println(abilityName);
+//      AbilityUtil.use(world, e, abilityName, destination);
+//    }
+//    if (skillTwo == true) {
+//      skillTwo = false;
+//      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
+//      if (abilityComponent.getAbilities().size <= 1) {
+//        return;
+//      }
+//      String abilityName = abilityComponent.getAbilitiesOrder().get(1);
+//      if (abilityName == null) {
+//        return;
+//      }
+//      AbilityUtil.use(world, e, abilityName, destination);
+//    }
+//
+//    if (skillThree == true) {
+//      skillThree = false;
+//      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
+//      if (abilityComponent.getAbilities().size <= 2) {
+//        return;
+//      }
+//      String abilityName = abilityComponent.getAbilitiesOrder().get(2);
+//      if (abilityName == null) {
+//        return;
+//      }
+//      System.out.println(abilityName);
+//      AbilityUtil.use(world, e, abilityName, destination);
+//    }
+//
+//    if (skillFour == true) {
+//      skillFour = false;
+//      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
+//      if (abilityComponent.getAbilities().size <= 3) {
+//        return;
+//      }
+//      String abilityName = abilityComponent.getAbilitiesOrder().get(3);
+//      if (abilityName == null) {
+//        return;
+//      }
+//      AbilityUtil.use(world, e, abilityName, destination);
+//    }
   }
 
   @Override
