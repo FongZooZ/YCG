@@ -55,9 +55,9 @@ public class HotBlow implements Ability {
     Array<Entity> filterList = WorldQueryUtil.filterEntityInRay(world, foundList, playerPosition, target, degree);
     for (Entity e : filterList) {
       if (e != caster) {
-        BuffUtil.addBuff(world, caster, e, "VacuumForced", 1000, 1, "forceStrength", forceStrength, "target", playerPosition.cpy(), "ignoreMass", ignoreMass);
+        BuffUtil.addBuff(world, caster, e, "VacuumForced", 1000, 1, "forceStrength", -forceStrength, "target", playerPosition.cpy(), "ignoreMass", ignoreMass);
         if (WorldQueryUtil.isFood(world, e.getId())) {
-          EntityUtil.getComponent(world, e, Food.class).setToxic(true);
+//          EntityUtil.getComponent(world, e, Food.class).setToxic(true);
         }
       }
     }

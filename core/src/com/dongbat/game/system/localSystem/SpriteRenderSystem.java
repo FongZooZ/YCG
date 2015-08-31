@@ -3,10 +3,7 @@ package com.dongbat.game.system.localSystem;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.util.PhysicsUtil;
@@ -19,7 +16,7 @@ import com.dongbat.game.util.localUtil.PhysicsCameraUtil;
  */
 public class SpriteRenderSystem extends EntityProcessingSystem {
 
-    private Sprite texture;
+//    private Sprite texture;
     private SpriteBatch batch;
     private OrthographicCamera camera;
 
@@ -30,7 +27,7 @@ public class SpriteRenderSystem extends EntityProcessingSystem {
     @Override
     protected void initialize() {
         batch = RenderUtil.getBatch();
-        texture = new Sprite(new Texture(Gdx.files.internal("circle_small.png")));
+//        texture = new Sprite(new Texture(Gdx.files.internal("circle_small.png")));
         camera = PhysicsCameraUtil.getCamera();
     }
 
@@ -72,8 +69,8 @@ public class SpriteRenderSystem extends EntityProcessingSystem {
         batch.setProjectionMatrix(camera.combined);
         float radius = PhysicsUtil.getRadius(world, e);
         Vector2 position = PhysicsUtil.getPosition(world, e);
-        texture.setSize(2 * radius, 2 * radius);
-        texture.setPosition(position.x - radius, position.y - radius);
-        texture.draw(batch);
+//        texture.setSize(2 * radius, 2 * radius);
+//        texture.setPosition(position.x - radius, position.y - radius);
+//        texture.draw(batch);
     }
 }

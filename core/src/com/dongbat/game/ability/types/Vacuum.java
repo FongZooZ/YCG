@@ -49,6 +49,5 @@ public class Vacuum implements Ability {
         BuffUtil.addBuff(world, caster, e, "VacuumForced", 1000, 1, "forceStrength", forceStrength * modifier, "target", playerPosition.cpy(), "ignoreMass", ignoreMass);
       }
     }
-//    BuffUtil.addBuff(world, caster, caster, "Vacuum", duration, 1);
   }
 }
