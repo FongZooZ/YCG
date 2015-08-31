@@ -9,6 +9,7 @@ import com.dongbat.game.registry.AbilityRegistry;
 import com.dongbat.game.registry.BuffRegistry;
 import com.dongbat.game.registry.UnitRegistry;
 import com.dongbat.game.screen.GameScreen;
+import com.dongbat.game.screen.TestScreen;
 import com.dongbat.game.util.ScreenUtil;
 
 public class YCG extends Game {
@@ -19,10 +20,10 @@ public class YCG extends Game {
   @Override
   public void create() {
     ScreenUtil.setGame(this);
-    UnitRegistry.load();
-    BuffRegistry.load();
-    AbilityRegistry.load();
-    setScreen(new GameScreen());
+//    UnitRegistry.load();
+//    BuffRegistry.load();
+//    AbilityRegistry.load();
+    setScreen(new TestScreen());
   }
 
   @Override

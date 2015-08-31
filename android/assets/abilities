@@ -6,9 +6,15 @@ class:com.dongbat.game.ability.types.Shrink
 
 name:Vacuum
 class:com.dongbat.game.ability.types.Vacuum
-1: cooldown=0 | duration=1000 | radius=100.0
-2: cooldown=0  | duration=1000 | radius=35.0
-3: cooldown=0  | duration=1000 | radius=50.0
+1: cooldown=0 | duration=1000
+2: cooldown=0  | duration=1000
+3: cooldown=0  | duration=1000
+
+name:HotBlow
+class:com.dongbat.game.ability.types.HotBlow
+1: cooldown=0 | duration=1000
+2: cooldown=0  | duration=1000
+3: cooldown=0  | duration=1000
 
 name:Ghost
 class:com.dongbat.game.ability.types.Ghost

@@ -36,9 +36,9 @@ public class WorldQueryUtil {
   /**
    * Find any entity in radius
    *
-   * @param world    artemis world
+   * @param world artemis world
    * @param location location to find
-   * @param radius   radius to find
+   * @param radius radius to find
    * @return Array of nearest Entity in radius
    */
   public static Array<Entity> findAnyInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
@@ -64,12 +64,24 @@ public class WorldQueryUtil {
     return entities;
   }
 
+  public static Array<Entity> filterEntityInRay(World world, Array<Entity> entities, Vector2 direction, float degree) {
+    Array<Entity> filteredArray = new Array<Entity>();
+    for (Entity entity : entities) {
+      Vector2 entityPos = getPosition(world, entity);
+      float angleDiff = entityPos.angle(direction);
+      if (angleDiff <= degree && angleDiff >= angleDiff - degree) {
+        filteredArray.add(entity);
+      }
+    }
+    return filteredArray;
+  }
+
   /**
    * Find food in radius, centre is an point on map
    *
-   * @param world    artemis world
+   * @param world artemis world
    * @param location centre of circle
-   * @param radius   radius to find
+   * @param radius radius to find
    * @return Food entity list
    */
   public static Array<Entity> findFoodInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
@@ -102,9 +114,9 @@ public class WorldQueryUtil {
   /**
    * Find enemy in radius, centre is an point on map
    *
-   * @param world    artemis world
+   * @param world artemis world
    * @param location centre of circle
-   * @param radius   radius to find
+   * @param radius radius to find
    * @return Enemy entity list
    */
   public static Array<Entity> findEnemyInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
@@ -138,8 +150,8 @@ public class WorldQueryUtil {
   /**
    * Find nearest entity in list from a location
    *
-   * @param world      artemis world
-   * @param location   location
+   * @param world artemis world
+   * @param location location
    * @param entityList entity list that you want to find
    * @return one entity
    */
@@ -162,9 +174,9 @@ public class WorldQueryUtil {
   /**
    * Find player in radius from a location
    *
-   * @param world    artemis world
+   * @param world artemis world
    * @param location location that you want to find
-   * @param radius   radius to find
+   * @param radius radius to find
    * @return Player entity list
    */
   public static Array<Entity> findPlayerNonAiInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
@@ -218,14 +230,19 @@ public class WorldQueryUtil {
     return queenList;
   }
 
-  public static IntBag getAllEntities(World world) {
+  public static IntBag
+    getAllEntities(World world) {
     //TODO: world is not update, entities bag is not update when world progress 
-    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all()).getEntities();
+    IntBag entities = world.getManager(AspectSubscriptionManager.class
+    ).get(Aspect.all()).getEntities();
     return entities;
   }
 
-  public static IntBag getAllPlayerAndAi(World world) {
-    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Player.class)).getEntities();
+  public static IntBag
+    getAllPlayerAndAi(World world) {
+    IntBag entities = world.getManager(AspectSubscriptionManager.class
+    ).get(Aspect.all(Player.class
+    )).getEntities();
     return entities;
   }
 
@@ -313,7 +330,7 @@ public class WorldQueryUtil {
 
     };
     PhysicsUtil.getPhysicsWorld(world)
-            .QueryAABB(callback, -scaleX, -scaleY, scaleX, scaleY);
+      .QueryAABB(callback, -scaleX, -scaleY, scaleX, scaleY);
 
     return queenPosition;
 

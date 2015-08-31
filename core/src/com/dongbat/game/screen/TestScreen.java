@@ -6,52 +6,92 @@
 package com.dongbat.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 /**
  *
  * @author Admin
  */
-public class TestScreen extends ScreenAdapter {
+public class TestScreen implements Screen {
 
-  Stage stage;
-  TextButton button;
-  TextButtonStyle textButtonStyle;
-  BitmapFont font;
-  Skin skin;
-  TextureAtlas buttonAtlas;
+  private Stage stage = new Stage(new ExtendViewport(800, 480));
+  private Skin skin = new Skin(Gdx.files.internal("skins/uiskin.json"), new TextureAtlas(Gdx.files.internal("skins/uiskin.atlas")));
+  private Table table = new Table();
+
+  private TextButton buttonPlay = new TextButton("Play", skin);
+  private TextButton buttonExit = new TextButton("Exit", skin);
+  private Label title = new Label("Game Title", skin);
+
+  public TestScreen() {
+  }
 
   @Override
   public void show() {
-    stage = new Stage();
-    Gdx.input.setInputProcessor(stage);
-    font = new BitmapFont();
-    skin = new Skin();
-    buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/buttons.pack"));
-    skin.addRegions(buttonAtlas);
-    textButtonStyle = new TextButtonStyle();
-    textButtonStyle.font = font;
-    textButtonStyle.up = skin.getDrawable("up-button");
-    textButtonStyle.down = skin.getDrawable("down-button");
-    textButtonStyle.checked = skin.getDrawable("checked-button");
-    button = new TextButton("Button1", textButtonStyle);
-    stage.addActor(button);
+    buttonPlay.addListener(new ClickListener() {
 
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        System.out.println("dcm");
+      }
+
+    });
+
+    buttonExit.addListener(new ClickListener() {
+
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        System.out.println("vcl");
+      }
+
+    });
+    table.add(title).padBottom(40).row();
+    table.add(buttonPlay).size(150, 60).padBottom(20).row();
+    table.add(buttonExit).size(150, 60).padBottom(20).row();
+
+    table.setFillParent(true);
+    stage.addActor(table);
+
+    Gdx.input.setInputProcessor(stage);
   }
 
   @Override
-  public void render(float delta) {
-    super.render(delta); //To change body of generated methods, choose Tools | Templates.
+  public void render(float f) {
+    Gdx.gl.glClearColor(0, 0, 0, 1);
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    stage.act();
     stage.draw();
   }
 
-  public TestScreen() {
+  @Override
+  public void resize(int i, int i1) {
+  }
+
+  @Override
+  public void pause() {
+  }
+
+  @Override
+  public void resume() {
+  }
+
+  @Override
+  public void hide() {
+  }
+
+  @Override
+  public void dispose() {
+    stage.dispose();
+    skin.dispose();
   }
 
 }

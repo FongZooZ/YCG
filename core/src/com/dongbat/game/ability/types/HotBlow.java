@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.dongbat.game.ability.types;
 
 import com.artemis.Entity;
@@ -10,37 +15,28 @@ import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 
 /**
- * Created by FongZooZ on 8/28/2015.
+ *
+ * @author Admin
  */
-public class Attractor implements Ability {
+public class HotBlow implements Ability {
 
   private int duration;
 
-  /**
-   * Get tooltip of ability
-   *
-   * @return tooltip in String
-   */
   @Override
   public String getTooltip() {
-    return "Suck anything smaller in radius.";
+    return "hot blow";
   }
 
-  /**
-   * Cast ability to the target when entity caster
-   * cast by using input on screen
-   *
-   * @param world  artemis world
-   * @param caster entity which use ability
-   * @param target target of ability
-   */
   @Override
   public void cast(World world, Entity caster, Vector2 target) {
+
     AbilityComponent playerAbilityList = EntityUtil.getComponent(world, caster, AbilityComponent.class);
-    AbilityInfo info = playerAbilityList.getAbility("Attractor");
+    AbilityInfo info = playerAbilityList.getAbility("HotBlow");
     if (info == null) {
       return;
     }
-    BuffUtil.addBuff(world, caster, caster, "Attractor", duration, 1);
+    BuffUtil.addBuff(world, caster, caster, "HotBlow", duration, 1);
+
   }
+
 }

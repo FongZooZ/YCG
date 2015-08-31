@@ -5,23 +5,26 @@ import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.dongbat.game.buff.BuffEffect;
+import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.BuffUtil;
+import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.WorldQueryUtil;
 
 /**
  * Created by FongZooZ on 8/28/2015.
  */
-public class Attractor implements BuffEffect {
+public class Vacuum implements BuffEffect {
 
-  private float radius;
+  private float radius = 5;
+  private float degree = 30;
   private float forceStrength;
-  private int attractedTime;
+  private int duration;
 
   /**
    * Start buff effect
    *
-   * @param world  artemis world
+   * @param world artemis world
    * @param source entity that affect buff effect to entity target
    * @param target entity that is affected from buff effect
    */
@@ -33,22 +36,24 @@ public class Attractor implements BuffEffect {
   /**
    * Update buff effect when game loop process
    *
-   * @param world  artemis world
+   * @param world artemis world
    * @param source entity that affect buff effect to entity target
    * @param target entity that is affected from buff effect
    */
   @Override
   public void update(World world, Entity source, Entity target) {
     Vector2 playerPosition = PhysicsUtil.getPosition(world, source);
+    UnitMovement unitMs = EntityUtil.getComponent(world, target, UnitMovement.class);
+    if (unitMs.getDirectionVelocity() == null) {
+      return;
+    }
     Array<Entity> foundList = WorldQueryUtil.findAnyInRadius(world, playerPosition, radius);
-    for (Entity e : foundList) {
-      if (PhysicsUtil.getRadius(world, source) < PhysicsUtil.getRadius(world, e)) {
-        return;
-      }
+    Array<Entity> filterList = WorldQueryUtil.filterEntityInRay(world, foundList, unitMs.getDirectionVelocity(), degree);
+    for (Entity e : filterList) {
       if (e != source) {
         Vector2 victimPosition = PhysicsUtil.getPosition(world, e);
         Vector2 direction = victimPosition.cpy().sub(playerPosition).cpy().scl(-1).nor();
-        BuffUtil.addBuff(world, source, e, "Forced", attractedTime, 1, "forceStrength", forceStrength, "direction", direction);
+        BuffUtil.addBuff(world, source, e, "Forced", duration, 1, "forceStrength", forceStrength, "direction", direction);
       }
     }
   }
@@ -56,7 +61,7 @@ public class Attractor implements BuffEffect {
   /**
    * End buff when duration is reach maximum value
    *
-   * @param world  artemis world
+   * @param world artemis world
    * @param source entity that affect buff effect to entity target
    * @param target entity that is affected from buff effect
    */

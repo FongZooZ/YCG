@@ -1,5 +1,5 @@
 name=phong
 radius=10
 baseSpeedRate=195
-abilities=SplitAndJoin
+abilities=HotBlow
 definitionPath=unit/tree/normal.tree

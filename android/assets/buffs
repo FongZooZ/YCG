@@ -4,12 +4,6 @@ class:com.dongbat.game.buff.effects.Shrink
 2: shrinkAmount=9  | speedIncrease=500000
 3: shrinkAmount=9  | speedIncrease=700000
 
-name:Vacuum
-class:com.dongbat.game.buff.effects.Vacuum
-1: vacuumSpeed=10.0
-2: vacuumSpeed=15.0
-3: vacuumSpeed=20.0
-
 name:Ghost
 class:com.dongbat.game.buff.effects.Ghost
 1: speedIncrease=200000
@@ -56,6 +50,14 @@ class:com.dongbat.game.buff.effects.ProduceFoodSchedule
 
 name:RandomDestinationSchedule
 class:com.dongbat.game.buff.effects.RandomDestinationSchedule
+
+name:Vacuum
+class:com.dongbat.game.buff.effects.Vacuum
+1: radius=20 | forceStrength=5 | duration=1000
+
+name:HotBlow
+class:com.dongbat.game.buff.effects.HotBlow
+1: radius=20 | forceStrength=5 | duration=1000
 
 name:Rupture
 class:com.dongbat.game.buff.effects.Rupture
@@ -116,7 +118,3 @@ class:com.dongbat.game.buff.effects.DuplicateOnTouch
 
 name:ImmunWithDuplicate
 class:com.dongbat.game.buff.effects.ImmunWithDuplicate
-
-name:Attractor
-class:com.dongbat.game.buff.effects.Attractor
-1: radius=100 | forceStrength=200 | attractedTime=1000
