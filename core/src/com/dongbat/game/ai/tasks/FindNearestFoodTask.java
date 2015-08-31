@@ -28,8 +28,8 @@ public class FindNearestFoodTask extends LeafTask<Entity> {
     Entity e = getObject();
     long lastFrameIndex = ECSUtil.getFrame(e.getWorld());
     UnitMovement unitMovement = EntityUtil.getComponent(e.getWorld(), e, UnitMovement.class);
-    Array<Entity> foodInRadius = findFoodInRadius(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), 50);
-    Array<Entity> foodInMap = findFoodInRadius(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), 5000);
+    Array<Entity> foodInRadius = findColdFoodInRadius(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), 50);
+    Array<Entity> foodInMap = findColdFoodInRadius(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), 5000);
     Entity nearestFood = findNearestEntityInList(e.getWorld(), PhysicsUtil.getPosition(e.getWorld(), e), foodInRadius);
     Vector2 currentPos = PhysicsUtil.getPosition(e.getWorld(), e);
 

@@ -400,27 +400,6 @@ public class PhysicsUtil {
   }
 
   /**
-   * Create box2d world like a box
-   *
-   * @param world artemis world
-   */
-  public static void createWorld(com.artemis.World world) {
-
-    Body wallLeft = createEdge(world, BodyDef.BodyType.StaticBody, 0, 0, 0, 10000, 20);
-//    wallLeft.setUserData(new Box2dSteeringEntity(wallLeft, true, 0));
-    wallLeft.setTransform(-Constants.GAME.FRAME_WIDTH, -Constants.GAME.FRAME_HEIGHT, 0);
-
-    Body wallRight = createEdge(world, BodyDef.BodyType.StaticBody, 0, 0, 0, 10000, 20);
-    wallRight.setTransform(Constants.GAME.FRAME_WIDTH, -Constants.GAME.FRAME_HEIGHT, 0);
-
-    Body floor = createEdge(world, BodyDef.BodyType.StaticBody, 0, 0, 10000, 0, 20);
-    floor.setTransform(-Constants.GAME.FRAME_WIDTH, -Constants.GAME.FRAME_HEIGHT, 0);
-
-    Body ceiling = createEdge(world, BodyDef.BodyType.StaticBody, 0, 0, 102000, 0, 20);
-    ceiling.setTransform(-Constants.GAME.FRAME_WIDTH, Constants.GAME.FRAME_HEIGHT, 0);
-  }
-
-  /**
    * Create a dummy box to test
    *
    * @param world artemis world

@@ -45,9 +45,9 @@ public class PhysicsCameraUtil {
   public static float getZoomScale(World world, Entity e) {
     float zoom;
     float collisionRadius = PhysicsUtil.getRadius(world, e);
-    zoom = 15 + collisionRadius * 8 / 20;
-    if (zoom >= 25) {
-      zoom = 25;
+    zoom = 10 + collisionRadius * 8 / 20;
+    if (zoom >= 20) {
+      zoom = 20;
     }
     return zoom;
   }

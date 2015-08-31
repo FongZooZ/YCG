@@ -8,12 +8,9 @@ package com.dongbat.game.system;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
-import com.dongbat.game.component.Physics;
-import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.MovementUtil;
-import com.dongbat.game.util.UnitUtil;
 
 /**
  *

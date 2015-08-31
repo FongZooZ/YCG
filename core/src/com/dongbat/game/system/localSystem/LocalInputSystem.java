@@ -80,6 +80,9 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
     if (skillTwo == true) {
       skillTwo = false;
       AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
+      if(abilityComponent.getAbilities().size <=1){
+        return;
+      }
       String abilityName = abilityComponent.getAbilitiesOrder().get(1);
       if (abilityName == null) {
         return;

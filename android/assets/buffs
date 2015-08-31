@@ -63,6 +63,10 @@ name:Forced
 class:com.dongbat.game.buff.effects.Forced
 1: forceStrength=5
 
+name:Respawn
+class:com.dongbat.game.buff.effects.Respawn
+1: minRadius=2
+
 name:FleeForced
 class:com.dongbat.game.buff.effects.Forced
 1: forceStrength=2 | ignoreMass =true
