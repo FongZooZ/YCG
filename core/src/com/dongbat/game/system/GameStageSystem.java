@@ -12,13 +12,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.game.component.UnitMovement;
-import com.dongbat.game.system.localSystem.LocalInputSystem;
 import com.dongbat.game.util.AbilityUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.InputUtil;
@@ -34,6 +33,7 @@ public class GameStageSystem extends BaseSystem {
 
   private Stage stage = new Stage();
   private Skin skin = new Skin(Gdx.files.internal("skins/uiskin.json"), new TextureAtlas(Gdx.files.internal("skins/uiskin.atlas")));
+  private Label title = new Label("Full game play is coming soon, with multiplayer feature over WIFI and internet", skin);
 
   public GameStageSystem() {
   }
@@ -53,9 +53,9 @@ public class GameStageSystem extends BaseSystem {
     float width = worldWidth / 60;
     float height = worldHeight / 60;
 
-    TextButton flee = new TextButton(" flee ", skin);
-    flee.sizeBy(width * 4, height * 3);
-    flee.setPosition(width * 2, height * 2);
+    TextButton flee = new TextButton("Flee", skin);
+    flee.setSize(width * 7, height * 6);
+    flee.setPosition(width * 2, height * 5);
     flee.addListener(new ClickListener() {
 
       @Override
@@ -72,9 +72,9 @@ public class GameStageSystem extends BaseSystem {
 
     });
 
-    TextButton hotBlow = new TextButton(" blow ", skin);
-    hotBlow.sizeBy(width * 4, height * 3);
-    hotBlow.setPosition(width * 2, height * 8);
+    TextButton hotBlow = new TextButton("Blow", skin);
+    hotBlow.setSize(width * 7, height * 6);
+    hotBlow.setPosition(width * 2, height * 13);
     hotBlow.addListener(new ClickListener() {
 
       @Override
@@ -90,9 +90,9 @@ public class GameStageSystem extends BaseSystem {
       }
     });
 
-    TextButton spitAndJoin = new TextButton(" split  ", skin);
-    spitAndJoin.sizeBy(width * 4, height * 3);
-    spitAndJoin.setPosition(width * 2, height * 14);
+    TextButton spitAndJoin = new TextButton("Split", skin);
+    spitAndJoin.setSize(width * 7, height * 6);
+    spitAndJoin.setPosition(width * 2, height * 21);
     spitAndJoin.addListener(new ClickListener() {
 
       @Override
@@ -108,9 +108,9 @@ public class GameStageSystem extends BaseSystem {
       }
     });
 
-    TextButton vacuum = new TextButton(" VAC  ", skin);
-    vacuum.sizeBy(width * 4, height * 3);
-    vacuum.setPosition(width * 2, height * 20);
+    TextButton vacuum = new TextButton("Vacuum", skin);
+    vacuum.setSize(width * 7, height * 6);
+    vacuum.setPosition(width * 2, height * 29);
     vacuum.addListener(new ClickListener() {
 
       @Override
@@ -126,10 +126,13 @@ public class GameStageSystem extends BaseSystem {
       }
     });
 
+    title.setPosition(worldWidth - width * 30, worldHeight - height * 2);
+
     stage.addActor(flee);
     stage.addActor(hotBlow);
     stage.addActor(spitAndJoin);
     stage.addActor(vacuum);
+    stage.addActor(title);
     InputUtil.addProcessor(stage, 0);
   }
 
