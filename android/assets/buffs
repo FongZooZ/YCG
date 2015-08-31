@@ -50,7 +50,7 @@ class:com.dongbat.game.buff.effects.QueenTeleportSchedule
 
 name:ProduceFoodSchedule
 class:com.dongbat.game.buff.effects.ProduceFoodSchedule
-1: scheduleFrame = 5 | overheatFrame = 10 | cooldownFrame = 20
+1: scheduleFrame = 1 | overheatFrame = 30 | cooldownFrame = 20
 2: scheduleFrame = 18
 3: scheduleFrame = 15
 

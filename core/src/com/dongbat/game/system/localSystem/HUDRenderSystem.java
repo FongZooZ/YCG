@@ -6,23 +6,11 @@
 package com.dongbat.game.system.localSystem;
 
 import com.artemis.BaseSystem;
-import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ObjectMap;
-import com.dongbat.game.buff.BuffInfo;
-import com.dongbat.game.component.BuffComponent;
-import com.dongbat.game.component.Stats;
 import com.dongbat.game.util.ECSUtil;
-import com.dongbat.game.util.EntityUtil;
-import com.dongbat.game.util.MovementUtil;
 import com.dongbat.game.util.PhysicsUtil;
-import com.dongbat.game.util.UuidUtil;
-import com.dongbat.game.util.localUtil.LocalPlayerUtil;
-import com.dongbat.game.util.localUtil.PhysicsCameraUtil;
-import java.util.UUID;
 
 /**
  *
@@ -45,23 +33,16 @@ public class HUDRenderSystem extends BaseSystem {
 
   @Override
   protected void processSystem() {
-    UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
-    Entity localPlayer = UuidUtil.getEntityByUuid(world, localPlayerId);
-    if (localPlayer == null) {
-      return;
-    }
-    Stats stat = EntityUtil.getComponent(world, localPlayer, Stats.class);
+//    UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
+//    Entity localPlayer = UuidUtil.getEntityByUuid(world, localPlayerId);
+//    if (localPlayer == null) {
+//      return;
+//    }
     bitmapFont.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), 100, 100);
     bitmapFont.draw(batch, "body count: " + PhysicsUtil.getPhysicsWorld(world).getBodyCount(), 100, 75);
-    bitmapFont.draw(batch, "speed: " + MovementUtil.calculalteDesiredSpeed(world, localPlayer), 100, 25);
-    bitmapFont.draw(batch, "zoom: " + PhysicsCameraUtil.getZoomScale(world, localPlayer), 100, 50);
+//    bitmapFont.draw(batch, "speed: " + MovementUtil.calculalteDesiredSpeed(world, localPlayer), 100, 25);
+//    bitmapFont.draw(batch, "zoom: " + PhysicsCameraUtil.getZoomScale(world, localPlayer), 100, 50);
     bitmapFont.draw(batch, "frame " + ECSUtil.getFrame(world), 100, 125);
-    BuffComponent buffComponent = EntityUtil.getComponent(world, localPlayer, BuffComponent.class);
-    ObjectMap<String, BuffInfo> buffs = buffComponent.getBuffs();
-    for (ObjectMap.Entry<String, BuffInfo> buff : buffs) {
-      bitmapFont.draw(batch, "buff " + buff.value.getDuration() + "", 100, 425);
-      return;
-    }
 
 //    Vector2 queenPosition = EntityUtil.getQueenPosition(world);
 //    if (queenPosition != null) {

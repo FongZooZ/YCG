@@ -13,10 +13,12 @@ import com.dongbat.game.component.Collision;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
-import static com.dongbat.game.util.UnitUtil.eat;
 import com.dongbat.game.util.UuidUtil;
-import static com.dongbat.game.util.WorldQueryUtil.isFood;
+
 import java.util.UUID;
+
+import static com.dongbat.game.util.UnitUtil.eat;
+import static com.dongbat.game.util.WorldQueryUtil.isFood;
 
 /**
  *
@@ -38,7 +40,7 @@ public class ConsumingSystem extends EntityProcessingSystem {
     for (UUID idB : collidedList) {
       Entity b = UuidUtil.getEntityByUuid(world, idB);
 
-      if (!b.isActive()) {
+      if (b == null || !b.isActive()) {
         continue;
       }
       if (stats != null) {

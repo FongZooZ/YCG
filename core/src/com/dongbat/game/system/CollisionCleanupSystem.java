@@ -12,21 +12,27 @@ import com.dongbat.game.component.Collision;
 import com.dongbat.game.util.EntityUtil;
 
 /**
- *
  * @author Admin
  */
 public class CollisionCleanupSystem extends EntityProcessingSystem {
 
-	public CollisionCleanupSystem() {
-		super(Aspect.all(Collision.class));
-	}
 
-	@Override
-	protected void process(Entity e) {
-		Collision collision = EntityUtil.getComponent(world, e, Collision.class);
-		collision.getLastCollidedList().clear();
-		collision.getLastCollidedList().addAll(collision.getCollidedList());
-		collision.getCollidedList().clear();
-		collision.getJustCollidedList().clear();
-	}
+    public CollisionCleanupSystem() {
+        super(Aspect.all(Collision.class));
+    }
+
+    /**
+     * Process a entity this system is interested in.
+     *
+     * @param e the entity to process
+     */
+    @Override
+    protected void process(Entity e) {
+        if (e == null) {
+            return;
+        }
+        Collision collision = EntityUtil.getComponent(world, e, Collision.class);
+//            collision.getCollidedList().clear();
+        collision.getJustCollidedList().clear();
+    }
 }
