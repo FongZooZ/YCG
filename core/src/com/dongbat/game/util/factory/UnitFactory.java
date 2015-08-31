@@ -8,11 +8,14 @@ package com.dongbat.game.util.factory;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.managers.UuidEntityManager;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.AiControl;
 import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.Collision;
 import com.dongbat.game.component.Detection;
+import com.dongbat.game.component.Display;
 import com.dongbat.game.component.DisplayPosition;
 import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.Player;
@@ -20,9 +23,13 @@ import com.dongbat.game.component.Queen;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.unit.UnitInfo;
+import com.dongbat.game.util.AssetUtil;
 import com.dongbat.game.util.BuffUtil;
+import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
+
+import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
 import java.util.UUID;
 
@@ -129,19 +136,30 @@ public class UnitFactory {
     float posX = (float) ((Math.random() * 2 - 1) * scaleX);
     float posY = (float) ((Math.random() * 2 - 1) * scaleY);
     movement.setDirectionVelocity(new Vector2(posX, posY));
+
+    Display display = new Display();
+
     e.edit().add(physics)
       .add(stats)
       .add(new Collision())
       .add(buff)
       .add(new Queen())
       .add(new Detection())
-      .add(movement);
+      .add(movement)
+      .add(display);
 
     BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
     BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
     BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1, "feedPerSecond", 2);
     BuffUtil.addBuff(world, e, e, "SelfDefense", -1, 1);
 //    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);
+    display.setPosition(PhysicsUtil.getPosition(world, e));
+    display.setRadius(PhysicsUtil.getRadius(world, e));
+    display.setRotation(EntityUtil.getComponent(world, e, UnitMovement.class).getDirectionVelocity().angle());
+    TextureAtlas move = AssetUtil.getUnitAtlas().get("queen");
+    Animation animation = new Animation(0.1f, move.getRegions());
+    animation.setPlayMode(Animation.PlayMode.LOOP);
+    display.setDefaultAnimation(new AnimatedSprite(animation));
     return e;
   }
 }

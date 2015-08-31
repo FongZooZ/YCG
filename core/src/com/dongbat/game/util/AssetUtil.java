@@ -23,6 +23,14 @@ public class AssetUtil {
 
     private static ObjectMap<String, TextureAtlas> unitAtlas;
 
+    public static ObjectMap<String, TextureAtlas> getUnitAtlas() {
+        return unitAtlas;
+    }
+
+    public static void setUnitAtlas(ObjectMap<String, TextureAtlas> unitAtlas) {
+        AssetUtil.unitAtlas = unitAtlas;
+    }
+
     public static AssetManager getManager() {
         if (manager == null) {
             init();
@@ -45,8 +53,21 @@ public class AssetUtil {
     public static void loadAsset() {
         AssetManager manager = getManager();
         manager.load("texture/unit/move/move.atlas", TextureAtlas.class);
+        manager.load("texture/queen/queen.atlas", TextureAtlas.class);
+        manager.load("texture/food/hot/hot_food.atlas", TextureAtlas.class);
+        manager.load("texture/food/cold/cold_food.png", Texture.class, parameter);
+        manager.load("texture/background/bg00.png", Texture.class, parameter);
+        manager.load("texture/background/bg01.png", Texture.class, parameter);
+        manager.load("texture/background/bg02.png", Texture.class, parameter);
+        manager.load("texture/background/bg03.png", Texture.class, parameter);
 
     }
+
+    public static Texture cold;
+    public static Texture bg00;
+    public static Texture bg01;
+    public static Texture bg02;
+    public static Texture bg03;
 
     public static boolean update() {
         AssetManager manager = getManager();
@@ -54,6 +75,13 @@ public class AssetUtil {
 
         if (done) {
             unitAtlas.put("move", manager.get("texture/unit/move/move.atlas", TextureAtlas.class));
+            unitAtlas.put("queen", manager.get("texture/queen/queen.atlas", TextureAtlas.class));
+            unitAtlas.put("hot_food", manager.get("texture/food/hot/hot_food.atlas", TextureAtlas.class));
+            cold = manager.get("texture/food/cold/cold_food.png", Texture.class);
+            bg00 = manager.get("texture/background/bg00.png", Texture.class);
+            bg01 = manager.get("texture/background/bg01.png", Texture.class);
+            bg02 = manager.get("texture/background/bg02.png", Texture.class);
+            bg03 = manager.get("texture/background/bg03.png", Texture.class);
         }
         return done;
     }
