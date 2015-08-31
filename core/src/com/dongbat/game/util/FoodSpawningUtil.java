@@ -11,16 +11,17 @@ import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.util.factory.EntityFactory;
+import com.dongbat.game.util.localUtil.Constants;
 
 /**
  * @author Admin
  */
 public class FoodSpawningUtil {
 
-//  public static final float scaleX = Constants.GAME.FRAME_WIDTH;
-  public static final float scaleX = 100;
-//  public static final float scaleY = Constants.GAME.FRAME_HEIGHT;
-  public static final float scaleY = 100;
+  public static final float scaleX = Constants.GAME.FRAME_WIDTH ;
+//  public static final float scaleX = 100;
+  public static final float scaleY = Constants.GAME.FRAME_HEIGHT ;
+//  public static final float scaleY = 100;
 
   /**
    * Spawn food to the map of the world

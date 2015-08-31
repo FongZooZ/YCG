@@ -23,8 +23,8 @@ public class Constants {
   public static class GAME {
 
     public static final float EPSILON = 0.01f;
-    public static final int FRAME_WIDTH = 500;
-    public static final int FRAME_HEIGHT = 500;
+    public static final int FRAME_WIDTH = 100;
+    public static final int FRAME_HEIGHT = 100;
     public static final String TITLE = "Network";
     public static final boolean DEBUG = true;
     public static final boolean DRAW_PHYSICS_DEBUG = true;

@@ -7,6 +7,7 @@ package com.dongbat.game.util;
 
 import com.artemis.Entity;
 import com.artemis.World;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Stats;
@@ -120,10 +121,9 @@ public class UnitUtil {
     if (!physics.getBody().isActive()) {
       return;
     }
-
-    if (isPlayer(e.getWorld(), e.getId())) {
-      PhysicsUtil.setRadius(e.getWorld(), e, 0.4f);
-      PhysicsUtil.setPosition(e.getWorld(), e, new Vector2());
+    
+    if (isPlayer(e.getWorld(), e.getId()) && !BuffUtil.hasBuff(e.getWorld(), e, "Respawn")) {
+      BuffUtil.addBuff(e.getWorld(), e, e, "Respawn", 2000, 1);
       return;
     }
     physicsWorld.destroyBody(physics.getBody());

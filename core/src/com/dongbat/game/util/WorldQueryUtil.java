@@ -111,6 +111,36 @@ public class WorldQueryUtil {
     return food;
   }
 
+  public static Array<Entity> findColdFoodInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
+    final Array<Entity> food = new Array<Entity>();
+
+    QueryCallback callback = new QueryCallback() {
+
+      @Override
+      public boolean reportFixture(Fixture fixture) {
+        Body body = fixture.getBody();
+        Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
+        if (entity != null) {
+          if (isFood(world, entity.getId())) {
+            float distanceSq = new Vector2(body.getPosition()).sub(location).len2();
+            if (distanceSq <= radius * radius) {
+              Food f = EntityUtil.getComponent(world, entity, Food.class);
+              if (!f.isToxic()) {
+                food.add(entity);
+              }
+            }
+          }
+        }
+        return true;
+      }
+    };
+    Vector2 lowerLeft = new Vector2(location).sub(radius, radius);
+    Vector2 upperRight = new Vector2(location).add(radius, radius);
+    getPhysicsWorld(world).QueryAABB(callback, lowerLeft.x, lowerLeft.y, upperRight.x, upperRight.y);
+
+    return food;
+  }
+
   /**
    * Find enemy in radius, centre is an point on map
    *
