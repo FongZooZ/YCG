@@ -44,7 +44,7 @@ class:com.dongbat.game.buff.effects.QueenTeleportSchedule
 
 name:ProduceFoodSchedule
 class:com.dongbat.game.buff.effects.ProduceFoodSchedule
-1: scheduleFrame = 1 | overheatFrame = 30 | cooldownFrame = 20
+1: scheduleFrame = 1 | overheatFrame = 30 | cooldownFrame = 50
 
 name:RandomDestinationSchedule
 class:com.dongbat.game.buff.effects.RandomDestinationSchedule
