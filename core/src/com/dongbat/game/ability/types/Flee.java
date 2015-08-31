@@ -24,6 +24,7 @@ public class Flee implements Ability {
   private int duration;
   private float forceStrength;
   private int foodNumber = 10;
+  private float degree = 10;
 
   /**
    * Get tooltip of ability
@@ -44,11 +45,6 @@ public class Flee implements Ability {
    */
   @Override
   public void cast(World world, Entity caster, Vector2 target) {
-    AbilityComponent playerAbilityList = EntityUtil.getComponent(world, caster, AbilityComponent.class);
-    AbilityInfo info = playerAbilityList.getAbility("Flee");
-    if (info == null) {
-      return;
-    }
     UnitMovement unitMovement = EntityUtil.getComponent(world, caster, UnitMovement.class);
 
     Vector2 destination = unitMovement.getDirectionVelocity();
@@ -58,7 +54,6 @@ public class Flee implements Ability {
 
     Vector2 position = PhysicsUtil.getPosition(world, caster);
 
-    float degree = 60;
     float totalSquare = PhysicsUtil.getSquare(FOOD_RADIUS) * foodNumber;
     if (totalSquare > PhysicsUtil.getSquare(world, caster) + MIN_SQUARE) {
       return;
@@ -72,7 +67,8 @@ public class Flee implements Ability {
       // TODO: food expiring system
       BuffUtil.addBuff(world, caster, food, "ToBeRemoved", 2000, 1);
       BuffUtil.addBuff(world, caster, food, "ToxicFood", 400, 1);
-      BuffUtil.addBuff(world, caster, food, "Forced", (int) (400 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.5f, "direction", direction);
+      BuffUtil.addBuff(world, caster, food, "Forced", (int) (400 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", forceStrength, "direction", direction);
     }
+    BuffUtil.addBuff(world, caster, caster, "FleeForced", 500, 1, "forceStrength", forceStrength, "direction", target);
   }
 }

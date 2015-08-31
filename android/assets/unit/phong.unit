@@ -1,5 +1,5 @@
 name=phong
-radius=10
+radius=3
 baseSpeedRate=195
-abilities=HotBlow
+abilities=Flee
 definitionPath=unit/tree/normal.tree

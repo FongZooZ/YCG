@@ -20,18 +20,21 @@ public class Forced implements BuffEffect {
 
   private float forceStrength;
   private Vector2 direction;
+  private Vector2 target;
 
   private boolean ignoreMass = false;
 
   @Override
-  public void durationStart(World world, Entity source, Entity target) {
+  public void durationStart(World world, Entity source, Entity t) {
     if (direction == null) {
-      float posX = (float) MathUtils.random(-1f, 1f);
-      float posY = (float) MathUtils.random(-1f, 1f);
-      direction = new Vector2(posX, posY);
+      if (target != null) {
+        direction = target.cpy().sub(PhysicsUtil.getPosition(world, t));
+      } else {
+        direction = new Vector2(0, 0);
+      }
     }
-    MovementUtil.disableMovement(target);
-    PhysicsUtil.setVelocity(world, target, new Vector2());
+    MovementUtil.disableMovement(t);
+    PhysicsUtil.setVelocity(world, t, new Vector2());
   }
 
   @Override

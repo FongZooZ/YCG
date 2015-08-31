@@ -40,12 +40,12 @@ public class HotBlow implements BuffEffect {
       return;
     }
     Array<Entity> foundList = WorldQueryUtil.findAnyInRadius(world, playerPosition, radius);
-    Array<Entity> filterList = WorldQueryUtil.filterEntityInRay(world, foundList, unitMs.getDirectionVelocity(), degree);
+    Array<Entity> filterList = WorldQueryUtil.filterEntityInRay(world, foundList, playerPosition, unitMs.getDirectionVelocity(), degree);
     for (Entity e : filterList) {
       if (e != source) {
         Vector2 victimPosition = PhysicsUtil.getPosition(world, e);
         Vector2 direction = victimPosition.cpy().sub(playerPosition).cpy().scl(-1).nor();
-        BuffUtil.addBuff(world, source, e, "Forced", duration, 1, "forceStrength", forceStrength, "direction", direction.cpy().scl(-1));
+        BuffUtil.addBuff(world, source, e, "HotBlowForced", duration, 1, "forceStrength", forceStrength, "direction", direction.cpy().scl(-1));
         BuffUtil.addBuff(world, source, e, "ToxicFood", 400, 1);
       }
     }

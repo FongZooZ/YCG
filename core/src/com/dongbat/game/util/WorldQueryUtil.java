@@ -64,16 +64,16 @@ public class WorldQueryUtil {
     return entities;
   }
 
-  public static Array<Entity> filterEntityInRay(World world, Array<Entity> entities, Vector2 direction, float degree) {
-    Array<Entity> filteredArray = new Array<Entity>();
-    for (Entity entity : entities) {
-      Vector2 entityPos = getPosition(world, entity);
-      float angleDiff = entityPos.angle(direction);
-      if (angleDiff <= degree && angleDiff >= angleDiff - degree) {
-        filteredArray.add(entity);
+  public static Array<Entity> filterEntityInRay(World world, Array<Entity> entities, Vector2 origin, Vector2 direction, float degree) {
+    Array<Entity> filter = new Array<Entity>();
+    for (Entity e : entities) {
+      Vector2 entityPos = getPosition(world, e);
+      float angle = entityPos.cpy().sub(origin.cpy()).angle(direction.cpy());
+      if (angle <= degree && angle >= -degree) {
+        filter.add(e);
       }
     }
-    return filteredArray;
+    return filter;
   }
 
   /**
