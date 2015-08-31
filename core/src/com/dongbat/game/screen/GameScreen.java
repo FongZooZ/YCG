@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.registry.AbilityRegistry;
 import com.dongbat.game.registry.BuffRegistry;
 import com.dongbat.game.registry.UnitRegistry;
+import com.dongbat.game.util.AdUtil;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.PhysicsUtil;
@@ -30,6 +31,7 @@ public class GameScreen implements Screen {
   private final World world;
 
   public GameScreen() {
+    AdUtil.hideAd();
     WorldConfiguration config = ECSUtil.initWorldConfig();
     world = new World(config);
     UnitRegistry.load();
