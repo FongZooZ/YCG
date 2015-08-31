@@ -30,6 +30,7 @@ import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.DetectionCleanupSystem;
 import com.dongbat.game.system.DetectionSystem;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
+import com.dongbat.game.system.localSystem.SpriteRenderSystem;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.dongbat.game.util.objectUtil.WorldProgress;
 
@@ -72,23 +73,27 @@ public class ECSUtil {
 //  }
   public static WorldConfiguration initWorldConfig() {
     WorldConfiguration config = new WorldConfiguration();
-    setSystem(config, new Box2dSystem(), false);
-    setSystem(config, new AiControlledSystem(), false);
-    setSystem(config, new BuffSystem(), false);
+
     setSystem(config, new CollisionCleanupSystem(), false);
-    setSystem(config, new CollisionSystem(), false);
+    setSystem(config, new Box2dSystem(1), false);
+    setSystem(config, new AiControlledSystem(), false);
+    setSystem(config, new BuffSystem(), false); // gay lag, mat 300 entities
+    setSystem(config, new CollisionSystem(1), false); // 1200 collided trong list
     setSystem(config, new DetectionCleanupSystem(50), false);
     setSystem(config, new DetectionSystem(50), false);
     setSystem(config, new ConsumingSystem(), false);
     setSystem(config, new InputProcessorSystem(), false);
-    setSystem(config, new HUDRenderSystem(), false);
-    setSystem(config, new Shaperenderer1(), true);
-    setSystem(config, new LocalInputSystem(), true);
-    setSystem(config, new MovementSystem(), true);
-    setSystem(config, new GridRendererSystem(), true);
+
+    // for rendering
     setSystem(config, new CameraUpdateSystem(), true);
+    setSystem(config, new SpriteRenderSystem(), true); // gay lag: mat 1200 entites
+    setSystem(config, new HUDRenderSystem(), true); // gay lag
+    setSystem(config, new Shaperenderer1(), true);
+    setSystem(config, new LocalInputSystem(), true); // gay lag, mat 200
+    setSystem(config, new MovementSystem(), true); // gay lag, mat 400
+    setSystem(config, new GridRendererSystem(), true); // gay lag, mat hon 300
     setSystem(config, new BorderlandSystem(), true);
-    setSystem(config, new Box2dDebugRendererSystem(), true);
+//    setSystem(config, new Box2dDebugRendererSystem(), true);
 
     config.setManager(new UuidEntityManager());
     return config;
@@ -100,7 +105,7 @@ public class ECSUtil {
    * @param world
    */
   public static void init(World world) {
-    WorldProgress worldProgress = new WorldProgress(0.01f);
+    WorldProgress worldProgress = new WorldProgress(0.015f);
     worldProgressMap.put(world, worldProgress);
     worldRandomMap.put(world, new PredictableRandom());
   }

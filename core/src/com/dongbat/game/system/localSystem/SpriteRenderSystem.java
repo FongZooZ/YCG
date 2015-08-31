@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.dongbat.game.component.Player;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.RenderUtil;
 import com.dongbat.game.util.localUtil.PhysicsCameraUtil;
@@ -31,7 +30,7 @@ public class SpriteRenderSystem extends EntityProcessingSystem {
     @Override
     protected void initialize() {
         batch = RenderUtil.getBatch();
-        texture = new Sprite(new Texture(Gdx.files.internal("circle.png")));
+        texture = new Sprite(new Texture(Gdx.files.internal("circle_small.png")));
         camera = PhysicsCameraUtil.getCamera();
     }
 
@@ -39,23 +38,42 @@ public class SpriteRenderSystem extends EntityProcessingSystem {
      * Creates a new EntityProcessingSystem.
      */
     public SpriteRenderSystem() {
-        super(Aspect.all(Player.class));
+        super(Aspect.all());
     }
 
     /**
-     * Process a entity this system is interested in.
-     *
-     * @param e the entity to process
+     * Called after the systems has finished processing.
      */
     @Override
-    protected void process(Entity e) {
+    protected void end() {
+        batch.end();
+    }
+
+    /**
+     * Called before system processing begins.
+     * <p>
+     * <b>Nota Bene:</b> Any entities created in this method
+//     * won't become active until the next system starts processing
+//     * or when a new processing rounds begins, whichever comes first.
+//     * </p>
+//     */
+    @Override
+    protected void begin() {
         batch.begin();
+    }
+
+//    /**
+//     * Process a entity this system is interested in.
+//     *
+//     * @param e the entity to process
+//     */
+    @Override
+    protected void process(Entity e) {
         batch.setProjectionMatrix(camera.combined);
         float radius = PhysicsUtil.getRadius(world, e);
         Vector2 position = PhysicsUtil.getPosition(world, e);
         texture.setSize(2 * radius, 2 * radius);
         texture.setPosition(position.x - radius, position.y - radius);
         texture.draw(batch);
-        batch.end();
     }
 }

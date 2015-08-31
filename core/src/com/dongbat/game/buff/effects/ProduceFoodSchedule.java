@@ -21,7 +21,7 @@ import com.dongbat.game.util.factory.EntityFactory;
 
 /**
  *
- * @author Admin
+ * @author Adminz
  */
 public class ProduceFoodSchedule implements BuffEffect {
 
@@ -70,9 +70,9 @@ public class ProduceFoodSchedule implements BuffEffect {
         }
         Entity food = EntityFactory.createSteeringFood(world, position, UuidUtil.getUuid(source));
         // TODO: food expiring system
-        BuffUtil.addBuff(world, source, food, "ToBeRemoved", 5000, 1);
+        BuffUtil.addBuff(world, source, food, "ToBeRemoved", 2000, 1);
         BuffUtil.addBuff(world, source, food, "ToxicFood", 400, 1);
-        BuffUtil.addBuff(world, source, food, "Forced", (int) (500 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.5f, "direction", direction);
+        BuffUtil.addBuff(world, source, food, "Forced", (int) (600 * MathUtils.random(.5f, 1.25f)), 1, "forceStrength", 0.75f, "direction", direction);
       }
     }
   }

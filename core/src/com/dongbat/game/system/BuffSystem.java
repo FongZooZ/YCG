@@ -17,35 +17,46 @@ import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.TimeUtil;
 
 /**
- *
  * @author Admin
+ * co tac dung mat 300 thang: BUG // TODO
  */
 public class BuffSystem extends EntityProcessingSystem {
 
-  public BuffSystem() {
-    super(Aspect.all(BuffComponent.class));
-  }
+    private Array<String> toRemove;
 
-  @Override
-  protected void process(Entity entity) {
-    BuffComponent buffComponent = EntityUtil.getComponent(world, entity, BuffComponent.class);
-    ObjectMap<String, BuffInfo> buffs = buffComponent.getBuffs();
-    Array<String> toRemove = new Array<String>();
-
-    for (ObjectMap.Entry<String, BuffInfo> buff : buffs) {
-      BuffEffect effect = buff.value.getEffect();
-      Entity source = buff.value.getSource();
-      if (buff.value.getEndTime() <= TimeUtil.getCurrentFrame(world) && !buff.value.isPermanent()) {
-        effect.durationEnd(world, source, entity);
-        toRemove.add(buff.key);
-        continue;
-      }
-      effect.update(world, source, entity);
+    public BuffSystem() {
+        super(Aspect.all(BuffComponent.class));
     }
 
-    for (String name : toRemove) {
-      buffs.remove(name);
+    /**
+     * Override to implement code that gets executed when systems are
+     * initialized.
+     */
+    @Override
+    protected void initialize() {
+        toRemove = new Array<String>();
     }
-  }
+
+    @Override
+    protected void process(Entity entity) {
+        BuffComponent buffComponent = EntityUtil.getComponent(world, entity, BuffComponent.class);
+        ObjectMap<String, BuffInfo> buffs = buffComponent.getBuffs();
+        toRemove.clear();
+
+        for (ObjectMap.Entry<String, BuffInfo> buff : buffs) {
+            BuffEffect effect = buff.value.getEffect();
+            Entity source = buff.value.getSource();
+            if (buff.value.getEndTime() <= TimeUtil.getCurrentFrame(world) && !buff.value.isPermanent()) {
+                effect.durationEnd(world, source, entity);
+                toRemove.add(buff.key);
+                continue;
+            }
+            effect.update(world, source, entity);
+        }
+
+        for (String name : toRemove) {
+            buffs.remove(name);
+        }
+    }
 
 }

@@ -5,48 +5,44 @@
  */
 package com.dongbat.game.system;
 
-import com.artemis.BaseSystem;
 import com.artemis.Entity;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.World;
 import com.dongbat.game.component.Collision;
-import com.dongbat.game.component.Detection;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
-import java.util.UUID;
 
 /**
  *
  * @author Admin
  */
-public class CollisionSystem extends BaseSystem {
+public class CollisionSystem extends TimeSlicingSystem {
 
-  private World physicWorld;
-
-  public CollisionSystem() {
+  public CollisionSystem(int frameSlicing) {
+    super(frameSlicing);
   }
 
   @Override
-  protected void processSystem() {
-    physicWorld = PhysicsUtil.getPhysicsWorld(world);
+  protected void processTimeSlice() {
+    World physicWorld = PhysicsUtil.getPhysicsWorld(world);
     for (Contact contact : physicWorld.getContactList()) {
-      if (!(contact.getFixtureA().getBody().getUserData() instanceof UUID)) {
-        continue;
-      }
-      if (!(contact.getFixtureB().getBody().getUserData() instanceof UUID)) {
-        continue;
-      }
-      if ("collision".equals(contact.getFixtureA().getUserData()) && "collision".equals(contact.getFixtureB().getUserData())) {
-        UUID idA = (UUID) contact.getFixtureA().getBody().getUserData();
-        UUID idB = (UUID) contact.getFixtureB().getBody().getUserData();
-
-        Entity a = UuidUtil.getEntityByUuid(world, idA);
-        Entity b = UuidUtil.getEntityByUuid(world, idB);
-
-        addCollidedEntity(a, b);
-        addCollidedEntity(b, a);
-      }
+//      if (!(contact.getFixtureA().getBody().getUserData() instanceof UUID)) {
+//        continue;
+//      }
+//      if (!(contact.getFixtureB().getBody().getUserData() instanceof UUID)) {
+//        continue;
+//      }
+//      if ("collision".equals(contact.getFixtureA().getUserData()) && "collision".equals(contact.getFixtureB().getUserData())) {
+//        UUID idA = (UUID) contact.getFixtureA().getBody().getUserData();
+//        UUID idB = (UUID) contact.getFixtureB().getBody().getUserData();
+//
+//        Entity a = UuidUtil.getEntityByUuid(world, idA);
+//        Entity b = UuidUtil.getEntityByUuid(world, idB);
+//
+//        addCollidedEntity(a, b);
+//        addCollidedEntity(b, a);
+//      }
     }
   }
 
@@ -67,16 +63,4 @@ public class CollisionSystem extends BaseSystem {
     }
   }
 
-  private void addDetectionEntity(Entity a, Entity b) {
-    if (a == null || b == null) {
-      return;
-    }
-    if (!a.isActive() || !b.isActive()) {
-      return;
-    }
-    Detection detection = EntityUtil.getComponent(world, a, Detection.class);
-
-    if (detection != null) {
-    }
-  }
 }
