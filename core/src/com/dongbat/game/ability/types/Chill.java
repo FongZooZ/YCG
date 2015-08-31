@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.dongbat.game.ability.Ability;
 import com.dongbat.game.component.Food;
-import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.WorldQueryUtil;

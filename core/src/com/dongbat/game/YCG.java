@@ -9,6 +9,7 @@ import com.dongbat.game.registry.AbilityRegistry;
 import com.dongbat.game.registry.BuffRegistry;
 import com.dongbat.game.registry.UnitRegistry;
 import com.dongbat.game.screen.GameScreen;
+import com.dongbat.game.screen.SplashScreen;
 import com.dongbat.game.util.AssetUtil;
 import com.dongbat.game.util.ScreenUtil;
 
@@ -24,7 +25,7 @@ public class YCG extends Game {
     BuffRegistry.load();
     AbilityRegistry.load();
     resume();
-    setScreen(new GameScreen());
+    setScreen(new SplashScreen());
   }
 
   @Override

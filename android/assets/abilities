@@ -10,6 +10,10 @@ name:HotBlow
 class:com.dongbat.game.ability.types.HotBlow
 1: cooldown=5000 | radius=30
 
+name:Chill
+class:com.dongbat.game.ability.types.Chill
+1: cooldown= 5000
+
 name:SplitAndJoin
 class:com.dongbat.game.ability.types.SplitAndJoin
 1: cooldown= 5000

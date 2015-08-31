@@ -9,9 +9,13 @@ import com.artemis.Entity;
 import com.artemis.World;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.buff.BuffEffect;
+import com.dongbat.game.buff.BuffInfo;
+import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.component.UnitMovement;
+import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.localUtil.Constants;
@@ -30,6 +34,7 @@ public class Respawn implements BuffEffect {
     EntityUtil.getComponent(world, target, Stats.class).setAllowComsumming(false);
     EntityUtil.getComponent(world, target, Stats.class).setConsumable(false);
     PhysicsUtil.setVelocity(world, target, new Vector2());
+    BuffComponent buffComponent = EntityUtil.getComponent(world, target, BuffComponent.class);
     EntityUtil.getComponent(world, target, UnitMovement.class).setDisabled(true);
   }
 

@@ -75,6 +75,7 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
       if (abilityName == null) {
         return;
       }
+      System.out.println(abilityName);
       AbilityUtil.use(world, e, abilityName, destination);
     }
     if (skillTwo == true) {
@@ -87,6 +88,7 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
       if (abilityName == null) {
         return;
       }
+            System.out.println(abilityName);
       AbilityUtil.use(world, e, abilityName, destination);
     }
   }

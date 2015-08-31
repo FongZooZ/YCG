@@ -34,7 +34,6 @@ public class Cut implements Ability {
   public void cast(World world, Entity caster, Vector2 target) {
     AbilityComponent playerAbilityList = EntityUtil.getComponent(world, caster, AbilityComponent.class);
     AbilityInfo info = playerAbilityList.getAbility("Cut");
-    System.out.println(info);
     if (info == null) {
       return;
     }
