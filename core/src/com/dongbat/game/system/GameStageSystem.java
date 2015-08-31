@@ -72,7 +72,7 @@ public class GameStageSystem extends BaseSystem {
 
     });
 
-    TextButton hotBlow = new TextButton("  hot ", skin);
+    TextButton hotBlow = new TextButton(" blow ", skin);
     hotBlow.sizeBy(width * 4, height * 3);
     hotBlow.setPosition(width * 2, height * 8);
     hotBlow.addListener(new ClickListener() {
