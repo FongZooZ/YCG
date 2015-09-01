@@ -80,7 +80,6 @@ public class AnimationRenderSystem extends EntityProcessingSystem {
             overridenAnimation.setRotation(display.getRotation());
             overridenAnimation.draw(batch);
             if (TimeUtil.getCurrentFrameToMillis(world) - display.getGetOverridenStart() > display.getOverridenDuration()) {
-                System.out.println("123");
                 display.setOverridenAnimation(null);
             }
         }

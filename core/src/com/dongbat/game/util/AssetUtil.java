@@ -28,6 +28,14 @@ public class AssetUtil {
     private static ObjectMap<String, TextureAtlas> unitAtlas;
     public static Texture db;
     public static Texture logo;
+    private static TextureAtlas abilities;
+    public static Texture cooldown;
+    public static Texture joyBg;
+    public static Texture joyKnob;
+
+    public static TextureAtlas.AtlasRegion getAbilityTexture(String name) {
+        return abilities.findRegion(name);
+    }
 
     public static ObjectMap<String, TextureAtlas> getUnitAtlas() {
         return unitAtlas;
@@ -62,11 +70,15 @@ public class AssetUtil {
         manager.load("texture/unit/split/split.atlas", TextureAtlas.class);
         manager.load("texture/queen/queen.atlas", TextureAtlas.class);
         manager.load("texture/food/hot/hot_food.atlas", TextureAtlas.class);
+        manager.load("texture/abilities/abilities.atlas", TextureAtlas.class);
         manager.load("texture/food/cold/cold_food.png", Texture.class, parameter);
         manager.load("texture/background/bg00.png", Texture.class, parameter);
         manager.load("texture/background/bg01.png", Texture.class, parameter);
         manager.load("texture/background/bg02.png", Texture.class, parameter);
         manager.load("texture/background/bg03.png", Texture.class, parameter);
+        manager.load("texture/joypad/joy_bg.png", Texture.class, parameter);
+        manager.load("texture/joypad/joy_knob.png", Texture.class, parameter);
+        manager.load("texture/cooldown_button/circle.png", Texture.class, parameter);
         manager.load("db.png", Texture.class, parameter);
         manager.load("Bluebird logo.png", Texture.class, parameter);
 
@@ -87,11 +99,15 @@ public class AssetUtil {
             unitAtlas.put("split", manager.get("texture/unit/split/split.atlas", TextureAtlas.class));
             unitAtlas.put("queen", manager.get("texture/queen/queen.atlas", TextureAtlas.class));
             unitAtlas.put("hot_food", manager.get("texture/food/hot/hot_food.atlas", TextureAtlas.class));
+            abilities = manager.get("texture/abilities/abilities.atlas", TextureAtlas.class);
             cold = manager.get("texture/food/cold/cold_food.png", Texture.class);
             bg00 = manager.get("texture/background/bg00.png", Texture.class);
             bg01 = manager.get("texture/background/bg01.png", Texture.class);
             bg02 = manager.get("texture/background/bg02.png", Texture.class);
             bg03 = manager.get("texture/background/bg03.png", Texture.class);
+            cooldown = manager.get("texture/cooldown_button/circle.png", Texture.class);
+            joyBg = manager.get("texture/joypad/joy_bg.png", Texture.class);
+            joyKnob = manager.get("texture/joypad/joy_knob.png", Texture.class);
             db = manager.get("db.png", Texture.class);
             logo = manager.get("Bluebird logo.png", Texture.class);
         }

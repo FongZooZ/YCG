@@ -8,15 +8,20 @@ package com.dongbat.game.system;
 import com.artemis.BaseSystem;
 import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.stage.AbilityButton;
+import com.dongbat.game.util.AssetUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.InputUtil;
 import com.dongbat.game.util.UuidUtil;
@@ -57,23 +62,29 @@ public class GameStageSystem extends BaseSystem {
     float width = worldWidth / 60;
     float height = worldHeight / 60;
 
-    buttonFleeAbility = new AbilityButton("Flee", skin, "texture/cooldown_button/cooldown_button.png");
+    buttonFleeAbility = new AbilityButton("Flee", skin, "flee");
     buttonFleeAbility.setSize(width * 7, width * 7);
     buttonFleeAbility.setPosition(worldWidth - width * 7, height * 2);
-    buttonBlowAbility = new AbilityButton("HotBlow", skin, "texture/cooldown_button/cooldown_button.png");
+    buttonBlowAbility = new AbilityButton("HotBlow", skin, "blow");
     buttonBlowAbility.setSize(width * 7, width * 7);
     buttonBlowAbility.setPosition(worldWidth - width * 7, height * 2 + width * 7);
-    buttonSplitAbility = new AbilityButton("SplitAndJoin", skin, "texture/cooldown_button/cooldown_button.png");
+    buttonSplitAbility = new AbilityButton("SplitAndJoin", skin, "split");
     buttonSplitAbility.setSize(width * 7, width * 7);
     buttonSplitAbility.setPosition(worldWidth - width * 7, height * 2 + width * 14);
-    buttonVacuumAbility = new AbilityButton("Vacuum", skin, "texture/cooldown_button/cooldown_button.png");
+    buttonVacuumAbility = new AbilityButton("Vacuum", skin, "vacuum");
     buttonVacuumAbility.setSize(width * 7, width * 7);
     buttonVacuumAbility.setPosition(worldWidth - width * 7, height * 2 + width * 21);
 
     title.setPosition(worldWidth - width * 30, worldHeight - height * 2);
 
-    touchpad = new Touchpad(worldWidth / 40, skin);
-    touchpad.setBounds(worldWidth / 50, worldWidth / 50, worldWidth / 6, worldWidth / 6);
+    Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle(skin.get(Touchpad.TouchpadStyle.class));
+    touchpadStyle.background = new SpriteDrawable(new Sprite(AssetUtil.joyBg));
+    touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(AssetUtil.joyKnob));
+
+    touchpad = new Touchpad(10, touchpadStyle);
+    touchpad.setBounds(15, 15, 200, 200);
+
+    touchpad.setSize(worldHeight / 3, worldHeight / 3);
 
     stage.addActor(touchpad);
     stage.addActor(buttonFleeAbility);

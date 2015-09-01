@@ -31,7 +31,7 @@ import com.dongbat.game.system.localSystem.GridRendererSystem;
 import com.dongbat.game.system.localSystem.HUDRenderSystem;
 import com.dongbat.game.system.localSystem.LocalInputSystem;
 import com.dongbat.game.system.localSystem.ParallaxBackgroundSystem;
-import com.dongbat.game.system.localSystem.Shaperenderer1;
+import com.dongbat.game.system.localSystem.BorderRenderSystem;
 import com.dongbat.game.system.localSystem.SpriteRenderSystem;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.dongbat.game.util.objectUtil.WorldProgress;
@@ -98,10 +98,10 @@ public class ECSUtil {
 
 //    setSystem(config, new Box2dDebugRendererSystem(), true);
     setSystem(config, new ParallaxBackgroundSystem(), true);
+    setSystem(config, new BorderRenderSystem(), true);
     setSystem(config, new DisplayUpdateSystem(), true);
     setSystem(config, new FoodAnimationSystem(), true);
     setSystem(config, new AnimationRenderSystem(), true);
-    setSystem(config, new Shaperenderer1(), true);
 
     setSystem(config, new GameStageSystem(), true);
 
