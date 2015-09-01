@@ -17,11 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.stage.AbilityButton;
-import com.dongbat.game.util.ECSUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.InputUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.localUtil.LocalPlayerUtil;
+
 import java.util.UUID;
 
 /**
@@ -57,16 +57,16 @@ public class GameStageSystem extends BaseSystem {
     float width = worldWidth / 60;
     float height = worldHeight / 60;
 
-    buttonFleeAbility = new AbilityButton("Flee", skin, "circle.png");
+    buttonFleeAbility = new AbilityButton("Flee", skin, "texture/cooldown_button/cooldown_button.png");
     buttonFleeAbility.setSize(width * 7, width * 7);
     buttonFleeAbility.setPosition(worldWidth - width * 7, height * 2);
-    buttonBlowAbility = new AbilityButton("HotBlow", skin, "circle.png");
+    buttonBlowAbility = new AbilityButton("HotBlow", skin, "texture/cooldown_button/cooldown_button.png");
     buttonBlowAbility.setSize(width * 7, width * 7);
     buttonBlowAbility.setPosition(worldWidth - width * 7, height * 2 + width * 7);
-    buttonSplitAbility = new AbilityButton("SplitAndJoin", skin, "circle.png");
+    buttonSplitAbility = new AbilityButton("SplitAndJoin", skin, "texture/cooldown_button/cooldown_button.png");
     buttonSplitAbility.setSize(width * 7, width * 7);
     buttonSplitAbility.setPosition(worldWidth - width * 7, height * 2 + width * 14);
-    buttonVacuumAbility = new AbilityButton("Vacuum", skin, "circle.png");
+    buttonVacuumAbility = new AbilityButton("Vacuum", skin, "texture/cooldown_button/cooldown_button.png");
     buttonVacuumAbility.setSize(width * 7, width * 7);
     buttonVacuumAbility.setPosition(worldWidth - width * 7, height * 2 + width * 21);
 
