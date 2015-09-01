@@ -393,7 +393,6 @@ public class PhysicsUtil {
 //    fixtureDef.filter.maskBits = 2;
 //    fixtureDef.filter.categoryBits = 2 | 1;
     box.createFixture(fixtureDef);
-    System.out.println("dcm");
 //    box.setUserData(new Box2dSteeringEntity(box, true, 0.1f));
     poly.dispose();
     return box;

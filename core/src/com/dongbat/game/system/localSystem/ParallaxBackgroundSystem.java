@@ -1,9 +1,7 @@
 package com.dongbat.game.system.localSystem;
 
 import com.artemis.BaseSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -35,7 +33,7 @@ public class ParallaxBackgroundSystem extends BaseSystem {
 
         background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(AssetUtil.bg00), worldWidth * 10, worldHeight * 10, new Vector2(.3f, .3f)));
         background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(AssetUtil.bg01), worldWidth * 10, worldHeight * 10, new Vector2(.4f, .4f)));
-        background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(new Texture(Gdx.files.internal("grid.png"))), worldWidth, worldHeight, new Vector2(.5f, .5f)));
+//        background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(new Texture(Gdx.files.internal("grid.png"))), worldWidth, worldHeight, new Vector2(.5f, .5f)));
         background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(AssetUtil.bg02), worldWidth * 10, worldHeight * 10, new Vector2(.5f, .5f)));
         background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(AssetUtil.bg03), worldWidth * 10, worldHeight * 10, new Vector2(.6f, .6f)));
 

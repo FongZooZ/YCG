@@ -131,10 +131,9 @@ public class GameStageSystem extends BaseSystem {
     title.setPosition(worldWidth - width * 30, worldHeight - height * 2);
 
     touchpad = new Touchpad(worldWidth / 40, skin);
-    touchpad.setBounds(worldWidth / 50, worldWidth / 50, worldWidth / 8, worldWidth / 8);
+    touchpad.setBounds(worldWidth / 50, worldWidth / 50, worldWidth / 6, worldWidth / 6);
 
     stage.addActor(touchpad);
-
     stage.addActor(flee);
     stage.addActor(hotBlow);
     stage.addActor(spitAndJoin);
