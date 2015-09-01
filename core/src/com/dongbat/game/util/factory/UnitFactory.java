@@ -150,7 +150,7 @@ public class UnitFactory {
 
     BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
     BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
-    BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1, "feedPerSecond", 2);
+    BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1, "feedPerSecond", 0.5f);
     BuffUtil.addBuff(world, e, e, "SelfDefense", -1, 1);
 //    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);
     display.setPosition(PhysicsUtil.getPosition(world, e));
