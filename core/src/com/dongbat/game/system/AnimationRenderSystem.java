@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dongbat.game.component.Display;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.RenderUtil;
+import com.dongbat.game.util.TimeUtil;
 
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
@@ -63,13 +64,25 @@ public class AnimationRenderSystem extends EntityProcessingSystem {
     @Override
     protected void process(Entity e) {
         Display display = EntityUtil.getComponent(world, e, Display.class);
-        if (display.getDefaultAnimation() != null) {
+        if (display.getDefaultAnimation() != null && display.getOverridenAnimation() == null) {
             AnimatedSprite defaultAnimation = display.getDefaultAnimation();
             defaultAnimation.setSize(display.getRadius() * 2, display.getRadius() * 2);
             defaultAnimation.setPosition(display.getPosition().x - display.getRadius(), display.getPosition().y - display.getRadius());
             defaultAnimation.setOriginCenter();
             defaultAnimation.setRotation(display.getRotation());
             defaultAnimation.draw(batch);
+        }
+        if (display.getOverridenAnimation() != null) {
+            AnimatedSprite overridenAnimation = display.getOverridenAnimation();
+            overridenAnimation.setSize(display.getRadius() * 2, display.getRadius() * 2);
+            overridenAnimation.setPosition(display.getPosition().x - display.getRadius(), display.getPosition().y - display.getRadius());
+            overridenAnimation.setOriginCenter();
+            overridenAnimation.setRotation(display.getRotation());
+            overridenAnimation.draw(batch);
+            if (TimeUtil.getCurrentFrameToMillis(world) - display.getGetOverridenStart() > display.getOverridenDuration()) {
+                System.out.println("123");
+                display.setOverridenAnimation(null);
+            }
         }
     }
 }

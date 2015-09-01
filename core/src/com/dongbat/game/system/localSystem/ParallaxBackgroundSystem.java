@@ -13,7 +13,7 @@ import com.rahul.libgdx.parallax.TextureRegionParallaxLayer;
 
 /**
  * Created by FongZooZ on 8/30/2015.
- * Create Parrallax Background Layer system
+ * Create Parallax Background Layer system
  */
 public class ParallaxBackgroundSystem extends BaseSystem {
 
@@ -21,10 +21,8 @@ public class ParallaxBackgroundSystem extends BaseSystem {
     private OrthographicCamera camera;
     private ParallaxBackground background;
 
-
     public ParallaxBackgroundSystem() {
         batch = RenderUtil.getBatch();
-
 
         camera = PhysicsCameraUtil.getCamera();
         background = new ParallaxBackground();
@@ -36,7 +34,6 @@ public class ParallaxBackgroundSystem extends BaseSystem {
 //        background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(new Texture(Gdx.files.internal("grid.png"))), worldWidth, worldHeight, new Vector2(.5f, .5f)));
         background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(AssetUtil.bg02), worldWidth * 10, worldHeight * 10, new Vector2(.5f, .5f)));
         background.addLayers(new TextureRegionParallaxLayer(new TextureRegion(AssetUtil.bg03), worldWidth * 10, worldHeight * 10, new Vector2(.6f, .6f)));
-
     }
 
     /**
@@ -49,6 +46,5 @@ public class ParallaxBackgroundSystem extends BaseSystem {
         batch.setProjectionMatrix(camera.combined);
         background.draw(camera, batch);
         batch.end();
-
     }
 }
