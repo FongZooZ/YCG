@@ -10,6 +10,7 @@ import com.artemis.World;
 import com.artemis.managers.UuidEntityManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.AiControl;
 import com.dongbat.game.component.BuffComponent;
@@ -43,123 +44,137 @@ import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
  */
 public class UnitFactory {
 
-  /**
-   * Create projectile unit
-   *
-   * @param world artemis world
-   * @param parent entity that execute that projectile unit
-   * @param position spawn position
-   * @param radius unit radius
-   * @return projectile unit that was just created
-   */
-  public static Entity createProjectileUnit(World world, Entity parent, Vector2 position, float radius, boolean allowConsumming, boolean consumable) {
-    Entity e = world.createEntity(UUID.randomUUID());
+    /**
+     * Create projectile unit
+     *
+     * @param world    artemis world
+     * @param parent   entity that execute that projectile unit
+     * @param position spawn position
+     * @param radius   unit radius
+     * @return projectile unit that was just created
+     */
+    public static Entity createProjectileUnit(World world, Entity parent, Vector2 position, float radius, boolean allowConsumming, boolean consumable) {
+        Entity e = world.createEntity(UUID.randomUUID());
 
-    Stats stats = new Stats();
-    stats.setAllowComsumming(allowConsumming);
-    stats.setConsumable(consumable);
-    stats.setParent(world.getManager(UuidEntityManager.class).getUuid(e));
+        Stats stats = new Stats();
+        stats.setAllowComsumming(allowConsumming);
+        stats.setConsumable(consumable);
+        stats.setParent(world.getManager(UuidEntityManager.class).getUuid(e));
 
-    Physics physics = new Physics();
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
-    physics.getBody().setUserData(UuidUtil.getUuid(e));
-    physics.getBody().setBullet(true);
+        Physics physics = new Physics();
+        physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
+        physics.getBody().setUserData(UuidUtil.getUuid(e));
+        physics.getBody().setBullet(true);
 
-    e.edit().add(physics)
-      .add(stats)
-      .add(new BuffComponent())
-      .add(new Collision())
-      .add(new Detection())
-      .add(new UnitMovement());
+        UnitMovement movement = new UnitMovement();
+        movement.setDirectionVelocity(new Vector2());
 
-    return e;
-  }
+        Display display = new Display();
 
-  /**
-   * Create unit and add to artemis world
-   *
-   * @param world artemis world
-   * @param unitType type of unit in String
-   * @param position spawn position
-   * @param args optional arguments
-   * @return Unit that was just created
-   */
-  public static Entity createUnit(World world, String unitType, Vector2 position, Object... args) {
-    Entity e = world.createEntity(UUID.randomUUID());
+        e.edit().add(physics)
+                .add(stats)
+                .add(new BuffComponent())
+                .add(new Collision())
+                .add(new Detection())
+                .add(movement)
+                .add(display);
 
-    UnitInfo unitInfo = get(unitType);
-    setUnitData(world, e, args);
+        display.setPosition(PhysicsUtil.getPosition(world, e));
+        display.setRadius(PhysicsUtil.getRadius(world, e));
+        display.setRotation(EntityUtil.getComponent(world, e, UnitMovement.class).getDirectionVelocity().angle());
+//        TextureAtlas move = AssetUtil.getUnitAtlas().get("hot_food");
+        Animation animation = new Animation(0.1f, new TextureRegion(AssetUtil.cold));
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+        display.setDefaultAnimation(new AnimatedSprite(animation));
 
-    Collision collision = new Collision();
+        return e;
+    }
 
-    DisplayPosition displayPosition = new DisplayPosition();
+    /**
+     * Create unit and add to artemis world
+     *
+     * @param world    artemis world
+     * @param unitType type of unit in String
+     * @param position spawn position
+     * @param args     optional arguments
+     * @return Unit that was just created
+     */
+    public static Entity createUnit(World world, String unitType, Vector2 position, Object... args) {
+        Entity e = world.createEntity(UUID.randomUUID());
 
-    Stats stats = new Stats();
-    stats.setBaseRateSpeed(unitInfo.getBaseSpeedRate());
+        UnitInfo unitInfo = get(unitType);
+        setUnitData(world, e, args);
 
-    Physics physics = new Physics();
-    e.edit().add(physics);
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, unitInfo.getRadius(), e));
-    physics.getBody().setUserData(UuidUtil.getUuid(e));
-    UnitMovement movement = new UnitMovement();
+        Collision collision = new Collision();
 
-    AiControl aiControl = new AiControl(unitInfo.getDefinitionPath());
-    e.edit()
-      .add(new BuffComponent())
-      .add(aiControl)
-      .add(new Player())
-      .add(new Detection())
-      .add(displayPosition)
-      .add(stats)
-      .add(movement)
-      .add(collision);
-    BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
+        DisplayPosition displayPosition = new DisplayPosition();
 
-    return e;
-  }
+        Stats stats = new Stats();
+        stats.setBaseRateSpeed(unitInfo.getBaseSpeedRate());
 
-  public static Entity createQueen(World world, Vector2 position, float radius) {
-    Entity e = world.createEntity(UUID.randomUUID());
+        Physics physics = new Physics();
+        e.edit().add(physics);
+        physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, unitInfo.getRadius(), e));
+        physics.getBody().setUserData(UuidUtil.getUuid(e));
+        UnitMovement movement = new UnitMovement();
 
-    Stats stats = new Stats();
-    stats.setAllowComsumming(false);
-    stats.setConsumable(true);
-    stats.setBaseRateSpeed(2000);
+        AiControl aiControl = new AiControl(unitInfo.getDefinitionPath());
+        e.edit()
+                .add(new BuffComponent())
+                .add(aiControl)
+                .add(new Player())
+                .add(new Detection())
+                .add(displayPosition)
+                .add(stats)
+                .add(movement)
+                .add(collision);
+        BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
 
-    BuffComponent buff = new BuffComponent();
+        return e;
+    }
 
-    Physics physics = new Physics();
-    physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
-    physics.getBody().setUserData(UuidUtil.getUuid(e));
+    public static Entity createQueen(World world, Vector2 position, float radius) {
+        Entity e = world.createEntity(UUID.randomUUID());
 
-    UnitMovement movement = new UnitMovement();
-    float posX = (float) ((Math.random() * 2 - 1) * scaleX);
-    float posY = (float) ((Math.random() * 2 - 1) * scaleY);
-    movement.setDirectionVelocity(new Vector2(posX, posY));
+        Stats stats = new Stats();
+        stats.setAllowComsumming(false);
+        stats.setConsumable(true);
+        stats.setBaseRateSpeed(2000);
 
-    Display display = new Display();
+        BuffComponent buff = new BuffComponent();
 
-    e.edit().add(physics)
-      .add(stats)
-      .add(new Collision())
-      .add(buff)
-      .add(new Queen())
-      .add(new Detection())
-      .add(movement)
-      .add(display);
+        Physics physics = new Physics();
+        physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, radius, e));
+        physics.getBody().setUserData(UuidUtil.getUuid(e));
 
-    BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
-    BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
-    BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1, "feedPerSecond", 0.5f);
-    BuffUtil.addBuff(world, e, e, "SelfDefense", -1, 1);
+        UnitMovement movement = new UnitMovement();
+        float posX = (float) ((Math.random() * 2 - 1) * scaleX);
+        float posY = (float) ((Math.random() * 2 - 1) * scaleY);
+        movement.setDirectionVelocity(new Vector2(posX, posY));
+
+        Display display = new Display();
+
+        e.edit().add(physics)
+                .add(stats)
+                .add(new Collision())
+                .add(buff)
+                .add(new Queen())
+                .add(new Detection())
+                .add(movement)
+                .add(display);
+
+        BuffUtil.addBuff(world, e, e, "QueenTeleportSchedule", -1, 1);
+        BuffUtil.addBuff(world, e, e, "ProduceFoodSchedule", -1, 1);
+        BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1, "feedPerSecond", 0.5f);
+        BuffUtil.addBuff(world, e, e, "SelfDefense", -1, 1);
 //    BuffUtil.addBuff(world, e, e, "QueenGrowth", 99999999, 1);
-    display.setPosition(PhysicsUtil.getPosition(world, e));
-    display.setRadius(PhysicsUtil.getRadius(world, e));
-    display.setRotation(EntityUtil.getComponent(world, e, UnitMovement.class).getDirectionVelocity().angle());
-    TextureAtlas move = AssetUtil.getUnitAtlas().get("queen");
-    Animation animation = new Animation(0.1f, move.getRegions());
-    animation.setPlayMode(Animation.PlayMode.LOOP);
-    display.setDefaultAnimation(new AnimatedSprite(animation));
-    return e;
-  }
+        display.setPosition(PhysicsUtil.getPosition(world, e));
+        display.setRadius(PhysicsUtil.getRadius(world, e));
+        display.setRotation(EntityUtil.getComponent(world, e, UnitMovement.class).getDirectionVelocity().angle());
+        TextureAtlas queen = AssetUtil.getUnitAtlas().get("queen");
+        Animation animation = new Animation(0.1f, queen.getRegions());
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+        display.setDefaultAnimation(new AnimatedSprite(animation));
+        return e;
+    }
 }

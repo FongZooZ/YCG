@@ -8,27 +8,35 @@ package com.dongbat.game.component;
 import com.artemis.Component;
 
 /**
- *
  * @author Admin
  */
 public class Food extends Component {
 
-  private boolean toxic;
+    private boolean toxic;
+    private boolean dirty = false;
 
-  public Food() {
-    toxic = false;
-  }
+    public Food() {
+        toxic = false;
+    }
 
-  public Food(boolean isToxic) {
-    this.toxic = isToxic;
-  }
+    public Food(boolean isToxic) {
+        this.toxic = isToxic;
+    }
 
-  public boolean isToxic() {
-    return toxic;
-  }
+    public boolean isToxic() {
+        return toxic;
+    }
 
-  public void setToxic(boolean isToxic) {
-    this.toxic = isToxic;
-  }
+    public void setToxic(boolean isToxic) {
+        this.toxic = isToxic;
+        this.dirty = true;
+    }
 
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
 }

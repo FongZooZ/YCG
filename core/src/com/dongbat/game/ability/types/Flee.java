@@ -5,15 +5,16 @@ import com.artemis.World;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.ability.Ability;
+import com.dongbat.game.ability.AbilityInfo;
+import com.dongbat.game.component.AbilityComponent;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.factory.EntityFactory;
-
-import static com.dongbat.game.util.localUtil.Constants.PHYSICS.FOOD_RADIUS;
-import static com.dongbat.game.util.localUtil.Constants.PHYSICS.MIN_SQUARE;
+import com.dongbat.game.util.localUtil.Constants;
+import static com.dongbat.game.util.localUtil.Constants.PHYSICS.*;
 
 /**
  * Created by FongZooZ on 8/28/2015.
@@ -54,7 +55,7 @@ public class Flee implements Ability {
     Vector2 position = PhysicsUtil.getPosition(world, caster);
 
     float totalSquare = PhysicsUtil.getSquare(FOOD_RADIUS) * foodNumber;
-    if (totalSquare > PhysicsUtil.getSquare(world, caster) + MIN_SQUARE + 1f) {
+    if (totalSquare > PhysicsUtil.getSquare(world, caster) + MIN_SQUARE) {
       return;
     }
     PhysicsUtil.increaseSquare(world, caster, -totalSquare);

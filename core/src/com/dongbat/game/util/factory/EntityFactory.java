@@ -25,6 +25,7 @@ import com.dongbat.game.component.UnitType;
 import com.dongbat.game.registry.UnitRegistry;
 import com.dongbat.game.unit.UnitInfo;
 import com.dongbat.game.util.AbilityUtil;
+import com.dongbat.game.util.AnimationUtil;
 import com.dongbat.game.util.AssetUtil;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
@@ -99,6 +100,7 @@ public class EntityFactory {
         Animation animation = new Animation(0.1f, move.getRegions());
         animation.setPlayMode(Animation.PlayMode.LOOP);
         display.setDefaultAnimation(new AnimatedSprite(animation));
+//        display.setDefaultAnimation(AnimationUtil.getHotFood());
         return e;
     }
 
@@ -137,10 +139,7 @@ public class EntityFactory {
         display.setPosition(PhysicsUtil.getPosition(world, e));
         display.setRadius(PhysicsUtil.getRadius(world, e));
         display.setRotation(EntityUtil.getComponent(world, e, UnitMovement.class).getDirectionVelocity().angle());
-        TextureAtlas move = AssetUtil.getUnitAtlas().get("hot_food");
-        Animation animation = new Animation(0.1f, move.getRegions());
-        animation.setPlayMode(Animation.PlayMode.LOOP);
-        display.setDefaultAnimation(new AnimatedSprite(animation));
+        display.setDefaultAnimation(AnimationUtil.getHotFood());
         return e;
     }
 

@@ -164,7 +164,7 @@ public class ECSUtil {
   /**
    * Set a system to artemis world
    *
-   * @param world artemis world
+   * @param config config of artemis world
    * @param system system you want to add to world
    * @param isPassive is passive system or not
    */

@@ -55,6 +55,13 @@ public class SplitAndJoin implements Ability {
     Entity bullet = UnitFactory.createProjectileUnit(
       world, caster, direction.cpy().nor().scl(radius + newRadius).add(position.cpy()), newRadius, false, true);
     ObjectMap<String, Object> args = new ObjectMap<String, Object>();
+//    Display display = EntityUtil.getComponent(world, caster, Display.class);
+//    TextureAtlas split = AssetUtil.getUnitAtlas().get("split");
+//    Animation animation = new Animation(0.075f, split.getRegions());
+//    animation.setPlayMode(Animation.PlayMode.LOOP);
+//    display.setGetOverridenStart(TimeUtil.getCurrentFrame(world));
+//    display.setOverridenDuration(1500);
+//    display.setOverridenAnimation(new AnimatedSprite(animation));
 
 //    args.put("forceStrength", 100);
 //    args.put("direction", direction.cpy().scl(1));
