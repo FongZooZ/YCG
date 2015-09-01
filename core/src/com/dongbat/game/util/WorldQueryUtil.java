@@ -260,19 +260,14 @@ public class WorldQueryUtil {
     return queenList;
   }
 
-  public static IntBag
-    getAllEntities(World world) {
+  public static IntBag getAllEntities(World world) {
     //TODO: world is not update, entities bag is not update when world progress 
-    IntBag entities = world.getManager(AspectSubscriptionManager.class
-    ).get(Aspect.all()).getEntities();
+    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all()).getEntities();
     return entities;
   }
 
-  public static IntBag
-    getAllPlayerAndAi(World world) {
-    IntBag entities = world.getManager(AspectSubscriptionManager.class
-    ).get(Aspect.all(Player.class
-    )).getEntities();
+  public static IntBag getAllPlayerAndAi(World world) {
+    IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(Player.class)).getEntities();
     return entities;
   }
 
@@ -317,7 +312,7 @@ public class WorldQueryUtil {
     return entities.contains(id);
   }
 
-  public static Array<Entity> findPlayerWithAiInRadius(final com.artemis.World world, final Vector2 location, final float radius) {
+  public static Array<Entity> findPlayerWithAiInRadius(final com.artemis.World world,final Entity e, final Vector2 location, final float radius) {
     final Array<Entity> entities = new Array<Entity>();
 
     QueryCallback callback = new QueryCallback() {
@@ -326,7 +321,7 @@ public class WorldQueryUtil {
       public boolean reportFixture(Fixture fixture) {
         Body body = fixture.getBody();
         Entity entity = UuidUtil.getEntityByUuid(world, (UUID) body.getUserData());
-        if (isPlayer(world, entity.getId())) {
+        if (isPlayer(world, entity.getId()) && !e.equals(entity)) {
           float distanceSq = new Vector2(body.getPosition()).sub(location).len2();
           if (distanceSq <= radius * radius) {
             entities.add(entity);

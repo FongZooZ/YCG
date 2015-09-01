@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.AiControl;
 import com.dongbat.game.component.BuffComponent;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.component.Detection;
 import com.dongbat.game.component.Display;
 import com.dongbat.game.component.DisplayPosition;
@@ -74,7 +74,6 @@ public class UnitFactory {
         e.edit().add(physics)
                 .add(stats)
                 .add(new BuffComponent())
-                .add(new Collision())
                 .add(new Detection())
                 .add(movement)
                 .add(display);
@@ -105,8 +104,6 @@ public class UnitFactory {
         UnitInfo unitInfo = get(unitType);
         setUnitData(world, e, args);
 
-        Collision collision = new Collision();
-
         DisplayPosition displayPosition = new DisplayPosition();
 
         Stats stats = new Stats();
@@ -117,6 +114,8 @@ public class UnitFactory {
         physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, unitInfo.getRadius(), e));
         physics.getBody().setUserData(UuidUtil.getUuid(e));
         UnitMovement movement = new UnitMovement();
+        movement.setDirectionVelocity(new Vector2());
+        Display display = new Display();
 
         AiControl aiControl = new AiControl(unitInfo.getDefinitionPath());
         e.edit()
@@ -127,8 +126,15 @@ public class UnitFactory {
                 .add(displayPosition)
                 .add(stats)
                 .add(movement)
-                .add(collision);
+                .add(display);
         BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
+        display.setPosition(PhysicsUtil.getPosition(world, e));
+        display.setRadius(PhysicsUtil.getRadius(world, e));
+        display.setRotation(EntityUtil.getComponent(world, e, UnitMovement.class).getDirectionVelocity().angle());
+        TextureAtlas move = AssetUtil.getUnitAtlas().get("move");
+        Animation animation = new Animation(0.1f, move.getRegions());
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+        display.setDefaultAnimation(new AnimatedSprite(animation));
 
         return e;
     }
@@ -156,7 +162,7 @@ public class UnitFactory {
 
         e.edit().add(physics)
                 .add(stats)
-                .add(new Collision())
+                .add(new CollisionComponent())
                 .add(buff)
                 .add(new Queen())
                 .add(new Detection())

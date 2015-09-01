@@ -10,7 +10,7 @@ import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.dongbat.game.buff.BuffEffect;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
@@ -36,7 +36,7 @@ public class CutProjectile implements BuffEffect {
 
   @Override
   public void update(World world, Entity source, Entity target) {
-    Collision collisionComponent = EntityUtil.getComponent(world, target, Collision.class);
+    CollisionComponent collisionComponent = EntityUtil.getComponent(world, target, CollisionComponent.class);
     Array<UUID> uuidList = collisionComponent.getCollidedList();
     for (UUID uuid : uuidList) {
       Entity e = UuidUtil.getEntityByUuid(world, uuid);

@@ -76,59 +76,23 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
         EntityUtil.getComponent(world, e, Player.class).getInputs().put(lastFrameIndex + 3, customInput);
       }
     }
-//    if (skillOne == true) {
-//      skillOne = false;
-//      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
-//      String abilityName = abilityComponent.getAbilitiesOrder().get(0);
-//      if (abilityName == null) {
-//        return;
-//      }
-//      System.out.println(abilityName);
-//      AbilityUtil.use(world, e, abilityName, destination);
-//    }
-//    if (skillTwo == true) {
-//      skillTwo = false;
-//      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
-//      if (abilityComponent.getAbilities().size <= 1) {
-//        return;
-//      }
-//      String abilityName = abilityComponent.getAbilitiesOrder().get(1);
-//      if (abilityName == null) {
-//        return;
-//      }
-//      AbilityUtil.use(world, e, abilityName, destination);
-//    }
-//
-//    if (skillThree == true) {
-//      skillThree = false;
-//      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
-//      if (abilityComponent.getAbilities().size <= 2) {
-//        return;
-//      }
-//      String abilityName = abilityComponent.getAbilitiesOrder().get(2);
-//      if (abilityName == null) {
-//        return;
-//      }
-//      System.out.println(abilityName);
-//      AbilityUtil.use(world, e, abilityName, destination);
-//    }
-//
-//    if (skillFour == true) {
-//      skillFour = false;
-//      AbilityComponent abilityComponent = EntityUtil.getComponent(world, e, AbilityComponent.class);
-//      if (abilityComponent.getAbilities().size <= 3) {
-//        return;
-//      }
-//      String abilityName = abilityComponent.getAbilitiesOrder().get(3);
-//      if (abilityName == null) {
-//        return;
-//      }
-//      AbilityUtil.use(world, e, abilityName, destination);
-//    }
+    if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+      AbilityUtil.use(world, e, "Flee", destination);
+    }
+    if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+      AbilityUtil.use(world, e, "HotBlow", destination);
+    }
+    if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+      AbilityUtil.use(world, e, "SplitAndJoin", destination);
+    }
+    if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+      AbilityUtil.use(world, e, "Vacuum", destination);
+    }
   }
 
   @Override
-  public boolean keyDown(int keycode) {
+  public boolean keyDown(int keycode
+  ) {
     if (Input.Keys.F1 == keycode) {
       ECSUtil.getWorldProgress(world).setSave(true);
     }
@@ -162,39 +126,46 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
   }
 
   @Override
-  public boolean keyUp(int keycode) {
+  public boolean keyUp(int keycode
+  ) {
     return true;
   }
 
   @Override
-  public boolean keyTyped(char character) {
+  public boolean keyTyped(char character
+  ) {
     return true;
   }
 
   @Override
-  public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+  public boolean touchDown(int screenX, int screenY, int pointer, int button
+  ) {
     touchDown = true;
     return true;
   }
 
   @Override
-  public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+  public boolean touchUp(int screenX, int screenY, int pointer, int button
+  ) {
     touchDown = false;
     return true;
   }
 
   @Override
-  public boolean touchDragged(int screenX, int screenY, int pointer) {
+  public boolean touchDragged(int screenX, int screenY, int pointer
+  ) {
     return true;
   }
 
   @Override
-  public boolean mouseMoved(int screenX, int screenY) {
+  public boolean mouseMoved(int screenX, int screenY
+  ) {
     return true;
   }
 
   @Override
-  public boolean scrolled(int amount) {
+  public boolean scrolled(int amount
+  ) {
     return true;
   }
 

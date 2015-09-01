@@ -3,7 +3,7 @@ package com.dongbat.game.buff.effects;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.dongbat.game.buff.BuffEffect;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.util.EntityUtil;
 
 /**
@@ -31,7 +31,7 @@ public class Suck implements BuffEffect {
    */
   @Override
   public void update(World world, Entity source, Entity target) {
-    Collision collision = EntityUtil.getComponent(world, target, Collision.class);
+    CollisionComponent collision = EntityUtil.getComponent(world, target, CollisionComponent.class);
     if (collision.getJustCollidedList() != null) {
       System.out.println(collision.getJustCollidedList());
     }
