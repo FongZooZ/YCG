@@ -32,6 +32,7 @@ import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.localSystem.GridRendererSystem;
 import com.dongbat.game.system.localSystem.HUDRenderSystem;
 import com.dongbat.game.system.localSystem.LocalInputSystem;
+import com.dongbat.game.system.localSystem.ParallaxBackgroundSystem;
 import com.dongbat.game.system.localSystem.Shaperenderer1;
 import com.dongbat.game.system.localSystem.SpriteRenderSystem;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
@@ -93,16 +94,16 @@ public class ECSUtil {
     setSystem(config, new CameraUpdateSystem(), true);
     setSystem(config, new SpriteRenderSystem(), true); // gay lag: mat 1200 entites
     setSystem(config, new HUDRenderSystem(), true); // gay lag
-    setSystem(config, new Shaperenderer1(), true);
 
     setSystem(config, new LocalInputSystem(), true); // gay lag, mat 200
     setSystem(config, new GridRendererSystem(), true); // gay lag, mat hon 300
 
 //    setSystem(config, new Box2dDebugRendererSystem(), true);
-//    setSystem(config, new ParallaxBackgroundSystem(), true);
+    setSystem(config, new ParallaxBackgroundSystem(), true);
     setSystem(config, new DisplayUpdateSystem(), true);
     setSystem(config, new FoodAnimationSystem(), true);
     setSystem(config, new AnimationRenderSystem(), true);
+    setSystem(config, new Shaperenderer1(), true);
 
     setSystem(config, new GameStageSystem(), true);
 
