@@ -74,6 +74,7 @@ public class UnitFactory {
         e.edit().add(physics)
                 .add(stats)
                 .add(new BuffComponent())
+                .add(new CollisionComponent())
                 .add(new Detection())
                 .add(movement)
                 .add(display);
@@ -104,6 +105,8 @@ public class UnitFactory {
         UnitInfo unitInfo = get(unitType);
         setUnitData(world, e, args);
 
+        CollisionComponent collision = new CollisionComponent();
+
         DisplayPosition displayPosition = new DisplayPosition();
 
         Stats stats = new Stats();
@@ -114,8 +117,6 @@ public class UnitFactory {
         physics.setBody(PhysicsUtil.createBody(PhysicsUtil.getPhysicsWorld(world), position, unitInfo.getRadius(), e));
         physics.getBody().setUserData(UuidUtil.getUuid(e));
         UnitMovement movement = new UnitMovement();
-        movement.setDirectionVelocity(new Vector2());
-        Display display = new Display();
 
         AiControl aiControl = new AiControl(unitInfo.getDefinitionPath());
         e.edit()
@@ -126,15 +127,8 @@ public class UnitFactory {
                 .add(displayPosition)
                 .add(stats)
                 .add(movement)
-                .add(display);
+                .add(collision);
         BuffUtil.addBuff(world, e, e, "FeedSmaller", -1, 1);
-        display.setPosition(PhysicsUtil.getPosition(world, e));
-        display.setRadius(PhysicsUtil.getRadius(world, e));
-        display.setRotation(EntityUtil.getComponent(world, e, UnitMovement.class).getDirectionVelocity().angle());
-        TextureAtlas move = AssetUtil.getUnitAtlas().get("move");
-        Animation animation = new Animation(0.1f, move.getRegions());
-        animation.setPlayMode(Animation.PlayMode.LOOP);
-        display.setDefaultAnimation(new AnimatedSprite(animation));
 
         return e;
     }
