@@ -11,7 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -29,7 +29,7 @@ import java.util.UUID;
  *
  * @author Admin
  */
-public class AbilityButton extends Actor {
+public class AbilityButton extends Group {
 
   public String ability;
   public RadialSprite radialSprite;
@@ -42,6 +42,22 @@ public class AbilityButton extends Actor {
     TextureRegion textureRegion = new TextureRegion(new Texture(Gdx.files.internal(texture)));
     radialSprite = new RadialSprite(textureRegion);
     this.skin = skin;
+
+    this.addActor(createNormalButton());
+    this.addActor(createRadialSprite());
+  }
+
+  @Override
+  public void act(float delta) {
+    super.act(delta);
+    float angle = getAngle();
+    System.out.println(angle);
+    radialSprite.setAngle(angle);
+    if (angle == 0) {
+      radialImage.setVisible(false);
+    } else {
+      radialImage.setVisible(true);
+    }
   }
 
   public long getCooldown() {
@@ -71,24 +87,24 @@ public class AbilityButton extends Actor {
     if (e == null || localPlayerId == null) {
       return 0;
     }
-    long cooldown = AbilityUtil.getCooldown(world, e, ability);
+    float cooldown = AbilityUtil.getCooldown(world, e, ability);
     long lastCast = AbilityUtil.getLastCast(world, e, ability);
+    cooldown = (cooldown / 1000 / ECSUtil.getStep(world));
 
     if (lastCast == -1 || ECSUtil.getFrame(world) - lastCast > cooldown) {
       return 0;
     } else {
-      if(cooldown == 0){
-        return 360;
+      if (cooldown == 0) {
+        return 0;
       }
-      return (ECSUtil.getFrame(world) - lastCast) / cooldown * 360;
+      return (float)(ECSUtil.getFrame(world) - lastCast) / cooldown * 360;
     }
 
   }
 
-  public ImageButton createNormalButton(float widthSize, float heightSize, float posX, float posY) {
+  public ImageButton createNormalButton() {
     imageButton = new ImageButton(skin);
-    imageButton.setSize(widthSize, heightSize);
-    imageButton.setPosition(posX, posY);
+    imageButton.setFillParent(true);
     imageButton.addListener(new ClickListener() {
 
       @Override
@@ -108,10 +124,10 @@ public class AbilityButton extends Actor {
     return imageButton;
   }
 
-  public Image createRadialSprite(float width, float height, float posX, float posY) {
+  public Image createRadialSprite() {
     radialImage = new Image(radialSprite);
-    radialImage.setSize(width, height);
-    radialImage.setPosition(posX, posY);
+    radialImage.setFillParent(true);
+
     return radialImage;
   }
 }
