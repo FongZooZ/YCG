@@ -83,8 +83,8 @@ public class ECSUtil {
     setSystem(config, new AiControlledSystem(), false);
     setSystem(config, new BuffSystem(), false); // gay lag, mat 300 entities
     setSystem(config, new CollisionSystem(1), false); // 1200 collided trong list
-    setSystem(config, new DetectionCleanupSystem(50), false);
-    setSystem(config, new DetectionSystem(50), false);
+    setSystem(config, new DetectionCleanupSystem(20), false);
+    setSystem(config, new DetectionSystem(20), false);
     setSystem(config, new ConsumingSystem(), false);
     setSystem(config, new InputProcessorSystem(), false);
     setSystem(config, new BorderlandSystem(), false);

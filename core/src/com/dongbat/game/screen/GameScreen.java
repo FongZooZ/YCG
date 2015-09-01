@@ -42,7 +42,7 @@ public class GameScreen implements Screen {
     LocalPlayerUtil.setLocalPlayer(UuidUtil.getUuid(localPlayer));
     LocalPlayerUtil.setLocalWorld(world);
 
-    UnitFactory.createQueen(world, new Vector2(0, 20), 5);
+    UnitFactory.createQueen(world, new Vector2(0, 20), 10);
 //    UnitFactory.createUnit(world, "normal", new Vector2(10, 60));
   }
 
