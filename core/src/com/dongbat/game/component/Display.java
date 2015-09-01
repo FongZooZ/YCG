@@ -1,8 +1,9 @@
 package com.dongbat.game.component;
 
 import com.artemis.Component;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
+
+import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
 /**
  * Created by FongZooZ on 8/31/2015.
@@ -13,15 +14,15 @@ public class Display extends Component {
     private float radius;
     private float rotation;
     private float scale;
-    private Animation defaultAnimation;
-    private Animation overridenAnimation;
+    private AnimatedSprite defaultAnimation;
+    private AnimatedSprite overridenAnimation;
     private long overridenDuration;
     private long getOverridenStart;
 
     public Display() {
     }
 
-    public Display(Vector2 position, float radius, float rotation, float scale, Animation defaultAnimation, Animation overridenAnimation, long overridenDuration, long getOverridenStart) {
+    public Display(Vector2 position, float radius, float rotation, float scale, AnimatedSprite defaultAnimation, AnimatedSprite overridenAnimation, long overridenDuration, long getOverridenStart) {
         this.position = position;
         this.radius = radius;
         this.rotation = rotation;
@@ -33,6 +34,7 @@ public class Display extends Component {
     }
 
     public Vector2 getPosition() {
+
         return position;
     }
 
@@ -64,19 +66,19 @@ public class Display extends Component {
         this.scale = scale;
     }
 
-    public Animation getDefaultAnimation() {
+    public AnimatedSprite getDefaultAnimation() {
         return defaultAnimation;
     }
 
-    public void setDefaultAnimation(Animation defaultAnimation) {
+    public void setDefaultAnimation(AnimatedSprite defaultAnimation) {
         this.defaultAnimation = defaultAnimation;
     }
 
-    public Animation getOverridenAnimation() {
+    public AnimatedSprite getOverridenAnimation() {
         return overridenAnimation;
     }
 
-    public void setOverridenAnimation(Animation overridenAnimation) {
+    public void setOverridenAnimation(AnimatedSprite overridenAnimation) {
         this.overridenAnimation = overridenAnimation;
     }
 
