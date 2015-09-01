@@ -31,6 +31,9 @@ public class AiControlledSystem extends TimeSlicingSystem {
     IntBag entities = world.getManager(AspectSubscriptionManager.class).get(Aspect.all(AiControl.class)).getEntities();
     for (int i = 0; i < entities.size(); i++) {
       Entity e = world.getEntity(entities.get(i));
+      if (e == null) {
+        continue;
+      }
       AiControl ai = EntityUtil.getComponent(world, e, AiControl.class);
       if (ai.getTree() == null) {
         if (ai.getDefinitionPath() != null) {

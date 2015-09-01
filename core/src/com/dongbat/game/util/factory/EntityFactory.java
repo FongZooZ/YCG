@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.AbilityComponent;
 import com.dongbat.game.component.BuffComponent;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.component.Detection;
 import com.dongbat.game.component.Display;
 import com.dongbat.game.component.DisplayPosition;
@@ -52,7 +52,7 @@ public class EntityFactory {
      */
     public static Entity createPlayer(World world, Vector2 position, String type) {
         Entity e = world.createEntity(UUID.randomUUID());
-        Collision collision = new Collision();
+        CollisionComponent collision = new CollisionComponent();
 
         DisplayPosition displayPosition = new DisplayPosition();
 
@@ -125,7 +125,7 @@ public class EntityFactory {
 
         Display display = new Display();
 
-        e.edit().add(new Collision())
+        e.edit().add(new CollisionComponent())
                 .add(physics)
                 .add(s)
                 .add(new Food())
@@ -154,7 +154,7 @@ public class EntityFactory {
         stats.setAllowComsumming(false);
         stats.setConsumable(false);
 
-        e.edit().add(new Collision())
+        e.edit().add(new CollisionComponent())
                 .add(physics)
                 .add(new BuffComponent())
                 .add(stats)

@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.Physics;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 
 /**
  * @author Admin
@@ -294,7 +294,7 @@ public class PhysicsUtil {
    * @return true if a collide with b
    */
   public static boolean isBodyCollided(com.artemis.World world, Entity a, Entity b) {
-    Collision component = EntityUtil.getComponent(world, a, Collision.class);
+    CollisionComponent component = EntityUtil.getComponent(world, a, CollisionComponent.class);
     if (component == null) {
       return false;
     }

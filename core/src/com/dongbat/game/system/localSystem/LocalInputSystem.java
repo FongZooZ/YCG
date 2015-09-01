@@ -76,16 +76,16 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
         EntityUtil.getComponent(world, e, Player.class).getInputs().put(lastFrameIndex + 3, customInput);
       }
     }
-    if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+    if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
       AbilityUtil.use(world, e, "Flee", destination);
     }
-    if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+    if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
       AbilityUtil.use(world, e, "HotBlow", destination);
     }
-    if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+    if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
       AbilityUtil.use(world, e, "SplitAndJoin", destination);
     }
-    if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+    if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
       AbilityUtil.use(world, e, "Vacuum", destination);
     }
   }

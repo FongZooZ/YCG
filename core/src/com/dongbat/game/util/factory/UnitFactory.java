@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.AiControl;
 import com.dongbat.game.component.BuffComponent;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.component.Detection;
 import com.dongbat.game.component.Display;
 import com.dongbat.game.component.DisplayPosition;
@@ -68,7 +68,7 @@ public class UnitFactory {
     e.edit().add(physics)
       .add(stats)
       .add(new BuffComponent())
-      .add(new Collision())
+      .add(new CollisionComponent())
       .add(new Detection())
       .add(new UnitMovement());
 
@@ -90,7 +90,7 @@ public class UnitFactory {
     UnitInfo unitInfo = get(unitType);
     setUnitData(world, e, args);
 
-    Collision collision = new Collision();
+    CollisionComponent collision = new CollisionComponent();
 
     DisplayPosition displayPosition = new DisplayPosition();
 
@@ -151,7 +151,7 @@ public class UnitFactory {
 
     e.edit().add(physics)
       .add(stats)
-      .add(new Collision())
+      .add(new CollisionComponent())
       .add(buff)
       .add(new Queen())
       .add(new Detection())

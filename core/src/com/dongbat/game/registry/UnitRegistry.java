@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.AiControl;
 import com.dongbat.game.component.BuffComponent;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.component.DisplayPosition;
 import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.Player;

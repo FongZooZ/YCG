@@ -18,8 +18,6 @@ import com.dongbat.game.system.AnimationRenderSystem;
 import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.Box2dSystem;
 import com.dongbat.game.system.BuffSystem;
-import com.dongbat.game.system.CollisionCleanupSystem;
-import com.dongbat.game.system.CollisionSystem;
 import com.dongbat.game.system.ConsumingSystem;
 import com.dongbat.game.system.DetectionCleanupSystem;
 import com.dongbat.game.system.DetectionSystem;
@@ -78,11 +76,11 @@ public class ECSUtil {
   public static WorldConfiguration initWorldConfig() {
     WorldConfiguration config = new WorldConfiguration();
 
-    setSystem(config, new CollisionCleanupSystem(), false);
-    setSystem(config, new Box2dSystem(1), false);
+//    setSystem(config, new CollisionCleanupSystem(), false);
+    setSystem(config, new Box2dSystem(2), false);
     setSystem(config, new AiControlledSystem(15), false);
     setSystem(config, new BuffSystem(), false); // gay lag, mat 300 entities
-    setSystem(config, new CollisionSystem(1), false); // 1200 collided trong list
+//    setSystem(config, new CollisionSystem(1), false); // 1200 collided trong list
     setSystem(config, new DetectionCleanupSystem(20), false);
     setSystem(config, new DetectionSystem(20), false);
     setSystem(config, new ConsumingSystem(), false);
