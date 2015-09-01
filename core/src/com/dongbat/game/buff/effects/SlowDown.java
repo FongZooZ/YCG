@@ -22,8 +22,6 @@ public class SlowDown implements BuffEffect {
 	@Override
 	public void durationStart(World world, Entity source, Entity target) {
 
-		Stats targetStats = EntityUtil.getComponent(world, target, Stats.class);
-		targetStats.setModifierSpeed(slowDownAmount);
 	}
 
 	@Override
@@ -32,7 +30,6 @@ public class SlowDown implements BuffEffect {
 
 	@Override
 	public void durationEnd(World world, Entity source, Entity target) {
-		Stats sourceStats = EntityUtil.getComponent(world, target, Stats.class);
-		sourceStats.setModifierSpeed(sourceStats.getModifierSpeed() - slowDownAmount);
+
 	}
 }

@@ -51,7 +51,6 @@ public class AbilityButton extends Group {
   public void act(float delta) {
     super.act(delta);
     float angle = getAngle();
-    System.out.println(angle);
     radialSprite.setAngle(angle);
     if (angle == 0) {
       radialImage.setVisible(false);
@@ -82,9 +81,12 @@ public class AbilityButton extends Group {
 
   public float getAngle() {
     UUID localPlayerId = LocalPlayerUtil.getLocalPlayer();
+    if (localPlayerId == null) {
+      return 0;
+    }
     World world = LocalPlayerUtil.getLocalWorld();
     Entity e = UuidUtil.getEntityByUuid(world, localPlayerId);
-    if (e == null || localPlayerId == null) {
+    if (e == null) {
       return 0;
     }
     float cooldown = AbilityUtil.getCooldown(world, e, ability);
@@ -97,7 +99,7 @@ public class AbilityButton extends Group {
       if (cooldown == 0) {
         return 0;
       }
-      return (float)(ECSUtil.getFrame(world) - lastCast) / cooldown * 360;
+      return (float) (ECSUtil.getFrame(world) - lastCast) / cooldown * 360;
     }
 
   }

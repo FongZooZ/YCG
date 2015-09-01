@@ -41,8 +41,8 @@ import com.dongbat.game.util.objectUtil.WorldProgress;
  */
 public class ECSUtil {
 
-  private static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
-  private static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
+  public static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
+  public static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
 
 //  public static World createWorld() {
 //    return createWorld(false);

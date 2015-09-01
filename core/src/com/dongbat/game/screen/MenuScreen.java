@@ -11,14 +11,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.dongbat.game.util.CameraUtil;
 import com.dongbat.game.util.InputUtil;
 import com.dongbat.game.util.ScreenUtil;
 
@@ -36,17 +32,13 @@ public class MenuScreen extends ScreenAdapter {
   private TextButton buttonAi = new TextButton("Play With Bots", skin);
 //  private Label title = new Label("Game Title", skin);
 
-  public MenuScreen() {
-
-  }
-
   @Override
   public void show() {
     int width = Gdx.graphics.getWidth();
     int height = Gdx.graphics.getHeight();
     stage.getViewport().update(width, height);
     stage.setViewport(new ExtendViewport(800, 480));
-    System.out.println(stage.getViewport().getScreenHeight());
+
     buttonSinglePlayer.addListener(new ClickListener() {
 
       @Override
