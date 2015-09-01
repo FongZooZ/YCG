@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -55,9 +56,10 @@ public class GameStageSystem extends BaseSystem {
     float width = worldWidth / 60;
     float height = worldHeight / 60;
 
-    TextButton flee = new TextButton("Flee", skin);
-    flee.setSize(width * 7, height * 6);
-    flee.setPosition(worldWidth - width * 2 - flee.getWidth(), height * 5);
+//    TextButton flee = new TextButton("Flee", skin);
+    ImageButton flee = new ImageButton(skin);
+    flee.setSize(width * 7, width * 7);
+    flee.setPosition(worldWidth - flee.getWidth(), height * 2);
     flee.addListener(new ClickListener() {
 
       @Override
@@ -74,9 +76,10 @@ public class GameStageSystem extends BaseSystem {
 
     });
 
-    TextButton hotBlow = new TextButton("Blow", skin);
-    hotBlow.setSize(width * 7, height * 6);
-    hotBlow.setPosition(worldWidth - width * 2 - flee.getWidth(), height * 13);
+//    TextButton hotBlow = new TextButton("Blow", skin);
+    ImageButton hotBlow = new ImageButton(skin);
+    hotBlow.setSize(width * 7, width * 7);
+    hotBlow.setPosition(worldWidth - flee.getWidth(), height * 2 + width * 7);
     hotBlow.addListener(new ClickListener() {
 
       @Override
@@ -92,9 +95,10 @@ public class GameStageSystem extends BaseSystem {
       }
     });
 
-    TextButton spitAndJoin = new TextButton("Split", skin);
-    spitAndJoin.setSize(width * 7, height * 6);
-    spitAndJoin.setPosition(worldWidth - width * 2 - flee.getWidth(), height * 21);
+//    TextButton spitAndJoin = new TextButton("Split", skin);
+    ImageButton spitAndJoin = new ImageButton(skin);
+    spitAndJoin.setSize(width * 7, width * 7);
+    spitAndJoin.setPosition(worldWidth - flee.getWidth(), height * 2 + width * 14);
     spitAndJoin.addListener(new ClickListener() {
 
       @Override
@@ -110,9 +114,10 @@ public class GameStageSystem extends BaseSystem {
       }
     });
 
-    TextButton vacuum = new TextButton("Vacuum", skin);
-    vacuum.setSize(width * 7, height * 6);
-    vacuum.setPosition(worldWidth - width * 2 - flee.getWidth(), height * 29);
+//    TextButton vacuum = new TextButton("Vacuum", skin);
+    ImageButton vacuum = new ImageButton(skin);
+    vacuum.setSize(width * 7, width * 7);
+    vacuum.setPosition(worldWidth - flee.getWidth(), height * 2 + width * 21);
     vacuum.addListener(new ClickListener() {
 
       @Override
@@ -145,7 +150,7 @@ public class GameStageSystem extends BaseSystem {
   @Override
   protected void processSystem() {
     stage.act();
-    if(touchpad.isTouched()) {
+    if (touchpad.isTouched()) {
       float x = touchpad.getKnobPercentX();
       float y = touchpad.getKnobPercentY();
 

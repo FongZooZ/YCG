@@ -53,7 +53,7 @@ public class DetectionSystem extends TimeSlicingSystem {
         addNearestQueen(world, e, nearestQueen);
       }
 
-      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, radius + MIN_DETECTION_RADIUS);
+      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, e, position, radius + MIN_DETECTION_RADIUS);
       if (playerAndAiList.size > 0) {
         for (Entity playerOrAi : playerAndAiList) {
           addNearestPlayer(world, playerOrAi, e);
@@ -68,7 +68,7 @@ public class DetectionSystem extends TimeSlicingSystem {
       Entity e = world.getEntity(allQueen.get(i));
       Vector2 position = PhysicsUtil.getPosition(world, e);
       float radius = PhysicsUtil.getRadius(world, e);
-      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, radius + MIN_DETECTION_RADIUS);
+      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, e, position, radius + MIN_DETECTION_RADIUS);
       if (playerAndAiList.size > 0) {
         Entity nearestPlayer = WorldQueryUtil.findNearestEntityInList(world, position, playerAndAiList);
         addNearestPlayer(world, e, nearestPlayer);
