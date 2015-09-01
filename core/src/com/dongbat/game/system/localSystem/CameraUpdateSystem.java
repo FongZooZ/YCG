@@ -27,7 +27,7 @@ public class CameraUpdateSystem extends BaseSystem {
   @Override
   protected void processSystem() {
 
-    UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
+    UUID localPlayerId = LocalPlayerUtil.getLocalPlayer();
     Entity e = UuidUtil.getEntityByUuid(world, localPlayerId);
     //TODO: not check here
     if (e == null) {

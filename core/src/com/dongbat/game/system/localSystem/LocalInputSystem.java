@@ -58,7 +58,7 @@ public class LocalInputSystem extends BaseSystem implements InputProcessor {
 
   @Override
   protected void processSystem() {
-    UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
+    UUID localPlayerId = LocalPlayerUtil.getLocalPlayer();
     e = UuidUtil.getEntityByUuid(world, localPlayerId);
     if (e == null || localPlayerId == null) {
       return;
