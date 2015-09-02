@@ -1,4 +1,4 @@
-package com.dongbat.game.util.objectUtil;
+package com.dongbat.game.util.object;
 
 import com.artemis.Component;
 import com.artemis.ComponentMapper;

@@ -6,7 +6,6 @@
 package com.dongbat.game.dataobject;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.util.localUtil.Constants.inputType;
 
 /**
@@ -50,7 +49,6 @@ public class CustomInput {
 //  public void setAbilityMap(ObjectMap<Integer, String> abilityMap) {
 //    this.abilityMap = abilityMap;
 //  }
-
   public CustomInput(Vector2 position) {
     this.position = position;
   }

@@ -52,7 +52,7 @@ import com.dongbat.game.util.PhysicsUtil;
 import com.dongbat.game.util.ScreenUtil;
 import com.dongbat.game.util.factory.UnitFactory;
 import com.dongbat.game.util.localUtil.PhysicsCameraUtil;
-import com.dongbat.game.util.objectUtil.WorldProgress;
+import com.dongbat.game.util.object.WorldProgress;
 
 import static com.dongbat.game.util.ECSUtil.worldProgressMap;
 

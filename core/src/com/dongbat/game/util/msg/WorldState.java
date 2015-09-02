@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dongbat.game.util.objectUtil;
+package com.dongbat.game.util.msg;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.dongbat.game.util.object.EntityState;
 
 /**
  *
