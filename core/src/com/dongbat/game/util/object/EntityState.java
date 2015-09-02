@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dongbat.game.util.objectUtil;
+package com.dongbat.game.util.object;
 
 import com.artemis.Component;
 import com.badlogic.gdx.utils.Array;

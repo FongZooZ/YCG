@@ -6,13 +6,18 @@
 package com.dongbat.game.util;
 
 import com.artemis.BaseSystem;
+import com.artemis.Component;
+import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.managers.UuidEntityManager;
+import com.artemis.utils.Bag;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.dongbat.game.strategy.InvocationStrategy;
 import com.dongbat.game.system.AiControlledSystem;
 import com.dongbat.game.system.AnimationRenderSystem;
 import com.dongbat.game.system.BorderlandSystem;
@@ -33,8 +38,9 @@ import com.dongbat.game.system.localSystem.LocalInputSystem;
 import com.dongbat.game.system.localSystem.ParallaxBackgroundSystem;
 import com.dongbat.game.system.localSystem.BorderRenderSystem;
 import com.dongbat.game.system.localSystem.SpriteRenderSystem;
-import com.dongbat.game.util.objectUtil.PredictableRandom;
-import com.dongbat.game.util.objectUtil.WorldProgress;
+import com.dongbat.game.util.object.CustomWorld;
+import com.dongbat.game.util.object.PredictableRandom;
+import com.dongbat.game.util.object.WorldProgress;
 
 /**
  * @author Admin
@@ -44,40 +50,23 @@ public class ECSUtil {
   public static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
   public static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
 
-//  public static World createWorld() {
-//    return createWorld(false);
-//  }
-//  public static World createWorld(boolean isServer) {
-//    WorldConfiguration config = new WorldConfiguration();
-//    setSystem(config, new SpawnningFoodSystem(), false);
-//    setSystem(config, new Box2dSystem(), false);
-//    setSystem(config, new BuffSystem(), false);
-//    setSystem(config, new Box2dDebugRendererSystem(), true);
-//    setSystem(config, new HUDRenderSystem(), true);
-//    setSystem(config, new MovementSystem(), false);
-//    setSystem(config, new CollisionCleanupSystem(), false);
-//    setSystem(config, new CollisionSystem(), false);
-////		setSystem(config, new FoodMovementSystem(), false);
-//    setSystem(config, new ConsumingSystem(), false);
-//    setSystem(config, new GridRendererSystem(), true);
-//    setSystem(config, new BorderlandSystem(), false);
-//    setSystem(config, new CameraUpdateSystem(), true);
-//    setSystem(config, new AiControlledSystem(), false);
-//    setSystem(config, new LocalInputSystem(), false);
-//    setSystem(config, new InputProcessorSystem(), false);
-//
-//    config.setManager(new UuidEntityManager());
-//    World world = new World(config);
-//    WorldProgress worldProgress = new WorldProgress(0.01f);
-//    worldProgressMap.put(world, worldProgress);
-//    worldRandomMap.put(world, new PredictableRandom());
-//    return world;
-//  }
+  public static World createWorld() {
+    return createWorld(false);
+  }
+
+  public static World createWorld(boolean server) {
+    WorldConfiguration config = new WorldConfiguration();
+
+    CustomWorld world = new CustomWorld(config);
+    world.setInvocationStrategy(new InvocationStrategy(world));
+    return world;
+  }
+
   public static WorldConfiguration initWorldConfig() {
     WorldConfiguration config = new WorldConfiguration();
 
 //    setSystem(config, new CollisionCleanupSystem(), false);
-    setSystem(config, new Box2dSystem(2), false);
+    setSystem(config, new Box2dSystem(1), false);
     setSystem(config, new AiControlledSystem(15), false);
     setSystem(config, new BuffSystem(), false); // gay lag, mat 300 entities
 //    setSystem(config, new CollisionSystem(1), false); // 1200 collided trong list
@@ -118,6 +107,12 @@ public class ECSUtil {
     WorldProgress worldProgress = new WorldProgress(0.015f);
     worldProgressMap.put(world, worldProgress);
     worldRandomMap.put(world, new PredictableRandom());
+  }
+
+  public static void updateEntityStates(CustomWorld world) {
+    world.setIgnoringSystem(true);
+    world.process();
+    world.setIgnoringSystem(false);
   }
 
   /**
@@ -188,6 +183,15 @@ public class ECSUtil {
 
   public static void setFrame(World world, long frame) {
     worldProgressMap.get(world).setFrame(frame);
+  }
+
+  public static Array<Component> getAllComponents(World world, Entity e) {
+    Array<Component> all = new Array<Component>();
+    Bag<Component> components = world.getComponentManager().getComponentsFor(e, new Bag<Component>());
+    for (Component component : components) {
+      all.add(component);
+    }
+    return all;
   }
 
 }

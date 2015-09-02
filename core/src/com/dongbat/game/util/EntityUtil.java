@@ -5,6 +5,7 @@
  */
 package com.dongbat.game.util;
 
+import com.artemis.Archetype;
 import com.artemis.Aspect;
 import com.artemis.AspectSubscriptionManager;
 import com.artemis.Component;
@@ -12,11 +13,14 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.utils.IntBag;
+import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.Player;
 import com.dongbat.game.dataobject.CustomInput;
-import com.dongbat.game.util.objectUtil.MapperCache;
+import com.dongbat.game.util.object.MapperCache;
 import com.dongbat.game.util.localUtil.Constants;
+import java.util.UUID;
 
 /**
  * @author Admin
@@ -33,8 +37,8 @@ public class EntityUtil {
    * Get Mapper of an Component in artemis
    *
    * @param world artemis world
-   * @param type  type of Component you want to get Mapper
-   * @param <T>   class type
+   * @param type type of Component you want to get Mapper
+   * @param <T> class type
    * @return ComponentMapper
    */
   public static <T extends Component> ComponentMapper<T> getMapper(World world, Class<T> type) {
@@ -61,10 +65,10 @@ public class EntityUtil {
    * Get specific Component class of an entity in the artemis world
    *
    * @param world artemis world
-   * @param e     entity that you want to get Component class
-   * @param type  type of Component you want to get, example: Stats.class,
-   *              Food.class
-   * @param <T>   class type
+   * @param e entity that you want to get Component class
+   * @param type type of Component you want to get, example: Stats.class,
+   * Food.class
+   * @param <T> class type
    * @return Component class
    */
   public static <T extends Component> T getComponent(World world, Entity e, Class<T> type) {
@@ -86,6 +90,20 @@ public class EntityUtil {
 
     }
     return frame;
+  }
+
+  public static Entity createEntity(World world) {
+    return world.createEntity(UUID.randomUUID());
+  }
+
+  public static Entity createEntity(World world, Archetype archetype) {
+    Entity e = world.createEntity(archetype);
+    UuidUtil.setUuid(e, UUID.randomUUID());
+    return e;
+  }
+
+  public static Entity createEntity(World world, UUID uuid) {
+    return world.createEntity(uuid);
   }
 
 }

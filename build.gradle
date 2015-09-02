@@ -47,6 +47,10 @@ project(":core") {
 
 
     dependencies {
+        compile "com.esotericsoftware:kryo:3.0.1"
+        compile "com.esotericsoftware:jsonbeans:0.7"
+
+        
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
@@ -65,6 +69,7 @@ project(":android") {
 
     dependencies {
         compile project(":core")
+        compile "com.google.android.gms:play-services:7.5.+"
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
