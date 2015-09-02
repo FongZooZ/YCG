@@ -41,6 +41,8 @@ public class Vacuum implements Ability {
   public void cast(World world, Entity caster, Vector2 target) {
     Vector2 playerPosition = PhysicsUtil.getPosition(world, caster);
     float sourceRadius = PhysicsUtil.getRadius(world, caster);
+    Vector2 point = target.cpy();
+    point.nor().scl(sourceRadius).add(playerPosition);
     
     Array<Entity> foundList = WorldQueryUtil.findAnyInRadius(world, playerPosition, radius + sourceRadius);
     Array<Entity> filterList = WorldQueryUtil.filterEntityInRay(world, foundList, playerPosition, target, degree);

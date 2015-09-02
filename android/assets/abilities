@@ -1,6 +1,6 @@
 name:Vacuum
 class:com.dongbat.game.ability.types.Vacuum
-1: cooldown=5500| radius=30
+1: cooldown=2000| radius=30
 
 name:Blow
 class:com.dongbat.game.ability.types.Vacuum
@@ -20,7 +20,7 @@ class:com.dongbat.game.ability.types.SplitAndJoin
 
 name:Flee
 class:com.dongbat.game.ability.types.Flee
-1: cooldown=5000 | duration=500 | forceStrength=5 | foodNumber=10
+1: cooldown=500 | duration=500 | forceStrength=5 | foodNumber=10
 
 name:Cut
 class:com.dongbat.game.ability.types.Cut
