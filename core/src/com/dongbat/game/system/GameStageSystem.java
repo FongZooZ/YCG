@@ -10,14 +10,12 @@ import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.stage.AbilityButton;
@@ -78,8 +76,15 @@ public class GameStageSystem extends BaseSystem {
     title.setPosition(worldWidth - width * 30, worldHeight - height * 2);
 
     Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle(skin.get(Touchpad.TouchpadStyle.class));
-    touchpadStyle.background = new SpriteDrawable(new Sprite(AssetUtil.joyBg));
-    touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(AssetUtil.joyKnob));
+    SpriteDrawable bg = new SpriteDrawable(new Sprite(AssetUtil.joyBg));
+    bg.setMinWidth(worldHeight / 2.5f);
+    bg.setMinHeight(worldHeight / 2.5f);
+    touchpadStyle.background = bg;
+    
+    SpriteDrawable knob = new SpriteDrawable(new Sprite(AssetUtil.joyKnob));
+    knob.setMinWidth(worldHeight / 5f);
+    knob.setMinHeight(worldHeight / 5f);
+    touchpadStyle.knob = knob;
 
     touchpad = new Touchpad(10, touchpadStyle);
     touchpad.setBounds(15, 15, 200, 200);
