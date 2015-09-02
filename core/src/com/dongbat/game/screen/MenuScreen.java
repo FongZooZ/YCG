@@ -32,16 +32,13 @@ public class MenuScreen extends ScreenAdapter {
   private TextButton buttonAi = new TextButton("Play With Bots", skin);
 //  private Label title = new Label("Game Title", skin);
 
-  public MenuScreen() {
-
-  }
-
   @Override
   public void show() {
     int width = Gdx.graphics.getWidth();
     int height = Gdx.graphics.getHeight();
     stage.getViewport().update(width, height);
     stage.setViewport(new ExtendViewport(800, 480));
+
     buttonSinglePlayer.addListener(new ClickListener() {
 
       @Override

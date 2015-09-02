@@ -37,7 +37,7 @@ public class GameStageSystem extends BaseSystem {
 
   private Stage stage = new Stage();
   private Skin skin = new Skin(Gdx.files.internal("skins/uiskin.json"), new TextureAtlas(Gdx.files.internal("skins/uiskin.atlas")));
-  private Label title = new Label("Full game play is coming soon, with multiplayer feature over WIFI and internet", skin);
+  private Label title = new Label("Full gameplay is coming soon, with more skills, multiplayer feature over WIFI and internet", skin);
   private Touchpad touchpad;
   private AbilityButton buttonFleeAbility;
   private AbilityButton buttonBlowAbility;
@@ -84,13 +84,13 @@ public class GameStageSystem extends BaseSystem {
     touchpad = new Touchpad(10, touchpadStyle);
     touchpad.setBounds(15, 15, 200, 200);
 
-    touchpad.setSize(worldHeight / 3, worldHeight / 3);
+    touchpad.setSize(worldHeight / 2.5f, worldHeight / 2.5f);
 
     stage.addActor(touchpad);
-    stage.addActor(buttonFleeAbility);
-    stage.addActor(buttonBlowAbility);
-    stage.addActor(buttonSplitAbility);
     stage.addActor(buttonVacuumAbility);
+    stage.addActor(buttonSplitAbility);
+    stage.addActor(buttonBlowAbility);
+    stage.addActor(buttonFleeAbility);
     stage.addActor(title);
     InputUtil.addProcessor(stage, 0);
   }

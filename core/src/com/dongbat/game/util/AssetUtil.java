@@ -29,11 +29,24 @@ public class AssetUtil {
     public static Texture db;
     public static Texture logo;
     private static TextureAtlas abilities;
+    private static TextureAtlas usedAbilities;
     public static Texture cooldown;
     public static Texture joyBg;
     public static Texture joyKnob;
+    public static Texture title;
+    public static Texture singleButton;
+    public static Texture multiButton;
+    public static Texture pressedSingleButton;
+    public static Texture pressedMultiButton;
 
     public static TextureAtlas.AtlasRegion getAbilityTexture(String name) {
+        return getAbilityTexture(name, false);
+    }
+
+    public static TextureAtlas.AtlasRegion getAbilityTexture(String name, boolean used) {
+        if(used) {
+            return  usedAbilities.findRegion(name);
+        }
         return abilities.findRegion(name);
     }
 
@@ -53,9 +66,11 @@ public class AssetUtil {
     }
 
     private static void init() {
-        manager = new AssetManager(new ResolutionFileResolver(new InternalFileHandleResolver(), new ResolutionFileResolver.Resolution(800, 480, "hdpi"),
-                new ResolutionFileResolver.Resolution(1280, 720, "xhdpi"),
-                new ResolutionFileResolver.Resolution(1600, 960, "xxhdpi")));
+        manager = new AssetManager(new ResolutionFileResolver(new InternalFileHandleResolver(), new ResolutionFileResolver.Resolution[]{
+                new ResolutionFileResolver.Resolution(480, 800, "hdpi"),
+//                new ResolutionFileResolver.Resolution(720, 1280, "xhdpi"),
+//                new ResolutionFileResolver.Resolution(960, 1600, "xxhdpi")
+        }));
 
         parameter = new TextureLoader.TextureParameter();
         parameter.minFilter = Texture.TextureFilter.Linear;
@@ -71,6 +86,7 @@ public class AssetUtil {
         manager.load("texture/queen/queen.atlas", TextureAtlas.class);
         manager.load("texture/food/hot/hot_food.atlas", TextureAtlas.class);
         manager.load("texture/abilities/abilities.atlas", TextureAtlas.class);
+        manager.load("texture/abilities_used/abilities.atlas", TextureAtlas.class);
         manager.load("texture/food/cold/cold_food.png", Texture.class, parameter);
         manager.load("texture/background/bg00.png", Texture.class, parameter);
         manager.load("texture/background/bg01.png", Texture.class, parameter);
@@ -79,6 +95,11 @@ public class AssetUtil {
         manager.load("texture/joypad/joy_bg.png", Texture.class, parameter);
         manager.load("texture/joypad/joy_knob.png", Texture.class, parameter);
         manager.load("texture/cooldown_button/circle.png", Texture.class, parameter);
+        manager.load("texture/menu/main/name.png", Texture.class, parameter);
+        manager.load("texture/menu/main/single.png", Texture.class, parameter);
+        manager.load("texture/menu/main/multi_disabled.png", Texture.class, parameter);
+        manager.load("texture/menu/main/single_down.png", Texture.class, parameter);
+        manager.load("texture/menu/main/multi_down.png", Texture.class, parameter);
         manager.load("db.png", Texture.class, parameter);
         manager.load("Bluebird logo.png", Texture.class, parameter);
 
@@ -100,6 +121,7 @@ public class AssetUtil {
             unitAtlas.put("queen", manager.get("texture/queen/queen.atlas", TextureAtlas.class));
             unitAtlas.put("hot_food", manager.get("texture/food/hot/hot_food.atlas", TextureAtlas.class));
             abilities = manager.get("texture/abilities/abilities.atlas", TextureAtlas.class);
+            usedAbilities = manager.get("texture/abilities_used/abilities.atlas", TextureAtlas.class);
             cold = manager.get("texture/food/cold/cold_food.png", Texture.class);
             bg00 = manager.get("texture/background/bg00.png", Texture.class);
             bg01 = manager.get("texture/background/bg01.png", Texture.class);
@@ -109,6 +131,11 @@ public class AssetUtil {
             joyBg = manager.get("texture/joypad/joy_bg.png", Texture.class);
             joyKnob = manager.get("texture/joypad/joy_knob.png", Texture.class);
             db = manager.get("db.png", Texture.class);
+            title = manager.get("texture/menu/main/name.png", Texture.class);
+            singleButton = manager.get("texture/menu/main/single.png", Texture.class);
+            multiButton = manager.get("texture/menu/main/multi_disabled.png", Texture.class);
+            pressedSingleButton = manager.get("texture/menu/main/single_down.png", Texture.class);
+            pressedMultiButton = manager.get("texture/menu/main/multi_down.png", Texture.class);
             logo = manager.get("Bluebird logo.png", Texture.class);
         }
         return done;

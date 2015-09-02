@@ -15,7 +15,6 @@ import com.dongbat.game.component.BuffComponent;
 import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.component.Detection;
 import com.dongbat.game.component.Display;
-import com.dongbat.game.component.DisplayPosition;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.Player;
@@ -55,8 +54,6 @@ public class EntityFactory {
         Entity e = world.createEntity(UUID.randomUUID());
         CollisionComponent collision = new CollisionComponent();
 
-        DisplayPosition displayPosition = new DisplayPosition();
-
         UnitType unitType = new UnitType(type);
         UnitInfo info = UnitRegistry.get(type);
 
@@ -84,7 +81,6 @@ public class EntityFactory {
                 .add(abilityComponent)
                 .add(unitType)
                 .add(new BuffComponent())
-                .add(displayPosition)
                 .add(physics)
                 .add(stats)
                 .add(player)

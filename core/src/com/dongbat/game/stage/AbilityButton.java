@@ -105,8 +105,11 @@ public class AbilityButton extends Group {
     }
 
     public ImageButton createNormalButton() {
-        imageButton = new ImageButton(new SpriteDrawable(new Sprite(AssetUtil.getAbilityTexture(texture))));
+        Sprite s = new Sprite(AssetUtil.getAbilityTexture(texture));
+        Sprite pressedS = new Sprite(AssetUtil.getAbilityTexture(texture, true));
+        imageButton = new ImageButton(new SpriteDrawable(s), new SpriteDrawable(pressedS));
         imageButton.setFillParent(true);
+        imageButton.getImageCell().fill().expand();
         imageButton.addListener(new ClickListener() {
 
             @Override
@@ -129,6 +132,7 @@ public class AbilityButton extends Group {
     public Image createRadialSprite() {
         radialImage = new Image(radialSprite);
         radialImage.setFillParent(true);
+
 
         return radialImage;
     }

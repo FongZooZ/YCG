@@ -41,8 +41,8 @@ import com.dongbat.game.util.objectUtil.WorldProgress;
  */
 public class ECSUtil {
 
-  private static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
-  private static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
+  public static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
+  public static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
 
 //  public static World createWorld() {
 //    return createWorld(false);
@@ -89,6 +89,7 @@ public class ECSUtil {
     setSystem(config, new MovementSystem(), false); // gay lag, mat 400
 
     // for rendering
+    setSystem(config, new DisplayUpdateSystem(), true);
     setSystem(config, new CameraUpdateSystem(), true);
     setSystem(config, new SpriteRenderSystem(), true); // gay lag: mat 1200 entites
     setSystem(config, new HUDRenderSystem(), true); // gay lag
@@ -99,7 +100,6 @@ public class ECSUtil {
 //    setSystem(config, new Box2dDebugRendererSystem(), true);
     setSystem(config, new ParallaxBackgroundSystem(), true);
     setSystem(config, new BorderRenderSystem(), true);
-    setSystem(config, new DisplayUpdateSystem(), true);
     setSystem(config, new FoodAnimationSystem(), true);
     setSystem(config, new AnimationRenderSystem(), true);
 
