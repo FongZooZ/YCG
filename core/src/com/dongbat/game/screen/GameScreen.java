@@ -44,7 +44,7 @@ public class GameScreen implements Screen {
     LocalPlayerUtil.setLocalPlayer(UuidUtil.getUuid(localPlayer));
     LocalPlayerUtil.setLocalWorld(world);
 
-    UnitFactory.createQueen(world, new Vector2(0, 20), 10);
+    Entity queen = UnitFactory.createQueen(world, new Vector2(0, 20), 10);
 //    UnitFactory.createUnit(world, "normal", new Vector2(10, 60));
   }
 
@@ -75,6 +75,7 @@ public class GameScreen implements Screen {
 
   @Override
   public void dispose() {
+    world.dispose();
   }
 
 }

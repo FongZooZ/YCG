@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.stage.AbilityButton;
+import com.dongbat.game.stage.GameEndedWindow;
 import com.dongbat.game.util.AssetUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.InputUtil;
@@ -28,7 +29,6 @@ import com.dongbat.game.util.localUtil.LocalPlayerUtil;
 import java.util.UUID;
 
 /**
- *
  * @author Admin
  */
 public class GameStageSystem extends BaseSystem {
@@ -80,7 +80,7 @@ public class GameStageSystem extends BaseSystem {
     bg.setMinWidth(worldHeight / 2.5f);
     bg.setMinHeight(worldHeight / 2.5f);
     touchpadStyle.background = bg;
-    
+
     SpriteDrawable knob = new SpriteDrawable(new Sprite(AssetUtil.joyKnob));
     knob.setMinWidth(worldHeight / 5f);
     knob.setMinHeight(worldHeight / 5f);
@@ -91,12 +91,16 @@ public class GameStageSystem extends BaseSystem {
 
     touchpad.setSize(worldHeight / 2.5f, worldHeight / 2.5f);
 
+    GameEndedWindow gameEndedWindow = new GameEndedWindow(skin);
+    gameEndedWindow.setSize(worldWidth, worldHeight);
+
     stage.addActor(touchpad);
     stage.addActor(buttonVacuumAbility);
     stage.addActor(buttonSplitAbility);
     stage.addActor(buttonBlowAbility);
     stage.addActor(buttonFleeAbility);
     stage.addActor(title);
+    stage.addActor(gameEndedWindow);
     InputUtil.addProcessor(stage, 0);
   }
 

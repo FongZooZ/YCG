@@ -38,6 +38,9 @@ public class AssetUtil {
     public static Texture multiButton;
     public static Texture pressedSingleButton;
     public static Texture pressedMultiButton;
+    public static Texture backButton;
+    public static Texture backDownButton;
+    public static Texture endTitle;
 
     public static TextureAtlas.AtlasRegion getAbilityTexture(String name) {
         return getAbilityTexture(name, false);
@@ -81,25 +84,42 @@ public class AssetUtil {
 
     public static void loadAsset() {
         AssetManager manager = getManager();
+
+        // in-game character
         manager.load("texture/unit/move/move.atlas", TextureAtlas.class);
         manager.load("texture/unit/split/split.atlas", TextureAtlas.class);
         manager.load("texture/queen/queen.atlas", TextureAtlas.class);
         manager.load("texture/food/hot/hot_food.atlas", TextureAtlas.class);
+        manager.load("texture/food/cold/cold_food.png", Texture.class, parameter);
+
+        // abilities
         manager.load("texture/abilities/abilities.atlas", TextureAtlas.class);
         manager.load("texture/abilities_used/abilities.atlas", TextureAtlas.class);
-        manager.load("texture/food/cold/cold_food.png", Texture.class, parameter);
+        manager.load("texture/cooldown_button/circle.png", Texture.class, parameter);
+
+        // for touchpad joystick
+        manager.load("texture/joypad/joy_bg.png", Texture.class, parameter);
+        manager.load("texture/joypad/joy_knob.png", Texture.class, parameter);
+
+        // for parallax
         manager.load("texture/background/bg00.png", Texture.class, parameter);
         manager.load("texture/background/bg01.png", Texture.class, parameter);
         manager.load("texture/background/bg02.png", Texture.class, parameter);
         manager.load("texture/background/bg03.png", Texture.class, parameter);
-        manager.load("texture/joypad/joy_bg.png", Texture.class, parameter);
-        manager.load("texture/joypad/joy_knob.png", Texture.class, parameter);
-        manager.load("texture/cooldown_button/circle.png", Texture.class, parameter);
+
+        // main menu
         manager.load("texture/menu/main/name.png", Texture.class, parameter);
         manager.load("texture/menu/main/single.png", Texture.class, parameter);
         manager.load("texture/menu/main/multi_disabled.png", Texture.class, parameter);
         manager.load("texture/menu/main/single_down.png", Texture.class, parameter);
         manager.load("texture/menu/main/multi_down.png", Texture.class, parameter);
+
+        // game ended
+        manager.load("texture/menu/end/back.png", Texture.class, parameter);
+        manager.load("texture/menu/end/back_down.png", Texture.class, parameter);
+        manager.load("texture/menu/end/title.png", Texture.class, parameter);
+
+        // logo
         manager.load("db.png", Texture.class, parameter);
         manager.load("Bluebird logo.png", Texture.class, parameter);
 
@@ -116,26 +136,42 @@ public class AssetUtil {
         boolean done = manager.update();
 
         if (done) {
+            // in-game character
             unitAtlas.put("move", manager.get("texture/unit/move/move.atlas", TextureAtlas.class));
             unitAtlas.put("split", manager.get("texture/unit/split/split.atlas", TextureAtlas.class));
             unitAtlas.put("queen", manager.get("texture/queen/queen.atlas", TextureAtlas.class));
             unitAtlas.put("hot_food", manager.get("texture/food/hot/hot_food.atlas", TextureAtlas.class));
+            cold = manager.get("texture/food/cold/cold_food.png", Texture.class);
+
+            // abilities
             abilities = manager.get("texture/abilities/abilities.atlas", TextureAtlas.class);
             usedAbilities = manager.get("texture/abilities_used/abilities.atlas", TextureAtlas.class);
-            cold = manager.get("texture/food/cold/cold_food.png", Texture.class);
+            cooldown = manager.get("texture/cooldown_button/circle.png", Texture.class);
+
+            // for touchpad joystick
+            joyBg = manager.get("texture/joypad/joy_bg.png", Texture.class);
+            joyKnob = manager.get("texture/joypad/joy_knob.png", Texture.class);
+
+            // for parallax
             bg00 = manager.get("texture/background/bg00.png", Texture.class);
             bg01 = manager.get("texture/background/bg01.png", Texture.class);
             bg02 = manager.get("texture/background/bg02.png", Texture.class);
             bg03 = manager.get("texture/background/bg03.png", Texture.class);
-            cooldown = manager.get("texture/cooldown_button/circle.png", Texture.class);
-            joyBg = manager.get("texture/joypad/joy_bg.png", Texture.class);
-            joyKnob = manager.get("texture/joypad/joy_knob.png", Texture.class);
-            db = manager.get("db.png", Texture.class);
+
+            // main menu
             title = manager.get("texture/menu/main/name.png", Texture.class);
             singleButton = manager.get("texture/menu/main/single.png", Texture.class);
             multiButton = manager.get("texture/menu/main/multi_disabled.png", Texture.class);
             pressedSingleButton = manager.get("texture/menu/main/single_down.png", Texture.class);
             pressedMultiButton = manager.get("texture/menu/main/multi_down.png", Texture.class);
+
+            // game ended
+            backButton = manager.get("texture/menu/end/back.png");
+            backDownButton = manager.get("texture/menu/end/back_down.png");
+            endTitle = manager.get("texture/menu/end/title.png");
+
+            // logo
+            db = manager.get("db.png", Texture.class);
             logo = manager.get("Bluebird logo.png", Texture.class);
         }
         return done;
