@@ -33,7 +33,6 @@ public class DelayBuff implements BuffEffect {
 
   @Override
   public void durationEnd(World world, Entity source, Entity target) {
-    System.out.println("dcm");
     Array<Object> toPass = new Array<Object>();
     for (ObjectMap.Entry<String, Object> arg : args) {
       toPass.add(arg.key);

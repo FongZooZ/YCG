@@ -26,7 +26,7 @@ public class LocalPlayerUtil {
    * @param world artemis world
    * @return player entity
    */
-  public static UUID getLocalPlayer(World world) {
+  public static UUID getLocalPlayer() {
     return localId;
   }
 
@@ -36,6 +36,10 @@ public class LocalPlayerUtil {
 
   public static void setLocalWorld(World world) {
     localWorld = world;
+  }
+
+  public static World getLocalWorld() {
+    return localWorld;
   }
 
 }

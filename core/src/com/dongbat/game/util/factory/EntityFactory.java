@@ -12,10 +12,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.dongbat.game.component.AbilityComponent;
 import com.dongbat.game.component.BuffComponent;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.component.Detection;
 import com.dongbat.game.component.Display;
-import com.dongbat.game.component.DisplayPosition;
 import com.dongbat.game.component.Food;
 import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.Player;
@@ -25,6 +24,7 @@ import com.dongbat.game.component.UnitType;
 import com.dongbat.game.registry.UnitRegistry;
 import com.dongbat.game.unit.UnitInfo;
 import com.dongbat.game.util.AbilityUtil;
+import com.dongbat.game.util.AnimationUtil;
 import com.dongbat.game.util.AssetUtil;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
@@ -52,9 +52,7 @@ public class EntityFactory {
      */
     public static Entity createPlayer(World world, Vector2 position, String type) {
         Entity e = world.createEntity(UUID.randomUUID());
-        Collision collision = new Collision();
-
-        DisplayPosition displayPosition = new DisplayPosition();
+        CollisionComponent collision = new CollisionComponent();
 
         UnitType unitType = new UnitType(type);
         UnitInfo info = UnitRegistry.get(type);
@@ -83,7 +81,6 @@ public class EntityFactory {
                 .add(abilityComponent)
                 .add(unitType)
                 .add(new BuffComponent())
-                .add(displayPosition)
                 .add(physics)
                 .add(stats)
                 .add(player)
@@ -99,6 +96,7 @@ public class EntityFactory {
         Animation animation = new Animation(0.1f, move.getRegions());
         animation.setPlayMode(Animation.PlayMode.LOOP);
         display.setDefaultAnimation(new AnimatedSprite(animation));
+//        display.setDefaultAnimation(AnimationUtil.getHotFood());
         return e;
     }
 
@@ -125,7 +123,7 @@ public class EntityFactory {
 
         Display display = new Display();
 
-        e.edit().add(new Collision())
+        e.edit().add(new CollisionComponent())
                 .add(physics)
                 .add(s)
                 .add(new Food())
@@ -137,10 +135,7 @@ public class EntityFactory {
         display.setPosition(PhysicsUtil.getPosition(world, e));
         display.setRadius(PhysicsUtil.getRadius(world, e));
         display.setRotation(EntityUtil.getComponent(world, e, UnitMovement.class).getDirectionVelocity().angle());
-        TextureAtlas move = AssetUtil.getUnitAtlas().get("hot_food");
-        Animation animation = new Animation(0.1f, move.getRegions());
-        animation.setPlayMode(Animation.PlayMode.LOOP);
-        display.setDefaultAnimation(new AnimatedSprite(animation));
+        display.setDefaultAnimation(AnimationUtil.getHotFood());
         return e;
     }
 
@@ -154,7 +149,7 @@ public class EntityFactory {
         stats.setAllowComsumming(false);
         stats.setConsumable(false);
 
-        e.edit().add(new Collision())
+        e.edit().add(new CollisionComponent())
                 .add(physics)
                 .add(new BuffComponent())
                 .add(stats)

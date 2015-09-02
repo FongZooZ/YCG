@@ -13,13 +13,13 @@ import java.util.UUID;
  *
  * @author Admin
  */
-public class Collision extends Component {
+public class CollisionComponent extends Component {
 
 	private Array<UUID> collidedList;
 	private Array<UUID> justCollidedList;
 	private Array<UUID> lastCollidedList;
 
-	public Collision() {
+	public CollisionComponent() {
 		collidedList = new Array<UUID>();
 		justCollidedList = new Array<UUID>();
 		lastCollidedList = new Array<UUID>();

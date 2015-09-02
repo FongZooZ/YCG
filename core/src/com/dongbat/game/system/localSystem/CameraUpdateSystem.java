@@ -7,11 +7,12 @@ package com.dongbat.game.system.localSystem;
 
 import com.artemis.BaseSystem;
 import com.artemis.Entity;
-import com.badlogic.gdx.math.Vector3;
-import com.dongbat.game.util.PhysicsUtil;
+import com.dongbat.game.component.Display;
+import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.localUtil.LocalPlayerUtil;
 import com.dongbat.game.util.localUtil.PhysicsCameraUtil;
+
 import java.util.UUID;
 
 /**
@@ -27,15 +28,16 @@ public class CameraUpdateSystem extends BaseSystem {
   @Override
   protected void processSystem() {
 
-    UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
+    UUID localPlayerId = LocalPlayerUtil.getLocalPlayer();
     Entity e = UuidUtil.getEntityByUuid(world, localPlayerId);
     //TODO: not check here
     if (e == null) {
       return;
     }
-    PhysicsCameraUtil.getCamera().position.set(PhysicsUtil.getPosition(world, e), 0);
+    Display display = EntityUtil.getComponent(world, e, Display.class);
+    PhysicsCameraUtil.getCamera().position.set(display.getPosition(), 0);
     PhysicsCameraUtil.getCamera().zoom = PhysicsCameraUtil.getZoomScale(world, e);
-//    PhysicsCameraUtil.getCamera().zoom = 100f;
+//    PhysicsCameraUtil.getCamera().zoom = 6f;
     PhysicsCameraUtil.getCamera().update();
 
   }

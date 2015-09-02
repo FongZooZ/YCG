@@ -1,5 +1,5 @@
-name=Bao
-radius=2.2
+name=bao
+radius=3
 baseSpeedRate=205
 abilities=SpeedUp
-definitionPath=unit/tree/normal.tree
+definitionPath=unit/tree/dummy.tree

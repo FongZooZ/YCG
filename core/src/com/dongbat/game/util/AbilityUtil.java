@@ -33,6 +33,32 @@ public class AbilityUtil {
     return lastCast == -1 || (TimeUtil.convertFrameToMillis(world, (int) (TimeUtil.getCurrentFrame(world) - lastCast)) > ability.getCooldown());
   }
 
+  public static long getLastCast(World world, Entity entity, String name) {
+    AbilityComponent abilityComponent = EntityUtil.getComponent(world, entity, AbilityComponent.class);
+    if (abilityComponent == null) {
+      return -1;
+    }
+    AbilityInfo ability = abilityComponent.getAbility(name);
+    if (ability == null) {
+      return -1;
+    }
+    long lastCast = ability.getLastCast();
+    return lastCast;
+  }
+
+  public static long getCooldown(World world, Entity entity, String name) {
+    AbilityComponent abilityComponent = EntityUtil.getComponent(world, entity, AbilityComponent.class);
+    if (abilityComponent == null) {
+      return -1;
+    }
+    AbilityInfo ability = abilityComponent.getAbility(name);
+    if (ability == null) {
+      return -1;
+    }
+    long cooldown = ability.getCooldown();
+    return cooldown;
+  }
+
   public static AbilityComponent abilityComponentFilled(String abilities, AbilityComponent component) {
     ObjectMap<String, AbilityInfo> abilityMapsByString = getAbilityMapsByString(abilities);
     ArrayList<String> orderAbility = getOrderAbility(abilityMapsByString);

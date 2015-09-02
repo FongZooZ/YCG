@@ -8,21 +8,25 @@ package com.dongbat.game.system;
 import com.artemis.BaseSystem;
 import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.dongbat.game.component.UnitMovement;
-import com.dongbat.game.util.AbilityUtil;
+import com.dongbat.game.stage.AbilityButton;
+import com.dongbat.game.util.AssetUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.InputUtil;
 import com.dongbat.game.util.UuidUtil;
 import com.dongbat.game.util.localUtil.LocalPlayerUtil;
+
 import java.util.UUID;
 
 /**
@@ -33,7 +37,12 @@ public class GameStageSystem extends BaseSystem {
 
   private Stage stage = new Stage();
   private Skin skin = new Skin(Gdx.files.internal("skins/uiskin.json"), new TextureAtlas(Gdx.files.internal("skins/uiskin.atlas")));
-  private Label title = new Label("Full game play is coming soon, with multiplayer feature over WIFI and internet", skin);
+  private Label title = new Label("Full gameplay is coming soon, with more skills, multiplayer feature over WIFI and internet", skin);
+  private Touchpad touchpad;
+  private AbilityButton buttonFleeAbility;
+  private AbilityButton buttonBlowAbility;
+  private AbilityButton buttonSplitAbility;
+  private AbilityButton buttonVacuumAbility;
 
   public GameStageSystem() {
   }
@@ -53,94 +62,56 @@ public class GameStageSystem extends BaseSystem {
     float width = worldWidth / 60;
     float height = worldHeight / 60;
 
-    TextButton flee = new TextButton("Flee", skin);
-    flee.setSize(width * 7, height * 6);
-    flee.setPosition(width * 2, height * 5);
-    flee.addListener(new ClickListener() {
-
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
-        Entity e = UuidUtil.getEntityByUuid(world, localPlayerId);
-        if (e == null || localPlayerId == null) {
-          return;
-        }
-        UnitMovement move = EntityUtil.getComponent(world, e, UnitMovement.class);
-        Vector2 destination = move.getDirectionVelocity();
-        AbilityUtil.use(world, e, "Flee", destination);
-      }
-
-    });
-
-    TextButton hotBlow = new TextButton("Blow", skin);
-    hotBlow.setSize(width * 7, height * 6);
-    hotBlow.setPosition(width * 2, height * 13);
-    hotBlow.addListener(new ClickListener() {
-
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
-        Entity e = UuidUtil.getEntityByUuid(world, localPlayerId);
-        if (e == null || localPlayerId == null) {
-          return;
-        }
-        UnitMovement move = EntityUtil.getComponent(world, e, UnitMovement.class);
-        Vector2 destination = move.getDirectionVelocity();
-        AbilityUtil.use(world, e, "HotBlow", destination);
-      }
-    });
-
-    TextButton spitAndJoin = new TextButton("Split", skin);
-    spitAndJoin.setSize(width * 7, height * 6);
-    spitAndJoin.setPosition(width * 2, height * 21);
-    spitAndJoin.addListener(new ClickListener() {
-
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
-        Entity e = UuidUtil.getEntityByUuid(world, localPlayerId);
-        if (e == null || localPlayerId == null) {
-          return;
-        }
-        UnitMovement move = EntityUtil.getComponent(world, e, UnitMovement.class);
-        Vector2 destination = move.getDirectionVelocity();
-        AbilityUtil.use(world, e, "SplitAndJoin", destination);
-      }
-    });
-
-    TextButton vacuum = new TextButton("Vacuum", skin);
-    vacuum.setSize(width * 7, height * 6);
-    vacuum.setPosition(width * 2, height * 29);
-    vacuum.addListener(new ClickListener() {
-
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        UUID localPlayerId = LocalPlayerUtil.getLocalPlayer(world);
-        Entity e = UuidUtil.getEntityByUuid(world, localPlayerId);
-        if (e == null || localPlayerId == null) {
-          return;
-        }
-        UnitMovement move = EntityUtil.getComponent(world, e, UnitMovement.class);
-        Vector2 destination = move.getDirectionVelocity();
-        AbilityUtil.use(world, e, "Vacuum", destination);
-      }
-    });
+    buttonFleeAbility = new AbilityButton("Flee", skin, "flee");
+    buttonFleeAbility.setSize(width * 7, width * 7);
+    buttonFleeAbility.setPosition(worldWidth - width * 7, height * 2);
+    buttonBlowAbility = new AbilityButton("HotBlow", skin, "blow");
+    buttonBlowAbility.setSize(width * 7, width * 7);
+    buttonBlowAbility.setPosition(worldWidth - width * 7, height * 2 + width * 7);
+    buttonSplitAbility = new AbilityButton("SplitAndJoin", skin, "split");
+    buttonSplitAbility.setSize(width * 7, width * 7);
+    buttonSplitAbility.setPosition(worldWidth - width * 7, height * 2 + width * 14);
+    buttonVacuumAbility = new AbilityButton("Vacuum", skin, "vacuum");
+    buttonVacuumAbility.setSize(width * 7, width * 7);
+    buttonVacuumAbility.setPosition(worldWidth - width * 7, height * 2 + width * 21);
 
     title.setPosition(worldWidth - width * 30, worldHeight - height * 2);
 
-    stage.addActor(flee);
-    stage.addActor(hotBlow);
-    stage.addActor(spitAndJoin);
-    stage.addActor(vacuum);
+    Touchpad.TouchpadStyle touchpadStyle = new Touchpad.TouchpadStyle(skin.get(Touchpad.TouchpadStyle.class));
+    touchpadStyle.background = new SpriteDrawable(new Sprite(AssetUtil.joyBg));
+    touchpadStyle.knob = new TextureRegionDrawable(new TextureRegion(AssetUtil.joyKnob));
+
+    touchpad = new Touchpad(10, touchpadStyle);
+    touchpad.setBounds(15, 15, 200, 200);
+
+    touchpad.setSize(worldHeight / 2.5f, worldHeight / 2.5f);
+
+    stage.addActor(touchpad);
+    stage.addActor(buttonVacuumAbility);
+    stage.addActor(buttonSplitAbility);
+    stage.addActor(buttonBlowAbility);
+    stage.addActor(buttonFleeAbility);
     stage.addActor(title);
     InputUtil.addProcessor(stage, 0);
   }
 
   @Override
   protected void processSystem() {
-    stage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
-//    table.add(cut);
     stage.act();
+
+    if (touchpad.isTouched()) {
+      float x = touchpad.getKnobPercentX();
+      float y = touchpad.getKnobPercentY();
+
+      UUID localPlayerId = LocalPlayerUtil.getLocalPlayer();
+      Entity e = UuidUtil.getEntityByUuid(world, localPlayerId);
+      if (e == null || localPlayerId == null) {
+        return;
+      }
+      UnitMovement move = EntityUtil.getComponent(world, e, UnitMovement.class);
+      move.setDirectionVelocity(new Vector2(x, y));
+    }
+    stage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
     stage.draw();
   }
 

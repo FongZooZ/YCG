@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.dongbat.game.component.Physics;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 
 /**
  * @author Admin
@@ -294,7 +294,7 @@ public class PhysicsUtil {
    * @return true if a collide with b
    */
   public static boolean isBodyCollided(com.artemis.World world, Entity a, Entity b) {
-    Collision component = EntityUtil.getComponent(world, a, Collision.class);
+    CollisionComponent component = EntityUtil.getComponent(world, a, CollisionComponent.class);
     if (component == null) {
       return false;
     }
@@ -393,7 +393,6 @@ public class PhysicsUtil {
 //    fixtureDef.filter.maskBits = 2;
 //    fixtureDef.filter.categoryBits = 2 | 1;
     box.createFixture(fixtureDef);
-    System.out.println("dcm");
 //    box.setUserData(new Box2dSteeringEntity(box, true, 0.1f));
     poly.dispose();
     return box;

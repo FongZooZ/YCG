@@ -38,7 +38,11 @@ public class UnitUtil {
     boolean toxic = isToxic(world, b);
 
     if (consumable && !toxic) {
-      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), 1f);
+      float multiplier = 1;
+      if (WorldQueryUtil.isFood(world, b.getId())) {
+        multiplier = 5;
+      }
+      float increaseRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), multiplier);
       PhysicsUtil.setRadius(world, a, increaseRadius);
       destroy(b);
       return;
@@ -49,7 +53,11 @@ public class UnitUtil {
         destroy(a);
         return;
       }
-      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), -1f);
+      float multiplier = -1;
+      if (WorldQueryUtil.isFood(world, b.getId())) {
+        multiplier = -3;
+      }
+      float decreasedRadius = PhysicsUtil.increaseRadius(PhysicsUtil.getRadius(world, a), PhysicsUtil.getRadius(world, b), multiplier);
       if (decreasedRadius > 0) {
         PhysicsUtil.setRadius(world, a, decreasedRadius);
       } else {
@@ -121,7 +129,7 @@ public class UnitUtil {
     if (!physics.getBody().isActive()) {
       return;
     }
-    
+
     if (isPlayer(e.getWorld(), e.getId()) && !BuffUtil.hasBuff(e.getWorld(), e, "Respawn")) {
       BuffUtil.addBuff(e.getWorld(), e, e, "Respawn", 2000, 1);
       return;

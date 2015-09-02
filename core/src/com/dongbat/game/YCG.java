@@ -3,20 +3,15 @@ package com.dongbat.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dongbat.game.registry.AbilityRegistry;
 import com.dongbat.game.registry.BuffRegistry;
 import com.dongbat.game.registry.UnitRegistry;
-import com.dongbat.game.screen.SplashScreen;
+import com.dongbat.game.screen.DynamicMenuScreen;
 import com.dongbat.game.util.AssetUtil;
 import com.dongbat.game.util.InputUtil;
 import com.dongbat.game.util.ScreenUtil;
 
 public class YCG extends Game {
-
-  SpriteBatch batch;
-  Texture img;
 
   @Override
   public void create() {
@@ -26,7 +21,7 @@ public class YCG extends Game {
     AbilityRegistry.load();
     InputUtil.init();
     resume();
-    setScreen(new SplashScreen());
+    setScreen(new DynamicMenuScreen());
   }
 
   @Override

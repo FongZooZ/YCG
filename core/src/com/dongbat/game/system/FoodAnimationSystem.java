@@ -3,16 +3,12 @@ package com.dongbat.game.system;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dongbat.game.component.Display;
 import com.dongbat.game.component.Food;
-import com.dongbat.game.util.AssetUtil;
+import com.dongbat.game.util.AnimationUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.RenderUtil;
-
-import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 
 /**
  * Created by FongZooZ on 8/31/2015.
@@ -68,11 +64,14 @@ public class FoodAnimationSystem extends EntityProcessingSystem {
     protected void process(Entity e) {
         Food food = EntityUtil.getComponent(world, e, Food.class);
         Display display = EntityUtil.getComponent(world, e, Display.class);
-
+        if(!food.isDirty()) {
+            return;
+        }
+        food.setDirty(false);
         if (!food.isToxic()) {
-            Animation animation = new Animation(0.1f, new TextureRegion(AssetUtil.cold));
-            animation.setPlayMode(Animation.PlayMode.LOOP);
-            display.setDefaultAnimation(new AnimatedSprite(animation));
+            display.setDefaultAnimation(AnimationUtil.getColdFood());
+        } else {
+            display.setDefaultAnimation(AnimationUtil.getHotFood());
         }
     }
 }

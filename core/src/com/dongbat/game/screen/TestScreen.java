@@ -43,7 +43,6 @@ public class TestScreen implements Screen {
 
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        System.out.println("dcm");
       }
 
     });
@@ -52,7 +51,6 @@ public class TestScreen implements Screen {
 
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        System.out.println("vcl");
       }
 
     });

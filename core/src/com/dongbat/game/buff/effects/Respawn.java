@@ -18,6 +18,7 @@ import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
+import com.dongbat.game.util.WorldQueryUtil;
 import com.dongbat.game.util.localUtil.Constants;
 
 /**
@@ -27,6 +28,7 @@ import com.dongbat.game.util.localUtil.Constants;
 public class Respawn implements BuffEffect {
 
   private float minRadius = 0.4f;
+  private Vector2 position;
 
   @Override
   public void durationStart(World world, Entity source, Entity target) {
@@ -34,8 +36,10 @@ public class Respawn implements BuffEffect {
     EntityUtil.getComponent(world, target, Stats.class).setAllowComsumming(false);
     EntityUtil.getComponent(world, target, Stats.class).setConsumable(false);
     PhysicsUtil.setVelocity(world, target, new Vector2());
-    BuffComponent buffComponent = EntityUtil.getComponent(world, target, BuffComponent.class);
     EntityUtil.getComponent(world, target, UnitMovement.class).setDisabled(true);
+    if (WorldQueryUtil.isAiUnit(world, target.getId())) {
+      PhysicsUtil.setPosition(target.getWorld(), target, new Vector2(150, 150));
+    }
   }
 
   @Override
@@ -51,7 +55,10 @@ public class Respawn implements BuffEffect {
     PhysicsUtil.setRadius(target.getWorld(), target, minRadius);
     Vector2 randomPos
       = new Vector2(MathUtils.random(-Constants.GAME.FRAME_WIDTH / 2, Constants.GAME.FRAME_WIDTH / 2), MathUtils.random(-Constants.GAME.FRAME_HEIGHT / 2, Constants.GAME.FRAME_HEIGHT / 2));
-    PhysicsUtil.setPosition(target.getWorld(), target, randomPos);
+    if (position == null) {
+      position = randomPos;
+    }
+    PhysicsUtil.setPosition(target.getWorld(), target, position);
   }
 
 }

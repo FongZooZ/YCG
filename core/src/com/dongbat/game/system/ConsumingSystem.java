@@ -9,7 +9,7 @@ import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.utils.Array;
-import com.dongbat.game.component.Collision;
+import com.dongbat.game.component.CollisionComponent;
 import com.dongbat.game.component.Stats;
 import com.dongbat.game.util.EntityUtil;
 import com.dongbat.game.util.PhysicsUtil;
@@ -27,13 +27,13 @@ import static com.dongbat.game.util.WorldQueryUtil.isFood;
 public class ConsumingSystem extends EntityProcessingSystem {
 
   public ConsumingSystem() {
-    super(Aspect.all(Collision.class));
+    super(Aspect.all(CollisionComponent.class));
   }
 
   @Override
   protected void process(Entity e) {
 
-    Collision collision = EntityUtil.getComponent(world, e, Collision.class);
+    CollisionComponent collision = EntityUtil.getComponent(world, e, CollisionComponent.class);
     Stats stats = EntityUtil.getComponent(world, e, Stats.class);
     Array<UUID> collidedList = collision.getCollidedList();
 

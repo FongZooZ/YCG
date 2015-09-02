@@ -18,8 +18,6 @@ import com.dongbat.game.system.AnimationRenderSystem;
 import com.dongbat.game.system.BorderlandSystem;
 import com.dongbat.game.system.Box2dSystem;
 import com.dongbat.game.system.BuffSystem;
-import com.dongbat.game.system.CollisionCleanupSystem;
-import com.dongbat.game.system.CollisionSystem;
 import com.dongbat.game.system.ConsumingSystem;
 import com.dongbat.game.system.DetectionCleanupSystem;
 import com.dongbat.game.system.DetectionSystem;
@@ -32,7 +30,8 @@ import com.dongbat.game.system.localSystem.CameraUpdateSystem;
 import com.dongbat.game.system.localSystem.GridRendererSystem;
 import com.dongbat.game.system.localSystem.HUDRenderSystem;
 import com.dongbat.game.system.localSystem.LocalInputSystem;
-import com.dongbat.game.system.localSystem.Shaperenderer1;
+import com.dongbat.game.system.localSystem.ParallaxBackgroundSystem;
+import com.dongbat.game.system.localSystem.BorderRenderSystem;
 import com.dongbat.game.system.localSystem.SpriteRenderSystem;
 import com.dongbat.game.util.objectUtil.PredictableRandom;
 import com.dongbat.game.util.objectUtil.WorldProgress;
@@ -42,8 +41,8 @@ import com.dongbat.game.util.objectUtil.WorldProgress;
  */
 public class ECSUtil {
 
-  private static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
-  private static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
+  public static final ObjectMap<World, WorldProgress> worldProgressMap = new ObjectMap<World, WorldProgress>();
+  public static final ObjectMap<World, PredictableRandom> worldRandomMap = new ObjectMap<World, PredictableRandom>();
 
 //  public static World createWorld() {
 //    return createWorld(false);
@@ -77,30 +76,30 @@ public class ECSUtil {
   public static WorldConfiguration initWorldConfig() {
     WorldConfiguration config = new WorldConfiguration();
 
-    setSystem(config, new CollisionCleanupSystem(), false);
-    setSystem(config, new Box2dSystem(1), false);
-    setSystem(config, new AiControlledSystem(), false);
+//    setSystem(config, new CollisionCleanupSystem(), false);
+    setSystem(config, new Box2dSystem(2), false);
+    setSystem(config, new AiControlledSystem(15), false);
     setSystem(config, new BuffSystem(), false); // gay lag, mat 300 entities
-    setSystem(config, new CollisionSystem(1), false); // 1200 collided trong list
-    setSystem(config, new DetectionCleanupSystem(50), false);
-    setSystem(config, new DetectionSystem(50), false);
+//    setSystem(config, new CollisionSystem(1), false); // 1200 collided trong list
+    setSystem(config, new DetectionCleanupSystem(20), false);
+    setSystem(config, new DetectionSystem(20), false);
     setSystem(config, new ConsumingSystem(), false);
     setSystem(config, new InputProcessorSystem(), false);
     setSystem(config, new BorderlandSystem(), false);
     setSystem(config, new MovementSystem(), false); // gay lag, mat 400
 
     // for rendering
+    setSystem(config, new DisplayUpdateSystem(), true);
     setSystem(config, new CameraUpdateSystem(), true);
     setSystem(config, new SpriteRenderSystem(), true); // gay lag: mat 1200 entites
     setSystem(config, new HUDRenderSystem(), true); // gay lag
-    setSystem(config, new Shaperenderer1(), true);
 
     setSystem(config, new LocalInputSystem(), true); // gay lag, mat 200
     setSystem(config, new GridRendererSystem(), true); // gay lag, mat hon 300
 
 //    setSystem(config, new Box2dDebugRendererSystem(), true);
-//    setSystem(config, new ParallaxBackgroundSystem(), true);
-    setSystem(config, new DisplayUpdateSystem(), true);
+    setSystem(config, new ParallaxBackgroundSystem(), true);
+    setSystem(config, new BorderRenderSystem(), true);
     setSystem(config, new FoodAnimationSystem(), true);
     setSystem(config, new AnimationRenderSystem(), true);
 
@@ -163,7 +162,7 @@ public class ECSUtil {
   /**
    * Set a system to artemis world
    *
-   * @param world artemis world
+   * @param config config of artemis world
    * @param system system you want to add to world
    * @param isPassive is passive system or not
    */

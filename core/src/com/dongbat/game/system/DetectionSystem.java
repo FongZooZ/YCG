@@ -33,7 +33,7 @@ public class DetectionSystem extends TimeSlicingSystem {
       Vector2 position = PhysicsUtil.getPosition(world, e);
       float radius = PhysicsUtil.getRadius(world, e);
 
-      Array<Entity> foodList = WorldQueryUtil.findFoodInRadius(world, position, radius + MIN_DETECTION_RADIUS);
+      Array<Entity> foodList = WorldQueryUtil.findFoodInRadius(world, position, radius + MIN_DETECTION_RADIUS * modifier);
       if (foodList.size > 0) {
         //Add nearest player to Food
         for (Entity food : foodList) {
@@ -44,7 +44,7 @@ public class DetectionSystem extends TimeSlicingSystem {
         addNearestFood(world, e, nearestFood);
       }
 
-      Array<Entity> queenList = WorldQueryUtil.findQueenInRadius(world, position, radius + MIN_DETECTION_RADIUS);
+      Array<Entity> queenList = WorldQueryUtil.findQueenInRadius(world, position, radius + MIN_DETECTION_RADIUS * modifier);
       if (queenList.size > 0) {
         for (Entity queen : queenList) {
           addNearestPlayer(world, queen, e);
@@ -53,7 +53,7 @@ public class DetectionSystem extends TimeSlicingSystem {
         addNearestQueen(world, e, nearestQueen);
       }
 
-      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, radius + MIN_DETECTION_RADIUS);
+      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, e, position, radius + MIN_DETECTION_RADIUS * modifier);
       if (playerAndAiList.size > 0) {
         for (Entity playerOrAi : playerAndAiList) {
           addNearestPlayer(world, playerOrAi, e);
@@ -68,12 +68,22 @@ public class DetectionSystem extends TimeSlicingSystem {
       Entity e = world.getEntity(allQueen.get(i));
       Vector2 position = PhysicsUtil.getPosition(world, e);
       float radius = PhysicsUtil.getRadius(world, e);
-      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, position, radius + MIN_DETECTION_RADIUS);
+      Array<Entity> playerAndAiList = WorldQueryUtil.findPlayerWithAiInRadius(world, e, position, radius + MIN_DETECTION_RADIUS * modifier);
       if (playerAndAiList.size > 0) {
         Entity nearestPlayer = WorldQueryUtil.findNearestEntityInList(world, position, playerAndAiList);
         addNearestPlayer(world, e, nearestPlayer);
       }
     }
+  }
+
+  private float modifier = 1;
+
+  public float getModifier() {
+    return modifier;
+  }
+
+  public void setModifier(float modifier) {
+    this.modifier = modifier;
   }
 
 }

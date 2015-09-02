@@ -13,9 +13,10 @@ import com.dongbat.game.component.Physics;
 import com.dongbat.game.component.UnitMovement;
 import com.dongbat.game.util.BuffUtil;
 import com.dongbat.game.util.EntityUtil;
+import com.dongbat.game.util.PhysicsUtil;
+
 import static com.dongbat.game.util.FoodSpawningUtil.scaleX;
 import static com.dongbat.game.util.FoodSpawningUtil.scaleY;
-import com.dongbat.game.util.PhysicsUtil;
 
 /**
  *
@@ -67,7 +68,7 @@ public class BorderlandSystem extends EntityProcessingSystem {
     }
 
     if (x != 0 || y != 0) {
-      BuffUtil.addBuff(world, e, e, "WallForced", 150, 1, "forceStrength", radius, "direction", new Vector2(x, y));
+      BuffUtil.addBuff(world, e, e, "WallForced", 500, 1, "forceStrength", radius, "direction", new Vector2(x, y));
     }
   }
 
